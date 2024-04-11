@@ -6,7 +6,7 @@
 /*   By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 01:12:17 by gbetting          #+#    #+#             */
-/*   Updated: 2024/04/11 02:45:27 by gbetting         ###   ########.fr       */
+/*   Updated: 2024/04/11 05:13:19 by gbetting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,29 +48,29 @@ static size_t	count_words(char const *s, char c)
 
 char	**ft_split(char const *s, char c)
 {
-	size_t	i;
-	size_t	j;
-	size_t	k;
+	size_t	vars[3];
 	char	**strs;
 
-	i = 0;
-	j = 0;
+	if (!s)
+		return (NULL);
+	vars[0] = 0;
+	vars[1] = 0;
 	strs = ft_calloc(count_words(s, c) + 1, sizeof(char *));
 	if (!strs)
 		return (NULL);
-	while (s[i])
+	while (s[vars[0]])
 	{
-		if (s[i] != c)
+		if (s[vars[0]] != c)
 		{
-			k = 0;
-			while (s[i + k] != c && s[i + k])
-				k++;
-			strs[j] = ft_substr(s, i, k);
-			if (!strs[j++])
+			vars[2] = 0;
+			while (s[vars[0] + vars[2]] != c && s[vars[0] + vars[2]])
+				vars[2]++;
+			strs[vars[1]] = ft_substr(s, vars[0], vars[2]);
+			if (!strs[vars[1]++])
 				return (free_strs(strs), NULL);
-			i += k - 1;
+			vars[0] += vars[2] - 1;
 		}
-		i++;
+		vars[0]++;
 	}
 	return (strs);
 }

@@ -1,7 +1,7 @@
 NAME = libft.a
 DNAME = d_libft.a
 RNAME = r_libft.a
-SRC = 	ft_isalpha.c		\
+SRC =	ft_isalpha.c		\
 		ft_isdigit.c		\
 		ft_isalnum.c		\
 		ft_isascii.c		\
@@ -54,7 +54,7 @@ RELEASE_DIR = build/release
 OBJ = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRC_FILES))
 DEBUG_OBJ = $(patsubst $(SRC_DIR)/%.c,$(DEBUG_DIR)/%.o,$(SRC_FILES))
 RELEASE_OBJ = $(patsubst $(SRC_DIR)/%.c,$(RELEASE_DIR)/%.o,$(SRC_FILES))
-CC = cc
+CC = clang
 CFLAGS = -Wall -Wextra -Werror
 DEBUGFLAGS = -g3 -fsanitize=address
 RELEASEFLAGS = -O3
@@ -71,6 +71,10 @@ debug: $(DEBUG_DIR) $(DNAME)
 
 release: CFLAGS += $(RELEASEFLAGS)
 release: $(RELEASE_DIR) $(RNAME)
+
+so: $(OBJ)
+	$(CC) -nostartfiles -fPIC $(CFLAGS) $^
+	$(CC) -nostartfiles -shared -o libft.so $^
 
 $(NAME): $(OBJ)
 	ar rcs $@ $^
@@ -105,7 +109,7 @@ clean:
 	fi
 
 fclean: clean
-	rm -f $(NAME) $(DNAME) $(RNAME)
+	rm -f $(NAME) $(DNAME) $(RNAME) libft.so
 
 re: fclean all
 

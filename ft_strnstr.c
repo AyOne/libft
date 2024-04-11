@@ -6,7 +6,7 @@
 /*   By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 00:39:17 by gbetting          #+#    #+#             */
-/*   Updated: 2024/04/11 00:39:24 by gbetting         ###   ########.fr       */
+/*   Updated: 2024/04/11 05:02:42 by gbetting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 
 	if (!*needle)
 		return ((char *)haystack);
+	if (len == 0)
+		return (NULL);
 	i = 0;
 	while (haystack[i] && i < len)
 	{

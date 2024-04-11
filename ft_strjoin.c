@@ -6,7 +6,7 @@
 /*   By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 00:57:48 by gbetting          #+#    #+#             */
-/*   Updated: 2024/04/11 01:01:50 by gbetting         ###   ########.fr       */
+/*   Updated: 2024/04/11 05:11:16 by gbetting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	size_t	len;
 	size_t	i;
 
+	if (!s1 || !s2)
+		return (NULL);
 	len = ft_strlen(s1) + ft_strlen(s2);
 	str = malloc(sizeof(char) * (len + 1));
 	if (!str)
