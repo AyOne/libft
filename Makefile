@@ -33,18 +33,19 @@ SRC =	ft_isalpha.c		\
 		ft_putchar_fd.c		\
 		ft_putstr_fd.c		\
 		ft_putendl_fd.c		\
-		ft_putnbr_fd.c		\
-		ft_lstnew.c			\
-		ft_lstadd_front.c	\
-		ft_lstsize.c		\
-		ft_lstlast.c		\
-		ft_lstadd_back.c	\
-		ft_lstdelone.c		\
-		ft_lstclear.c		\
-		ft_lstiter.c		\
-		ft_lstmap.c
+		ft_putnbr_fd.c
+BONUS = ft_lstnew_bonus.c			\
+		ft_lstadd_front_bonus.c		\
+		ft_lstsize_bonus.c			\
+		ft_lstlast_bonus.c			\
+		ft_lstadd_back_bonus.c		\
+		ft_lstdelone_bonus.c		\
+		ft_lstclear_bonus.c			\
+		ft_lstiter_bonus.c			\
+		ft_lstmap_bonus.c
 SRC_FILES = $(addprefix $(SRC_DIR)/, $(SRC))
-HEADERS = $(NAME:.a=.h)
+BONUS_FILES = $(addprefix $(SRC_DIR)/, $(BONUS))
+HEADERS = $(NAME:.a=.h) $(NAME:.a=_bonus.h) 
 HEADERS_DIR = .
 HEADERS_FILES = $(addprefix $(HEADERS_DIR)/, $(HEADERS))
 SRC_DIR = .
@@ -52,52 +53,65 @@ OBJ_DIR = build/normal
 DEBUG_DIR = build/debug
 RELEASE_DIR = build/release
 OBJ = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRC_FILES))
+BONUS_OBJ = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(BONUS_FILES))
 DEBUG_OBJ = $(patsubst $(SRC_DIR)/%.c,$(DEBUG_DIR)/%.o,$(SRC_FILES))
+DEBUG_BONUS_OBJ = $(patsubst $(SRC_DIR)/%.c,$(DEBUG_DIR)/%.o,$(BONUS_FILES))
 RELEASE_OBJ = $(patsubst $(SRC_DIR)/%.c,$(RELEASE_DIR)/%.o,$(SRC_FILES))
+RELEASE_BONUS_OBJ = $(patsubst $(SRC_DIR)/%.c,$(RELEASE_DIR)/%.o,$(BONUS_FILES))
 CC = clang
 CFLAGS = -Wall -Wextra -Werror
+AR = ar
+ARFLAGS = -rcsu
 DEBUGFLAGS = -g3 -fsanitize=address
 RELEASEFLAGS = -O3
 
+
+normal: $(OBJ_DIR) $(OBJ) #$(NAME)
+
+bonus: $(OBJ_DIR) $(OBJ) $(BONUS_OBJ) #$(NAME)
+
 all:
-	@$(MAKE) --no-print-directory -j normal
+	@$(MAKE) --no-print-directory -j bonus
 	@$(MAKE) --no-print-directory -j debug
 	@$(MAKE) --no-print-directory -j release
 
-normal: $(OBJ_DIR) $(NAME)
-
 debug: CFLAGS += $(DEBUGFLAGS)
-debug: $(DEBUG_DIR) $(DNAME)
+debug: $(DEBUG_DIR) $(DEBUG_BONUS_OBJ) #$(DNAME)
 
 release: CFLAGS += $(RELEASEFLAGS)
-release: $(RELEASE_DIR) $(RNAME)
+release: $(RELEASE_DIR) $(RELEASE_BONUS_OBJ) #$(RNAME)
+
+
 
 so: $(OBJ)
 	$(CC) -nostartfiles -fPIC $(CFLAGS) $^
 	$(CC) -nostartfiles -shared -o libft.so $^
 
-$(NAME): $(OBJ)
-	ar rcs $@ $^
-#	$(CC) $(CFLAGS) -o $@ $^
+# $(NAME): $(OBJ)
+# 	ar rcs $@ $^
+# #	$(CC) $(CFLAGS) -o $@ $^
 
-$(DNAME): $(DEBUG_OBJ)
-	ar rcs $@ $^
-#	$(CC) $(CFLAGS) -o $@ $^
+# $(DNAME): $(DEBUG_OBJ)
+# 	ar rcs $@ $^
+# #	$(CC) $(CFLAGS) -o $@ $^
 
-$(RNAME): $(RELEASE_OBJ)
-	norminette $(HEADERS_FILES)
-	ar rcs $@ $^
+# $(RNAME): $(RELEASE_OBJ)
+# 	norminette $(HEADERS_FILES)
+# 	ar rcs $@ $^
 #	$(CC) $(CFLAGS) -o $@ $^
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(HEADERS_FILES)
 	$(CC) $(CFLAGS) -I$(HEADERS_DIR) -c -o $@ $<
+	$(AR) $(ARFLAGS) $(NAME) $@
 
 $(DEBUG_DIR)/%.o: $(SRC_DIR)/%.c $(HEADERS_FILES)
 	$(CC) $(CFLAGS) -I$(HEADERS_DIR) -c $< -o $@
+	$(AR) $(ARFLAGS) $(DNAME) $@
 
 $(RELEASE_DIR)/%.o: $(SRC_DIR)/%.c $(HEADERS_FILES)
 	norminette $<
 	$(CC) $(CFLAGS) -I$(HEADERS_DIR) -c $< -o $@
+	$(AR) $(ARFLAGS) $(RNAME) $@
 
 $(OBJ_DIR) $(DEBUG_DIR) $(RELEASE_DIR):
 	mkdir -p $@
@@ -113,4 +127,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re debug release
+.PHONY: all clean fclean re debug release bonus so
