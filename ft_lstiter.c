@@ -1,22 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdelone_bonus.c                               :+:      :+:    :+:   */
+/*   ft_lstiter.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/11 02:06:35 by gbetting          #+#    #+#             */
-/*   Updated: 2024/04/11 15:47:16 by gbetting         ###   ########.fr       */
+/*   Created: 2024/04/11 02:08:48 by gbetting          #+#    #+#             */
+/*   Updated: 2024/04/21 07:09:55 by gbetting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft_bonus.h"
+#include "libft.h"
 
-void	ft_lstdelone(t_list *lst, void (*del)(void *))
+void	ft_lstiter(t_list *lst, void (*f)(void *))
 {
-	if (lst && del)
+	t_list	*current;
+
+	current = lst;
+	while (current)
 	{
-		del(lst->content);
-		free(lst);
+		f(current->content);
+		current = current->next;
 	}
 }
