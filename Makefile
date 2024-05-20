@@ -6,7 +6,7 @@
 #    By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/16 09:03:49 by gbetting          #+#    #+#              #
-#    Updated: 2024/04/21 07:44:28 by gbetting         ###   ########.fr        #
+#    Updated: 2024/05/20 13:08:43 by gbetting         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,6 +55,8 @@ SRC =	ft_isalpha.c		\
 		ft_lstclear.c		\
 		ft_lstiter.c		\
 		ft_lstmap.c
+
+
 BONUS =
 HEADERS = $(NAME:.a=.h)
 
@@ -80,19 +82,23 @@ ARFLAGS = -rcs
 DEBUGFLAGS = -g3 -fsanitize=address
 RELEASEFLAGS = -O3 -fno-builtin
 
-normal: $(OBJ_DIR) $(OBJ)
-	$(AR) $(ARFLAGS) $(NAME) $(OBJ)
+normal: $(NAME)
 
 debug: CFLAGS += $(DEBUGFLAGS)
-debug: $(DEBUG_DIR) $(DEBUG_OBJ)
-	$(AR) $(ARFLAGS) $(DNAME) $(DEBUG_OBJ)
+debug: $(DNAME)
 
 release: CFLAGS += $(RELEASEFLAGS)
-release: $(RELEASE_DIR) $(RELEASE_OBJ)
-	norminette $(HEADERS_FILES)
-	$(AR) $(ARFLAGS) $(RNAME) $(RELEASE_OBJ)
+release: $(RNAME)
 
-$(NAME): normal
+$(NAME): $(OBJ_DIR) $(OBJ)
+	$(AR) $(ARFLAGS) $@ $(filter-out $(OBJ_DIR), $?)
+
+$(DNAME): $(DEBUG_DIR) $(DEBUG_OBJ)
+	$(AR) $(ARFLAGS) $@ $(filter-out $(DEBUG_DIR), $?)
+
+$(RNAME): $(RELEASE_DIR) $(RELEASE_OBJ)
+	norminette $(HEADERS_FILES)
+	$(AR) $(ARFLAGS) $@ $(filter-out $(RELEASE_DIR), $?)
 
 bonus:
 	@$(MAKE) --no-print-directory DO_BONUS=1 normal
@@ -104,6 +110,7 @@ all:
 
 $(RELEASE_DIR)/%.o $(DEBUG_DIR)/%.o $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(HEADERS_FILES)
 	norminette $<
+	[ -d `dirname $@` ] || mkdir -p `dirname $@`
 	$(CC) $(CFLAGS) -I$(HEADERS_DIR) -c $< -o $@
 
 $(OBJ_DIR) $(DEBUG_DIR) $(RELEASE_DIR):
@@ -114,7 +121,7 @@ clean:
 	[ -d `dirname $(OBJ_DIR)` ] && rmdir -p `dirname $(OBJ_DIR)` || true
 
 fclean: clean
-	rm -f $(NAME) $(DNAME) $(RNAME)
+	rm -f $(NAME) $(DNAME) $(RNAME) test.out tests.out
 
 re: fclean all
 
