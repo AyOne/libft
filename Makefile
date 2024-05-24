@@ -6,7 +6,7 @@
 #    By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/16 09:03:49 by gbetting          #+#    #+#              #
-#    Updated: 2024/05/24 14:23:49 by gbetting         ###   ########.fr        #
+#    Updated: 2024/05/24 14:46:42 by gbetting         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -102,7 +102,7 @@ $(RNAME): $(RELEASE_DIR) $(RELEASE_OBJ)
 	$(AR) $(ARFLAGS) $@ $(filter-out $(RELEASE_DIR), $?)
 
 so: $(OBJ_DIR) $(OBJ)
-	$(CC) -shared -o $(NAME:.a=.so) $(filter-out $(OBJ_DIR), $?)
+	$(CC) -nostartfiles -shared -o $(NAME:.a=.so) $(filter-out $(OBJ_DIR), $?)
 
 bonus:
 	@$(MAKE) --no-print-directory DO_BONUS=1 normal

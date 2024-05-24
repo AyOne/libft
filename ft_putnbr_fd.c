@@ -6,7 +6,7 @@
 /*   By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 01:49:33 by gbetting          #+#    #+#             */
-/*   Updated: 2024/05/24 14:18:29 by gbetting         ###   ########.fr       */
+/*   Updated: 2024/05/24 14:51:27 by gbetting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	ft_putnbr_fd(int n, int fd)
 
 	nbr = n;
 	i = 0;
+	neg = false;
 	if (nbr < 0)
 	{
 		neg = true;
