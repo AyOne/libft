@@ -6,7 +6,7 @@
 /*   By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 01:49:33 by gbetting          #+#    #+#             */
-/*   Updated: 2024/04/11 01:55:40 by gbetting         ###   ########.fr       */
+/*   Updated: 2024/05/24 14:18:29 by gbetting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,13 @@ void	ft_putnbr_fd(int n, int fd)
 	long	nbr;
 	char	buffer[14];
 	size_t	i;
+	bool	neg;
 
 	nbr = n;
 	i = 0;
 	if (nbr < 0)
 	{
-		buffer[i++] = '-';
+		neg = true;
 		nbr = -nbr;
 	}
 	if (nbr == 0)
@@ -51,6 +52,8 @@ void	ft_putnbr_fd(int n, int fd)
 		buffer[i++] = (nbr % 10) + '0';
 		nbr /= 10;
 	}
+	if (neg)
+		buffer[i++] = '-';
 	buffer[i] = '\0';
 	ft_putstr_fd(ft_strrev(buffer), fd);
 }

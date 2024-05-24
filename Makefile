@@ -6,7 +6,7 @@
 #    By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/16 09:03:49 by gbetting          #+#    #+#              #
-#    Updated: 2024/05/20 13:08:43 by gbetting         ###   ########.fr        #
+#    Updated: 2024/05/24 14:23:49 by gbetting         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,7 @@ SRC =	ft_isalpha.c		\
 		ft_atoi.c			\
 		ft_calloc.c			\
 		ft_strdup.c			\
+		ft_striteri.c		\
 		ft_substr.c			\
 		ft_strjoin.c		\
 		ft_strtrim.c		\
@@ -100,6 +101,9 @@ $(RNAME): $(RELEASE_DIR) $(RELEASE_OBJ)
 	norminette $(HEADERS_FILES)
 	$(AR) $(ARFLAGS) $@ $(filter-out $(RELEASE_DIR), $?)
 
+so: $(OBJ_DIR) $(OBJ)
+	$(CC) -shared -o $(NAME:.a=.so) $(filter-out $(OBJ_DIR), $?)
+
 bonus:
 	@$(MAKE) --no-print-directory DO_BONUS=1 normal
 
@@ -121,7 +125,7 @@ clean:
 	[ -d `dirname $(OBJ_DIR)` ] && rmdir -p `dirname $(OBJ_DIR)` || true
 
 fclean: clean
-	rm -f $(NAME) $(DNAME) $(RNAME) test.out tests.out
+	rm -f $(NAME) $(DNAME) $(RNAME) test.out tests.out libft.so
 
 re: fclean all
 
