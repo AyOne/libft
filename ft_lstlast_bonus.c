@@ -1,31 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstclear.c                                      :+:      :+:    :+:   */
+/*   ft_lstlast_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/11 02:07:39 by gbetting          #+#    #+#             */
-/*   Updated: 2024/04/21 07:09:49 by gbetting         ###   ########.fr       */
+/*   Created: 2024/04/11 02:03:24 by gbetting          #+#    #+#             */
+/*   Updated: 2024/05/30 14:26:47 by gbetting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstclear(t_list **lst, void (*del)(void *))
+t_list	*ft_lstlast(t_list *lst)
 {
 	t_list	*current;
-	t_list	*next;
 
-	if (lst && *lst && del)
-	{
-		current = *lst;
-		while (current)
-		{
-			next = current->next;
-			ft_lstdelone(current, del);
-			current = next;
-		}
-		*lst = NULL;
-	}
+	current = lst;
+	while (current && current->next)
+		current = current->next;
+	return (current);
 }

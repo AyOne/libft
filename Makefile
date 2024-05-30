@@ -6,64 +6,61 @@
 #    By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/16 09:03:49 by gbetting          #+#    #+#              #
-#    Updated: 2024/05/24 14:46:42 by gbetting         ###   ########.fr        #
+#    Updated: 2024/05/30 14:38:22 by gbetting         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
 DNAME = $(NAME:.a=_debug.a)
 RNAME = $(NAME:.a=_release.a)
-SRC =	ft_isalpha.c		\
-		ft_isdigit.c		\
-		ft_isalnum.c		\
-		ft_isascii.c		\
-		ft_isprint.c		\
-		ft_strlen.c			\
-		ft_memset.c			\
-		ft_bzero.c			\
-		ft_memcpy.c			\
-		ft_memmove.c		\
-		ft_strlcpy.c		\
-		ft_strlcat.c		\
-		ft_toupper.c		\
-		ft_tolower.c		\
-		ft_strchr.c			\
-		ft_strrchr.c		\
-		ft_strncmp.c		\
-		ft_memchr.c			\
-		ft_memcmp.c			\
-		ft_strnstr.c		\
-		ft_atoi.c			\
-		ft_calloc.c			\
-		ft_strdup.c			\
-		ft_striteri.c		\
-		ft_substr.c			\
-		ft_strjoin.c		\
-		ft_strtrim.c		\
-		ft_split.c			\
-		ft_itoa.c			\
-		ft_strmapi.c		\
-		ft_putchar_fd.c		\
-		ft_putstr_fd.c		\
-		ft_putendl_fd.c		\
-		ft_putnbr_fd.c		\
-		ft_lstnew.c			\
-		ft_lstadd_front.c	\
-		ft_lstsize.c		\
-		ft_lstlast.c		\
-		ft_lstadd_back.c	\
-		ft_lstdelone.c		\
-		ft_lstclear.c		\
-		ft_lstiter.c		\
-		ft_lstmap.c
+SRC =	ft_isalpha.c			\
+		ft_isdigit.c			\
+		ft_isalnum.c			\
+		ft_isascii.c			\
+		ft_isprint.c			\
+		ft_strlen.c				\
+		ft_memset.c				\
+		ft_bzero.c				\
+		ft_memcpy.c				\
+		ft_memmove.c			\
+		ft_strlcpy.c			\
+		ft_strlcat.c			\
+		ft_toupper.c			\
+		ft_tolower.c			\
+		ft_strchr.c				\
+		ft_strrchr.c			\
+		ft_strncmp.c			\
+		ft_memchr.c				\
+		ft_memcmp.c				\
+		ft_strnstr.c			\
+		ft_atoi.c				\
+		ft_calloc.c				\
+		ft_strdup.c				\
+		ft_striteri.c			\
+		ft_substr.c				\
+		ft_strjoin.c			\
+		ft_strtrim.c			\
+		ft_split.c				\
+		ft_itoa.c				\
+		ft_strmapi.c			\
+		ft_putchar_fd.c			\
+		ft_putstr_fd.c			\
+		ft_putendl_fd.c			\
+		ft_putnbr_fd.c
+BONUS =	ft_lstnew_bonus.c		\
+		ft_lstadd_front_bonus.c	\
+		ft_lstsize_bonus.c		\
+		ft_lstlast_bonus.c		\
+		ft_lstadd_back_bonus.c	\
+		ft_lstdelone_bonus.c	\
+		ft_lstclear_bonus.c		\
+		ft_lstiter_bonus.c		\
+		ft_lstmap_bonus.c
 
-
-BONUS =
 HEADERS = $(NAME:.a=.h)
 
 ifdef DO_BONUS
 	SRC += $(BONUS)
-	HEADERS += $(wildcard $(NAME:.a=_bonus.h))
 endif
 
 SRC_FILES = $(addprefix $(SRC_DIR)/, $(SRC))
@@ -83,23 +80,28 @@ ARFLAGS = -rcs
 DEBUGFLAGS = -g3 -fsanitize=address
 RELEASEFLAGS = -O3 -fno-builtin
 
-normal: $(NAME)
+normal: norminette.log $(NAME)
 
 debug: CFLAGS += $(DEBUGFLAGS)
-debug: $(DNAME)
+debug: norminette.log $(DNAME)
 
 release: CFLAGS += $(RELEASEFLAGS)
-release: $(RNAME)
+release: norminette.log $(RNAME)
 
 $(NAME): $(OBJ_DIR) $(OBJ)
+	-norminette $(HEADERS_FILES) >> norminette.log
 	$(AR) $(ARFLAGS) $@ $(filter-out $(OBJ_DIR), $?)
+	cat norminette.log
 
 $(DNAME): $(DEBUG_DIR) $(DEBUG_OBJ)
+	-norminette $(HEADERS_FILES) >> norminette.log
 	$(AR) $(ARFLAGS) $@ $(filter-out $(DEBUG_DIR), $?)
+	cat norminette.log
 
 $(RNAME): $(RELEASE_DIR) $(RELEASE_OBJ)
-	norminette $(HEADERS_FILES)
+	-norminette $(HEADERS_FILES) >> norminette.log
 	$(AR) $(ARFLAGS) $@ $(filter-out $(RELEASE_DIR), $?)
+	cat norminette.log
 
 so: $(OBJ_DIR) $(OBJ)
 	$(CC) -nostartfiles -shared -o $(NAME:.a=.so) $(filter-out $(OBJ_DIR), $?)
@@ -113,7 +115,7 @@ all:
 	@$(MAKE) --no-print-directory DO_BONUS=1 -j release
 
 $(RELEASE_DIR)/%.o $(DEBUG_DIR)/%.o $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(HEADERS_FILES)
-	norminette $<
+	-norminette $< >> norminette.log
 	[ -d `dirname $@` ] || mkdir -p `dirname $@`
 	$(CC) $(CFLAGS) -I$(HEADERS_DIR) -c $< -o $@
 
@@ -123,10 +125,14 @@ $(OBJ_DIR) $(DEBUG_DIR) $(RELEASE_DIR):
 clean:
 	rm -rf $(OBJ_DIR) $(DEBUG_DIR) $(RELEASE_DIR)
 	[ -d `dirname $(OBJ_DIR)` ] && rmdir -p `dirname $(OBJ_DIR)` || true
+	rm -f norminette.log
 
 fclean: clean
 	rm -f $(NAME) $(DNAME) $(RNAME) test.out tests.out libft.so
 
 re: fclean all
+
+norminette.log:
+	-@echo "" > norminette.log
 
 .PHONY: all clean fclean re debug release bonus
