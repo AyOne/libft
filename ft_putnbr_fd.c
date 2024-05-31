@@ -6,13 +6,13 @@
 /*   By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 01:49:33 by gbetting          #+#    #+#             */
-/*   Updated: 2024/05/24 14:51:27 by gbetting         ###   ########.fr       */
+/*   Updated: 2024/05/31 13:39:49 by gbetting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strrev(char *str)
+static char	*ft_strrev(char *str)
 {
 	char	*start;
 	char	*end;
