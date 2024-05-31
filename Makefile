@@ -6,7 +6,7 @@
 #    By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/16 09:03:49 by gbetting          #+#    #+#              #
-#    Updated: 2024/05/30 17:13:32 by gbetting         ###   ########.fr        #
+#    Updated: 2024/05/30 18:37:01 by gbetting         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -107,12 +107,12 @@ so: $(OBJ_DIR) $(OBJ)
 	$(CC) -nostartfiles -shared -o $(NAME:.a=.so) $(filter-out $(OBJ_DIR), $?)
 
 bonus:
-	@$(MAKE) --no-print-directory DO_BONUS=$(DO_BONUS) normal
+	@$(MAKE) --no-print-directory DO_BONUS=1 normal
 
 all:
-	@$(MAKE) --no-print-directory DO_BONUS=$(DO_BONUS) -j normal
-	@$(MAKE) --no-print-directory DO_BONUS=$(DO_BONUS) -j debug
-	@$(MAKE) --no-print-directory DO_BONUS=$(DO_BONUS) -j release
+	@$(MAKE) --no-print-directory -j normal
+	@$(MAKE) --no-print-directory -j debug
+	@$(MAKE) --no-print-directory -j release
 
 $(RELEASE_DIR)/%.o $(DEBUG_DIR)/%.o $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(HEADERS_FILES)
 	-norminette $< >> norminette.log
