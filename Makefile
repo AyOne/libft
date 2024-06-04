@@ -6,7 +6,7 @@
 #    By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/16 09:03:49 by gbetting          #+#    #+#              #
-#    Updated: 2024/05/30 18:37:01 by gbetting         ###   ########.fr        #
+#    Updated: 2024/06/04 13:23:25 by gbetting         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -91,28 +91,28 @@ release: norminette.log $(RNAME)
 $(NAME): $(OBJ_DIR) $(OBJ)
 	-norminette $(HEADERS_FILES) >> norminette.log
 	$(AR) $(ARFLAGS) $@ $(filter-out $(OBJ_DIR), $?)
-	-cat norminette.log | grep -E "Error|Warning"
+	-cat norminette.log | grep -E "Error|Warning" || true
 
 $(DNAME): $(DEBUG_DIR) $(DEBUG_OBJ)
 	-norminette $(HEADERS_FILES) >> norminette.log
 	$(AR) $(ARFLAGS) $@ $(filter-out $(DEBUG_DIR), $?)
-	-cat norminette.log | grep -E "Error|Warning"
+	-cat norminette.log | grep -E "Error|Warning" || true
 
 $(RNAME): $(RELEASE_DIR) $(RELEASE_OBJ)
 	-norminette $(HEADERS_FILES) >> norminette.log
 	$(AR) $(ARFLAGS) $@ $(filter-out $(RELEASE_DIR), $?)
-	-cat norminette.log | grep -E "Error|Warning"
+	-cat norminette.log | grep -E "Error|Warning" || true
 
-so: $(OBJ_DIR) $(OBJ)
-	$(CC) -nostartfiles -shared -o $(NAME:.a=.so) $(filter-out $(OBJ_DIR), $?)
+#so: $(OBJ_DIR) $(OBJ)
+#	$(CC) -nostartfiles -shared -o $(NAME:.a=.so) $(filter-out $(OBJ_DIR), $?)
 
 bonus:
 	@$(MAKE) --no-print-directory DO_BONUS=1 normal
 
 all:
 	@$(MAKE) --no-print-directory -j normal
-	@$(MAKE) --no-print-directory -j debug
-	@$(MAKE) --no-print-directory -j release
+#	@$(MAKE) --no-print-directory -j debug
+#	@$(MAKE) --no-print-directory -j release
 
 $(RELEASE_DIR)/%.o $(DEBUG_DIR)/%.o $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(HEADERS_FILES)
 	-norminette $< >> norminette.log
