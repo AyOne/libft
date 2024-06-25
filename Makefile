@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+         #
+#    By: administrator <administrator@student.42    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/16 09:03:49 by gbetting          #+#    #+#              #
-#    Updated: 2024/06/04 13:23:25 by gbetting         ###   ########.fr        #
+#    Updated: 2024/06/26 01:25:06 by administrat      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,6 +63,16 @@ ifdef DO_BONUS
 	SRC += $(BONUS)
 endif
 
+# colors
+C_COMPILATION=\033[38;5;16;48;5;51mCompiling\033[0m
+C_OK=\033[38;5;16;48;5;46mOK\033[0m
+C_ERROR=\033[38;5;16;48;5;196mERROR\033[0m
+C_NORME=\033[38;5;16;48;5;196mNORME\033[0m
+C_MAXLEN := $(shell echo "$(SRC)" | tr " " "\n" | awk 'length > max_length { max_length = length; longest_line = $$0 } END { print longest_line }' | wc -c)
+C_COMPILATION_ERROR=0
+
+#$(info $(C_MAXLEN))
+
 SRC_FILES = $(addprefix $(SRC_DIR)/, $(SRC))
 HEADERS_DIR = .
 HEADERS_FILES = $(addprefix $(HEADERS_DIR)/, $(HEADERS))
@@ -74,7 +84,7 @@ OBJ = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRC_FILES))
 DEBUG_OBJ = $(patsubst $(SRC_DIR)/%.c,$(DEBUG_DIR)/%.o,$(SRC_FILES))
 RELEASE_OBJ = $(patsubst $(SRC_DIR)/%.c,$(RELEASE_DIR)/%.o,$(SRC_FILES))
 CC = clang
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -fdiagnostics-color=always
 AR = ar
 ARFLAGS = -rcs
 DEBUGFLAGS = -g3 -fsanitize=address
@@ -103,21 +113,27 @@ $(RNAME): $(RELEASE_DIR) $(RELEASE_OBJ)
 	$(AR) $(ARFLAGS) $@ $(filter-out $(RELEASE_DIR), $?)
 	-cat norminette.log | grep -E "Error|Warning" || true
 
-#so: $(OBJ_DIR) $(OBJ)
-#	$(CC) -nostartfiles -shared -o $(NAME:.a=.so) $(filter-out $(OBJ_DIR), $?)
-
 bonus:
 	@$(MAKE) --no-print-directory DO_BONUS=1 normal
 
 all:
 	@$(MAKE) --no-print-directory -j normal
-#	@$(MAKE) --no-print-directory -j debug
-#	@$(MAKE) --no-print-directory -j release
+	@$(MAKE) --no-print-directory -j debug
+	@$(MAKE) --no-print-directory -j release
 
 $(RELEASE_DIR)/%.o $(DEBUG_DIR)/%.o $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(HEADERS_FILES)
-	-norminette $< >> norminette.log
-	[ -d `dirname $@` ] || mkdir -p `dirname $@`
-	$(CC) $(CFLAGS) -I$(HEADERS_DIR) -c $< -o $@
+	@printf "$(C_COMPILATION) -> \033[38;5;33m%-*s\033[0m : " $(C_MAXLEN) "$<"
+	@-norminette $< >> norminette.log
+	@[ -d `dirname $@` ] || mkdir -p `dirname $@`
+	@($(CC) $(CFLAGS) -I$(HEADERS_DIR) -c $< -o $@ 2> error.log || true)
+	@if [ -s error.log ]; then \
+		printf "$(C_ERROR)\n"; \
+		cat error.log; \
+		COMPILATION_ERROR=1; \
+	else \
+		printf "$(C_OK)\n"; \
+	fi
+	@#printf "$(C_OK)\n"
 
 $(OBJ_DIR) $(DEBUG_DIR) $(RELEASE_DIR):
 	mkdir -p $@
