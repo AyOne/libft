@@ -6,13 +6,13 @@
 /*   By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 01:45:04 by gbetting          #+#    #+#             */
-/*   Updated: 2024/04/11 05:14:34 by gbetting         ###   ########.fr       */
+/*   Updated: 2024/06/26 05:32:26 by gbetting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
+char	*ft_strmapi(char const *s, char (*f)(uint32_t, char))
 {
 	size_t	i;
 	char	*str;

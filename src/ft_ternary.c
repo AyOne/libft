@@ -1,20 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isalpha.c                                       :+:      :+:    :+:   */
+/*   ft_ternary.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/10 19:49:46 by gbetting          #+#    #+#             */
-/*   Updated: 2024/06/26 05:26:53 by gbetting         ###   ########.fr       */
+/*   Created: 2024/06/26 05:46:42 by gbetting          #+#    #+#             */
+/*   Updated: 2024/06/26 05:48:41 by gbetting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-bool	ft_isalpha(char c)
+int64_t	ft_t_int(bool condition, int64_t a, int64_t b)
 {
-	if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'))
-		return (true);
-	return (false);
+	if (condition)
+		return (a);
+	return (b);
+}
+
+uint64_t	ft_t_uint(bool condition, uint64_t a, uint64_t b)
+{
+	if (condition)
+		return (a);
+	return (b);
+}
+
+double	ft_t_double(bool condition, double a, double b)
+{
+	if (condition)
+		return (a);
+	return (b);
+}
+
+void	*ft_t_ptr(bool condition, void *a, void *b)
+{
+	if (condition)
+		return (a);
+	return (b);
 }

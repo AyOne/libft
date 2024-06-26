@@ -6,7 +6,7 @@
 #    By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/16 09:03:49 by gbetting          #+#    #+#              #
-#    Updated: 2024/06/26 05:17:39 by gbetting         ###   ########.fr        #
+#    Updated: 2024/06/26 05:46:19 by gbetting         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,7 +55,10 @@ SRC =	ft_isalpha.c			\
 		ft_lstdelone.c			\
 		ft_lstclear.c			\
 		ft_lstiter.c			\
-		ft_lstmap.c
+		ft_lstmap.c				\
+		ft_abs.c				\
+		ft_minmax.c				\
+		ft_ternary.c
 BONUS =
 
 HEADERS = $(NAME:.a=.h)

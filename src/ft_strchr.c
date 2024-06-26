@@ -6,17 +6,17 @@
 /*   By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 00:33:19 by gbetting          #+#    #+#             */
-/*   Updated: 2024/04/11 00:33:42 by gbetting         ###   ########.fr       */
+/*   Updated: 2024/06/26 05:31:19 by gbetting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strchr(const char *s, int c)
+char	*ft_strchr(const char *s, char c)
 {
-	while (*s && *s != (char)c)
+	while (*s && *s != c)
 		s++;
-	if (*s == (char)c)
+	if (*s == c)
 		return ((char *)s);
 	return (NULL);
 }

@@ -6,13 +6,13 @@
 /*   By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 01:46:23 by gbetting          #+#    #+#             */
-/*   Updated: 2024/05/24 14:49:14 by gbetting         ###   ########.fr       */
+/*   Updated: 2024/06/26 05:31:54 by gbetting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_striteri(char *s, void (*f)(unsigned int, char *))
+void	ft_striteri(char *s, void (*f)(uint32_t, char *))
 {
 	size_t	i;
 

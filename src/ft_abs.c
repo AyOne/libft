@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isalpha.c                                       :+:      :+:    :+:   */
+/*   ft_abs.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/10 19:49:46 by gbetting          #+#    #+#             */
-/*   Updated: 2024/06/26 05:26:53 by gbetting         ###   ########.fr       */
+/*   Created: 2024/06/26 05:24:00 by gbetting          #+#    #+#             */
+/*   Updated: 2024/06/26 05:48:22 by gbetting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-bool	ft_isalpha(char c)
+int64_t	ft_abs(int64_t n)
 {
-	if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'))
-		return (true);
-	return (false);
+	if (n < 0)
+		return (-n);
+	return (n);
 }

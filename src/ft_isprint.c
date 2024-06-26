@@ -6,15 +6,15 @@
 /*   By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 20:50:08 by gbetting          #+#    #+#             */
-/*   Updated: 2024/04/10 20:50:19 by gbetting         ###   ########.fr       */
+/*   Updated: 2024/06/26 05:27:55 by gbetting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_isprint(int c)
+bool	ft_isprint(char c)
 {
 	if (c >= 32 && c <= 126)
-		return (1);
-	return (0);
+		return (true);
+	return (false);
 }

@@ -6,7 +6,7 @@
 /*   By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 01:49:33 by gbetting          #+#    #+#             */
-/*   Updated: 2024/05/31 13:39:49 by gbetting         ###   ########.fr       */
+/*   Updated: 2024/06/26 05:30:49 by gbetting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static char	*ft_strrev(char *str)
 	return (str);
 }
 
-void	ft_putnbr_fd(int n, int fd)
+void	ft_putnbr_fd(int32_t n, int fd)
 {
 	long	nbr;
 	char	buffer[14];

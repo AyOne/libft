@@ -6,16 +6,16 @@
 /*   By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 01:30:10 by gbetting          #+#    #+#             */
-/*   Updated: 2024/04/11 05:28:06 by gbetting         ###   ########.fr       */
+/*   Updated: 2024/06/26 05:28:42 by gbetting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static size_t	ft_numlen(int n)
+static size_t	ft_numlen(int32_t n)
 {
 	size_t			len;
-	unsigned int	nb;
+	uint32_t		nb;
 
 	len = 0;
 	if (n <= 0)
@@ -33,11 +33,11 @@ static size_t	ft_numlen(int n)
 	return (len);
 }
 
-char	*ft_itoa(int n)
+char	*ft_itoa(int32_t n)
 {
 	size_t	len;
 	char	*str;
-	int		sign;
+	int8_t	sign;
 
 	len = ft_numlen(n);
 	str = ft_calloc(len + 1, sizeof(char));

@@ -1,20 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isalpha.c                                       :+:      :+:    :+:   */
+/*   ft_minmax.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/10 19:49:46 by gbetting          #+#    #+#             */
-/*   Updated: 2024/06/26 05:26:53 by gbetting         ###   ########.fr       */
+/*   Created: 2024/06/26 05:44:29 by gbetting          #+#    #+#             */
+/*   Updated: 2024/06/26 05:48:32 by gbetting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-bool	ft_isalpha(char c)
+int64_t	ft_min(int64_t a, int64_t b)
 {
-	if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'))
-		return (true);
-	return (false);
+	if (a < b)
+		return (a);
+	return (b);
+}
+
+int64_t	ft_max(int64_t a, int64_t b)
+{
+	if (a > b)
+		return (a);
+	return (b);
 }

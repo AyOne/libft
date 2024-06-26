@@ -6,15 +6,15 @@
 /*   By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 20:45:10 by gbetting          #+#    #+#             */
-/*   Updated: 2024/04/10 20:45:16 by gbetting         ###   ########.fr       */
+/*   Updated: 2024/06/26 05:27:44 by gbetting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_isdigit(int c)
+bool	ft_isdigit(char c)
 {
 	if (c >= '0' && c <= '9')
-		return (1);
-	return (0);
+		return (true);
+	return (false);
 }

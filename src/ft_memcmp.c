@@ -6,13 +6,13 @@
 /*   By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 00:37:03 by gbetting          #+#    #+#             */
-/*   Updated: 2024/04/11 00:38:07 by gbetting         ###   ########.fr       */
+/*   Updated: 2024/06/26 05:37:12 by gbetting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_memcmp(const void *s1, const void *s2, size_t n)
+int32_t	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
 	unsigned long	*s1_l;
 	unsigned long	*s2_l;
