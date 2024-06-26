@@ -1,0 +1,8 @@
+.vscode
+*.a
+*.out
+build
+*.so
+*.o
+logs
+*.log

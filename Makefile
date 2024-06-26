@@ -6,7 +6,7 @@
 #    By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/16 09:03:49 by gbetting          #+#    #+#              #
-#    Updated: 2024/06/26 03:23:51 by gbetting         ###   ########.fr        #
+#    Updated: 2024/06/26 05:17:39 by gbetting         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,22 +46,36 @@ SRC =	ft_isalpha.c			\
 		ft_putchar_fd.c			\
 		ft_putstr_fd.c			\
 		ft_putendl_fd.c			\
-		ft_putnbr_fd.c
-BONUS =	ft_lstnew_bonus.c		\
-		ft_lstadd_front_bonus.c	\
-		ft_lstsize_bonus.c		\
-		ft_lstlast_bonus.c		\
-		ft_lstadd_back_bonus.c	\
-		ft_lstdelone_bonus.c	\
-		ft_lstclear_bonus.c		\
-		ft_lstiter_bonus.c		\
-		ft_lstmap_bonus.c
+		ft_putnbr_fd.c			\
+		ft_lstnew.c				\
+		ft_lstadd_front.c		\
+		ft_lstsize.c			\
+		ft_lstlast.c			\
+		ft_lstadd_back.c		\
+		ft_lstdelone.c			\
+		ft_lstclear.c			\
+		ft_lstiter.c			\
+		ft_lstmap.c
+BONUS =
 
 HEADERS = $(NAME:.a=.h)
 
 ifdef DO_BONUS
 	SRC += $(BONUS)
 endif
+
+SRC_DIR = src
+HEADERS_DIR = include
+OBJ_DIR = build/normal
+DEBUG_DIR = build/debug
+RELEASE_DIR = build/release
+LOG_DIR = logs
+
+SRC_FILES = $(addprefix $(SRC_DIR)/, $(SRC))
+HEADERS_FILES = $(addprefix $(HEADERS_DIR)/, $(HEADERS))
+OBJ = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRC_FILES))
+DEBUG_OBJ = $(patsubst $(SRC_DIR)/%.c,$(DEBUG_DIR)/%.o,$(SRC_FILES))
+RELEASE_OBJ = $(patsubst $(SRC_DIR)/%.c,$(RELEASE_DIR)/%.o,$(SRC_FILES))
 
 # colors
 C_MAKEFILE=\033[38;5;16;48;5;51;1mMakefile\033[0m
@@ -72,22 +86,11 @@ C_DELETING=\033[38;5;16;48;5;196;1mDeleting\033[0m
 C_OK=\033[38;5;16;48;5;46;1mOK\033[0m
 C_ERROR=\033[38;5;16;48;5;196;1mERROR\033[0m
 C_NORME=\033[38;5;16;48;5;196;1mNORME\033[0m
-C_MAXLEN := $(shell echo "$(SRC)" | tr " " "\n" | awk 'length > max_length { max_length = length; longest_line = $$0 } END { print longest_line }' | wc -c)
-C_COMPILATION_ERROR=0
+C_MAXLEN := $(shell echo "$(SRC_FILES)" | tr " " "\n" | awk 'length > max_length { max_length = length; longest_line = $$0 } END { print longest_line }' | wc -c)
 
 #$(info $(C_MAXLEN))
 
-SRC_FILES = $(addprefix $(SRC_DIR)/, $(SRC))
-HEADERS_DIR = .
-HEADERS_FILES = $(addprefix $(HEADERS_DIR)/, $(HEADERS))
-SRC_DIR = .
-OBJ_DIR = build/normal
-DEBUG_DIR = build/debug
-RELEASE_DIR = build/release
-LOG_DIR = logs
-OBJ = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRC_FILES))
-DEBUG_OBJ = $(patsubst $(SRC_DIR)/%.c,$(DEBUG_DIR)/%.o,$(SRC_FILES))
-RELEASE_OBJ = $(patsubst $(SRC_DIR)/%.c,$(RELEASE_DIR)/%.o,$(SRC_FILES))
+
 CC = clang
 CFLAGS = -Wall -Wextra -Werror -fdiagnostics-color=always
 AR = ar
