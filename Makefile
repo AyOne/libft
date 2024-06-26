@@ -6,7 +6,7 @@
 #    By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/16 09:03:49 by gbetting          #+#    #+#              #
-#    Updated: 2024/06/26 05:46:19 by gbetting         ###   ########.fr        #
+#    Updated: 2024/06/26 06:35:29 by gbetting         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,8 +67,8 @@ ifdef DO_BONUS
 	SRC += $(BONUS)
 endif
 
-SRC_DIR = src
-HEADERS_DIR = include
+SRC_DIR = srcs
+HEADERS_DIR = includes
 OBJ_DIR = build/normal
 DEBUG_DIR = build/debug
 RELEASE_DIR = build/release
@@ -80,7 +80,6 @@ OBJ = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRC_FILES))
 DEBUG_OBJ = $(patsubst $(SRC_DIR)/%.c,$(DEBUG_DIR)/%.o,$(SRC_FILES))
 RELEASE_OBJ = $(patsubst $(SRC_DIR)/%.c,$(RELEASE_DIR)/%.o,$(SRC_FILES))
 
-# colors
 C_MAKEFILE=\033[38;5;16;48;5;51;1mMakefile\033[0m
 C_CREATINGFOLDER=\033[38;5;16;48;5;51;1mCreating folder\033[0m
 C_COMPILATION=\033[38;5;16;48;5;51;1mCompiling\033[0m
@@ -90,9 +89,6 @@ C_OK=\033[38;5;16;48;5;46;1mOK\033[0m
 C_ERROR=\033[38;5;16;48;5;196;1mERROR\033[0m
 C_NORME=\033[38;5;16;48;5;196;1mNORME\033[0m
 C_MAXLEN := $(shell echo "$(SRC_FILES)" | tr " " "\n" | awk 'length > max_length { max_length = length; longest_line = $$0 } END { print longest_line }' | wc -c)
-
-#$(info $(C_MAXLEN))
-
 
 CC = clang
 CFLAGS = -Wall -Wextra -Werror -fdiagnostics-color=always
