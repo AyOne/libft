@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: administrator <administrator@student.42    +#+  +:+       +#+         #
+#    By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/16 09:03:49 by gbetting          #+#    #+#              #
-#    Updated: 2024/06/26 01:25:06 by administrat      ###   ########.fr        #
+#    Updated: 2024/06/26 02:58:55 by gbetting         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,7 +64,10 @@ ifdef DO_BONUS
 endif
 
 # colors
+C_CREATINGFOLDER=\033[38;5;16;48;5;51mCreating folder\033[0m
 C_COMPILATION=\033[38;5;16;48;5;51mCompiling\033[0m
+C_COMPILATION2=\033[38;5;16;48;5;51mCompiling\033[0m
+C_DELETING=\033[38;5;16;48;5;196mDeleting\033[0m
 C_OK=\033[38;5;16;48;5;46mOK\033[0m
 C_ERROR=\033[38;5;16;48;5;196mERROR\033[0m
 C_NORME=\033[38;5;16;48;5;196mNORME\033[0m
@@ -80,6 +83,7 @@ SRC_DIR = .
 OBJ_DIR = build/normal
 DEBUG_DIR = build/debug
 RELEASE_DIR = build/release
+LOG_DIR = logs
 OBJ = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRC_FILES))
 DEBUG_OBJ = $(patsubst $(SRC_DIR)/%.c,$(DEBUG_DIR)/%.o,$(SRC_FILES))
 RELEASE_OBJ = $(patsubst $(SRC_DIR)/%.c,$(RELEASE_DIR)/%.o,$(SRC_FILES))
@@ -90,28 +94,22 @@ ARFLAGS = -rcs
 DEBUGFLAGS = -g3 -fsanitize=address
 RELEASEFLAGS = -O3 -fno-builtin
 
-normal: norminette.log $(NAME)
+normal: $(NAME)
 
 debug: CFLAGS += $(DEBUGFLAGS)
-debug: norminette.log $(DNAME)
+debug: $(DNAME)
 
 release: CFLAGS += $(RELEASEFLAGS)
-release: norminette.log $(RNAME)
+release: $(RNAME)
 
 $(NAME): $(OBJ_DIR) $(OBJ)
-	-norminette $(HEADERS_FILES) >> norminette.log
 	$(AR) $(ARFLAGS) $@ $(filter-out $(OBJ_DIR), $?)
-	-cat norminette.log | grep -E "Error|Warning" || true
 
 $(DNAME): $(DEBUG_DIR) $(DEBUG_OBJ)
-	-norminette $(HEADERS_FILES) >> norminette.log
 	$(AR) $(ARFLAGS) $@ $(filter-out $(DEBUG_DIR), $?)
-	-cat norminette.log | grep -E "Error|Warning" || true
 
 $(RNAME): $(RELEASE_DIR) $(RELEASE_OBJ)
-	-norminette $(HEADERS_FILES) >> norminette.log
 	$(AR) $(ARFLAGS) $@ $(filter-out $(RELEASE_DIR), $?)
-	-cat norminette.log | grep -E "Error|Warning" || true
 
 bonus:
 	@$(MAKE) --no-print-directory DO_BONUS=1 normal
@@ -121,34 +119,37 @@ all:
 	@$(MAKE) --no-print-directory -j debug
 	@$(MAKE) --no-print-directory -j release
 
-$(RELEASE_DIR)/%.o $(DEBUG_DIR)/%.o $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(HEADERS_FILES)
+$(RELEASE_DIR)/%.o $(DEBUG_DIR)/%.o $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(HEADERS_FILES) | $(LOG_DIR)
 	@printf "$(C_COMPILATION) -> \033[38;5;33m%-*s\033[0m : " $(C_MAXLEN) "$<"
-	@-norminette $< >> norminette.log
+	@#norminette $< 2> /dev/null | grep -E "Error|Warning" > $(LOG_DIR)/norminette.log || true
 	@[ -d `dirname $@` ] || mkdir -p `dirname $@`
-	@($(CC) $(CFLAGS) -I$(HEADERS_DIR) -c $< -o $@ 2> error.log || true)
-	@if [ -s error.log ]; then \
+	@($(CC) $(CFLAGS) -I$(HEADERS_DIR) -c $< -o $@ 2> $(LOG_DIR)/error.log || true)
+	@if [ -s $(LOG_DIR)/error.log ]; then \
 		printf "$(C_ERROR)\n"; \
-		cat error.log; \
+		cat $(LOG_DIR)/error.log; \
 		COMPILATION_ERROR=1; \
+		false; \
+	elif [ -s $(LOG_DIR)/norminette.log ]; then \
+		printf "$(C_NORME)\n"; \
+		cat $(LOG_DIR)/norminette.log; \
+		false; \
 	else \
 		printf "$(C_OK)\n"; \
+		true; \
 	fi
 	@#printf "$(C_OK)\n"
 
-$(OBJ_DIR) $(DEBUG_DIR) $(RELEASE_DIR):
+$(OBJ_DIR) $(DEBUG_DIR) $(RELEASE_DIR) $(LOG_DIR):
 	mkdir -p $@
 
 clean:
 	rm -rf $(OBJ_DIR) $(DEBUG_DIR) $(RELEASE_DIR)
 	[ -d `dirname $(OBJ_DIR)` ] && rmdir -p `dirname $(OBJ_DIR)` || true
-	rm -f norminette.log
+	rm -rf $(LOG_DIR)
 
 fclean: clean
 	rm -f $(NAME) $(DNAME) $(RNAME) test.out tests.out libft.so
 
 re: fclean all
-
-norminette.log:
-	-@echo "" > norminette.log
 
 .PHONY: all clean fclean re debug release bonus
