@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: administrator <administrator@student.42    +#+  +:+       +#+         #
+#    By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/16 09:03:49 by gbetting          #+#    #+#              #
-#    Updated: 2024/06/28 01:01:37 by administrat      ###   ########.fr        #
+#    Updated: 2024/06/28 01:12:13 by gbetting         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,7 +67,7 @@ ifdef DO_BONUS
 	SRC += $(BONUS)
 endif
 
-ifndef NORME
+ifndef SKIP_NORME
 	NORMINETTE=norminette
 else
 	NORMINETTE=this_program_does_not_exist
@@ -112,7 +112,7 @@ define print_result
 		printf "$(C_COMPILATION_OK)"; \
 		COMPILATION_ERROR=0; \
 	fi; \
-	if [ $(NORME) ]; then \
+	if [ $(SKIP_NORME) ]; then \
 		printf "\n"; \
 		NORME_ERROR=0; \
 	elif [ -s $(LOG_DIR)/norminette.log ]; then \
