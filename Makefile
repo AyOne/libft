@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+         #
+#    By: administrator <administrator@student.42    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/16 09:03:49 by gbetting          #+#    #+#              #
-#    Updated: 2024/06/26 06:35:29 by gbetting         ###   ########.fr        #
+#    Updated: 2024/06/28 01:01:37 by administrat      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,6 +67,12 @@ ifdef DO_BONUS
 	SRC += $(BONUS)
 endif
 
+ifndef NORME
+	NORMINETTE=norminette
+else
+	NORMINETTE=this_program_does_not_exist
+endif
+
 SRC_DIR = srcs
 HEADERS_DIR = includes
 OBJ_DIR = build/normal
@@ -83,11 +89,11 @@ RELEASE_OBJ = $(patsubst $(SRC_DIR)/%.c,$(RELEASE_DIR)/%.o,$(SRC_FILES))
 C_MAKEFILE=\033[38;5;16;48;5;51;1mMakefile\033[0m
 C_CREATINGFOLDER=\033[38;5;16;48;5;51;1mCreating folder\033[0m
 C_COMPILATION=\033[38;5;16;48;5;51;1mCompiling\033[0m
-C_COMPILATION2=\033[38;5;16;48;5;51;1mCompiling\033[0m
 C_DELETING=\033[38;5;16;48;5;196;1mDeleting\033[0m
-C_OK=\033[38;5;16;48;5;46;1mOK\033[0m
-C_ERROR=\033[38;5;16;48;5;196;1mERROR\033[0m
-C_NORME=\033[38;5;16;48;5;196;1mNORME\033[0m
+C_COMPILATION_OK=\033[38;5;16;48;5;46;1mCompilation\033[0m
+C_COMPILATION_ERROR=\033[38;5;16;48;5;196;1mCompilation\033[0m
+C_NORME_ERROR=\033[38;5;16;48;5;196;1mNorme\033[0m
+C_NORME_OK=\033[38;5;16;48;5;46;1mNorme\033[0m
 C_MAXLEN := $(shell echo "$(SRC_FILES)" | tr " " "\n" | awk 'length > max_length { max_length = length; longest_line = $$0 } END { print longest_line }' | wc -c)
 
 CC = clang
@@ -96,6 +102,39 @@ AR = ar
 ARFLAGS = -rcs
 DEBUGFLAGS = -g3 -fsanitize=address
 RELEASEFLAGS = -O3 -fno-builtin
+
+
+define print_result
+	if [ -s $(LOG_DIR)/error.log ]; then \
+		printf "$(C_COMPILATION_ERROR)"; \
+		COMPILATION_ERROR=1; \
+	else \
+		printf "$(C_COMPILATION_OK)"; \
+		COMPILATION_ERROR=0; \
+	fi; \
+	if [ $(NORME) ]; then \
+		printf "\n"; \
+		NORME_ERROR=0; \
+	elif [ -s $(LOG_DIR)/norminette.log ]; then \
+		printf " $(C_NORME_ERROR)\n"; \
+		NORME_ERROR=1; \
+	else \
+		printf " $(C_NORME_OK)\n"; \
+		NORME_ERROR=0; \
+	fi; \
+	if [ $$COMPILATION_ERROR -eq 1 ]; then \
+		cat $(LOG_DIR)/error.log; \
+	fi; \
+	if [ $$NORME_ERROR -eq 1 ]; then \
+		cat $(LOG_DIR)/norminette.log; \
+	fi; \
+	if [ $$COMPILATION_ERROR -eq 1 ] || [ $$NORME_ERROR -eq 1 ]; then \
+		false; \
+	fi;
+endef
+
+
+
 
 normal: $(NAME)
 
@@ -106,55 +145,22 @@ release: CFLAGS += $(RELEASEFLAGS)
 release: $(RNAME)
 
 $(NAME): $(OBJ_DIR) $(OBJ)
-	@norminette $(HEADERS_FILES) 2> /dev/null | grep -E "Error|Warning" > $(LOG_DIR)/norminette.log || true
+	@$(NORMINETTE) $(HEADERS_FILES) 2> /dev/null | grep -E "Error|Warning" > $(LOG_DIR)/norminette.log || true
 	@printf "$(PREFIX)$(C_COMPILATION) -> \033[38;5;165m%-*s\033[0m : " $(C_MAXLEN) "$@"
 	@$(AR) $(ARFLAGS) $@ $(filter-out $(OBJ_DIR), $?) 2> $(LOG_DIR)/error.log || true
-	@if [ -s $(LOG_DIR)/error.log ]; then \
-		printf "$(C_ERROR)\n"; \
-		cat $(LOG_DIR)/error.log; \
-		false; \
-	elif [ -s $(LOG_DIR)/norminette.log ]; then \
-		printf "$(C_NORME)\n"; \
-		cat $(LOG_DIR)/norminette.log; \
-		false; \
-	else \
-		printf "$(C_OK)\n"; \
-		true; \
-	fi
+	@$(call print_result)
 
 $(DNAME): $(DEBUG_DIR) $(DEBUG_OBJ)
-	@norminette $(HEADERS_FILES) 2> /dev/null | grep -E "Error|Warning" > $(LOG_DIR)/norminette.log || true
+	@$(NORMINETTE) $(HEADERS_FILES) 2> /dev/null | grep -E "Error|Warning" > $(LOG_DIR)/norminette.log || true
 	@printf "$(PREFIX)$(C_COMPILATION) -> \033[38;5;165m%-*s\033[0m : " $(C_MAXLEN) "$@"
 	@$(AR) $(ARFLAGS) $@ $(filter-out $(DEBUG_DIR), $?) 2> $(LOG_DIR)/error.log || true
-	@if [ -s $(LOG_DIR)/error.log ]; then \
-		printf "$(C_ERROR)\n"; \
-		cat $(LOG_DIR)/error.log; \
-		false; \
-	elif [ -s $(LOG_DIR)/norminette.log ]; then \
-		printf "$(C_NORME)\n"; \
-		cat $(LOG_DIR)/norminette.log; \
-		false; \
-	else \
-		printf "$(C_OK)\n"; \
-		true; \
-	fi
+	
 
 $(RNAME): $(RELEASE_DIR) $(RELEASE_OBJ)
-	@norminette $(HEADERS_FILES) 2> /dev/null | grep -E "Error|Warning" > $(LOG_DIR)/norminette.log || true
+	@$(NORMINETTE) $(HEADERS_FILES) 2> /dev/null | grep -E "Error|Warning" > $(LOG_DIR)/norminette.log || true
 	@printf "$(PREFIX)$(C_COMPILATION) -> \033[38;5;165m%-*s\033[0m : " $(C_MAXLEN) "$@"
 	@$(AR) $(ARFLAGS) $@ $(filter-out $(RELEASE_DIR), $?) 2> $(LOG_DIR)/error.log || true
-	@if [ -s $(LOG_DIR)/error.log ]; then \
-		printf "$(C_ERROR)\n"; \
-		cat $(LOG_DIR)/error.log; \
-		false; \
-	elif [ -s $(LOG_DIR)/norminette.log ]; then \
-		printf "$(C_NORME)\n"; \
-		cat $(LOG_DIR)/norminette.log; \
-		false; \
-	else \
-		printf "$(C_OK)\n"; \
-		true; \
-	fi
+	@$(call print_result)
 
 bonus:
 	@printf "$(C_MAKEFILE) -> \033[38;5;22mbonus\033[0m\n"
@@ -170,22 +176,10 @@ all:
 
 $(RELEASE_DIR)/%.o $(DEBUG_DIR)/%.o $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(HEADERS_FILES) | $(LOG_DIR)
 	@printf "$(PREFIX)$(C_COMPILATION) -> \033[38;5;33m%-*s\033[0m : " $(C_MAXLEN) "$<"
-	@norminette $< 2> /dev/null | grep -E "Error|Warning" > $(LOG_DIR)/norminette.log || true
+	@$(NORMINETTE) $< 2> /dev/null | grep -E "Error|Warning" > $(LOG_DIR)/norminette.log || true
 	@[ -d `dirname $@` ] || mkdir -p `dirname $@`
 	@($(CC) $(CFLAGS) -I$(HEADERS_DIR) -c $< -o $@ 2> $(LOG_DIR)/error.log || true)
-	@if [ -s $(LOG_DIR)/error.log ]; then \
-		printf "$(C_ERROR)\n"; \
-		cat $(LOG_DIR)/error.log; \
-		false; \
-	elif [ -s $(LOG_DIR)/norminette.log ]; then \
-		printf "$(C_NORME)\n"; \
-		cat $(LOG_DIR)/norminette.log; \
-		false; \
-	else \
-		printf "$(C_OK)\n"; \
-		true; \
-	fi
-	@#printf "$(C_OK)\n"
+	@$(call print_result)
 
 $(OBJ_DIR) $(DEBUG_DIR) $(RELEASE_DIR) $(LOG_DIR):
 	@printf "$(PREFIX)$(C_CREATINGFOLDER) -> \033[38;5;33m%-*s\033[0m\n" $(C_MAXLEN) "$@"
