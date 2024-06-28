@@ -6,7 +6,7 @@
 /*   By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 19:53:21 by gbetting          #+#    #+#             */
-/*   Updated: 2024/06/26 05:49:54 by gbetting         ###   ########.fr       */
+/*   Updated: 2024/06/28 04:29:21 by gbetting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -462,4 +462,18 @@ double		ft_t_double(bool condition, double a, double b);
  * true, otherwise the second pointer.
  */
 void		*ft_t_ptr(bool condition, void *a, void *b);
+/**
+ * @brief The get_next_line() function reads a line from a file descriptor.
+ * @param fd The file descriptor to read from.
+ * @return The get_next_line() function returns the line read from the file
+ * descriptor.
+ * @note to avoid any leaks if not all lines are read for a given file
+ * descriptor, close the file descriptor and call get_next_line() again.
+ */
+char		*get_next_line(int fd);
+/**
+ * @brief The gnl() function is an alias for the get_next_line() function.
+ */
+char		*gnl(int fd);
+
 #endif

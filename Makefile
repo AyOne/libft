@@ -6,7 +6,7 @@
 #    By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/16 09:03:49 by gbetting          #+#    #+#              #
-#    Updated: 2024/06/28 01:12:13 by gbetting         ###   ########.fr        #
+#    Updated: 2024/06/28 04:27:14 by gbetting         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,10 +58,12 @@ SRC =	ft_isalpha.c			\
 		ft_lstmap.c				\
 		ft_abs.c				\
 		ft_minmax.c				\
-		ft_ternary.c
+		ft_ternary.c			\
+		get_next_line.c			\
+		get_next_line_utils.c
 BONUS =
 
-HEADERS = $(NAME:.a=.h)
+HEADERS = $(NAME:.a=.h) get_next_line.h
 
 ifdef DO_BONUS
 	SRC += $(BONUS)
