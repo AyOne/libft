@@ -6,7 +6,7 @@
 #    By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/16 09:03:49 by gbetting          #+#    #+#              #
-#    Updated: 2024/06/28 04:27:14 by gbetting         ###   ########.fr        #
+#    Updated: 2024/07/03 00:59:23 by gbetting         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -82,12 +82,21 @@ DEBUG_DIR = build/debug
 RELEASE_DIR = build/release
 LOG_DIR = logs
 
+
+#=== Sub libraries and dependencies ===========================================#
+SUBLIBS =
+SUBLIBS_DIR = $(foreach lib, $(SUBLIBS), $(dir $(lib)))
+SUBLIBS_INC_DIR = $(foreach lib, $(SUBLIBS), $(dir $(lib))includes)
+SUBLIBS_FLAGS = $(foreach lib, $(SUBLIBS), -L$(dir $(lib)) $(addprefix -l,$(patsubst lib%.a,%,$(notdir $(SUBLIBS)))))
+
+#=== Automatic files ==========================================================#
 SRC_FILES = $(addprefix $(SRC_DIR)/, $(SRC))
 HEADERS_FILES = $(addprefix $(HEADERS_DIR)/, $(HEADERS))
 OBJ = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRC_FILES))
 DEBUG_OBJ = $(patsubst $(SRC_DIR)/%.c,$(DEBUG_DIR)/%.o,$(SRC_FILES))
 RELEASE_OBJ = $(patsubst $(SRC_DIR)/%.c,$(RELEASE_DIR)/%.o,$(SRC_FILES))
 
+#=== Colors variables =========================================================#
 C_MAKEFILE=\033[38;5;16;48;5;51;1mMakefile\033[0m
 C_CREATINGFOLDER=\033[38;5;16;48;5;51;1mCreating folder\033[0m
 C_COMPILATION=\033[38;5;16;48;5;51;1mCompiling\033[0m
@@ -98,16 +107,17 @@ C_NORME_ERROR=\033[38;5;16;48;5;196;1mNorme\033[0m
 C_NORME_OK=\033[38;5;16;48;5;46;1mNorme\033[0m
 C_MAXLEN := $(shell echo "$(SRC_FILES)" | tr " " "\n" | awk 'length > max_length { max_length = length; longest_line = $$0 } END { print longest_line }' | wc -c)
 
+#=== Compilation variables ====================================================#
 CC = clang
-CFLAGS = -Wall -Wextra -Werror -fdiagnostics-color=always
+CFLAGS = -Wall -Wextra -Werror -fPIE
 AR = ar
 ARFLAGS = -rcs
 DEBUGFLAGS = -g3 -fsanitize=address
 RELEASEFLAGS = -O3 -fno-builtin
 
-
+#=== Functions ================================================================#
 define print_result
-	if [ -s $(LOG_DIR)/error.log ]; then \
+	@if [ -s $(LOG_DIR)/error.log ]; then \
 		printf "$(C_COMPILATION_ERROR)"; \
 		COMPILATION_ERROR=1; \
 	else \
@@ -135,9 +145,68 @@ define print_result
 	fi;
 endef
 
+define call_self
+	@if [ $(2) ]; then \
+		PREFIX_TEXT=$(2); \
+	else \
+		PREFIX_TEXT=$(1); \
+	fi; \
+	printf "$(PREFIX)$(C_MAKEFILE) -> \033[38;5;22m$$PREFIX_TEXT\033[0m\n"; \
+	$(MAKE) --no-print-directory PREFIX="\033[38;5;22;1m[$$PREFIX_TEXT] \033[0m" $(1) $(3);
+endef
 
+define mkdir
+	@if [ ! -d $(1) ]; then \
+		printf "$(PREFIX)$(C_CREATINGFOLDER) -> \033[38;5;33m$(1)\033[0m\n"; \
+		mkdir -p $(1) 2> /dev/null || true; \
+	fi
+endef
 
+define rmdir
+	@if [ -d $(1) ]; then \
+		printf "$(PREFIX)$(C_DELETING) -> \033[38;5;33m$(1)\033[0m\n"; \
+		rm -rf $(1); \
+	fi
+endef
 
+define rm
+	@if [ -f $(1) ]; then \
+		printf "$(PREFIX)$(C_DELETING) -> \033[38;5;33m$(1)\033[0m\n"; \
+		rm -f $(1); \
+	fi
+endef
+
+define make_bin
+	@printf "$(PREFIX)$(C_COMPILATION) -> \033[38;5;165m%-*s\033[0m : " $(C_MAXLEN) "$@"
+@# for now I have no other way to merge the sublibs togeather with my lib. when I got a better way I'll use it.
+@# Warning : Don't do this at home
+	@if [ "$(SUBLIBS)" ]; then \
+		$(foreach lib, $(SUBLIBS), cp $(lib) $(notdir $(lib));$(AR) -x $(notdir $(lib));rm -f $(notdir $(lib));) \
+		$(AR) $(ARFLAGS) $@ $? *.o 2> $(LOG_DIR)/error.log || true; \
+	else \
+		$(AR) $(ARFLAGS) $@ $? 2> $(LOG_DIR)/error.log || true; \
+	fi
+	@rm -f ./*.o
+@# end of the warning
+	$(call print_result)
+endef
+
+define norminette
+	@$(NORMINETTE) $(1) 2> /dev/null | grep -E "Error|Warning" > $(LOG_DIR)/norminette.log || true
+endef
+
+define call_lib
+	@if [ ! -f $(1) ]; then \
+		git submodule update --init --recursive; \
+	fi
+	@printf "$(PREFIX)$(C_MAKEFILE) -> \033[38;5;22m$(1) ($(2))\033[0m\n"
+	@$(MAKE) --no-print-directory -C $(dir $(1)) SKIP_NORME=1 PREFIX="\033[38;5;22;1m[$(1)] \033[0m" $(2)
+endef
+
+define rmdir_lib
+	@$(MAKE) --no-print-directory -C $(dir $(1)) PREFIX="\033[38;5;22;1m[$(1)] \033[0m" fclean
+endef
+#=== Main build rules =========================================================#
 normal: $(NAME)
 
 debug: CFLAGS += $(DEBUGFLAGS)
@@ -146,66 +215,56 @@ debug: $(DNAME)
 release: CFLAGS += $(RELEASEFLAGS)
 release: $(RNAME)
 
-$(NAME): $(OBJ_DIR) $(OBJ)
-	@$(NORMINETTE) $(HEADERS_FILES) 2> /dev/null | grep -E "Error|Warning" > $(LOG_DIR)/norminette.log || true
-	@printf "$(PREFIX)$(C_COMPILATION) -> \033[38;5;165m%-*s\033[0m : " $(C_MAXLEN) "$@"
-	@$(AR) $(ARFLAGS) $@ $(filter-out $(OBJ_DIR), $?) 2> $(LOG_DIR)/error.log || true
-	@$(call print_result)
-
-$(DNAME): $(DEBUG_DIR) $(DEBUG_OBJ)
-	@$(NORMINETTE) $(HEADERS_FILES) 2> /dev/null | grep -E "Error|Warning" > $(LOG_DIR)/norminette.log || true
-	@printf "$(PREFIX)$(C_COMPILATION) -> \033[38;5;165m%-*s\033[0m : " $(C_MAXLEN) "$@"
-	@$(AR) $(ARFLAGS) $@ $(filter-out $(DEBUG_DIR), $?) 2> $(LOG_DIR)/error.log || true
-	
-
-$(RNAME): $(RELEASE_DIR) $(RELEASE_OBJ)
-	@$(NORMINETTE) $(HEADERS_FILES) 2> /dev/null | grep -E "Error|Warning" > $(LOG_DIR)/norminette.log || true
-	@printf "$(PREFIX)$(C_COMPILATION) -> \033[38;5;165m%-*s\033[0m : " $(C_MAXLEN) "$@"
-	@$(AR) $(ARFLAGS) $@ $(filter-out $(RELEASE_DIR), $?) 2> $(LOG_DIR)/error.log || true
-	@$(call print_result)
+all:
+	$(call call_self,normal)
+	$(call call_self,debug)
+	$(call call_self,release)
 
 bonus:
-	@printf "$(C_MAKEFILE) -> \033[38;5;22mbonus\033[0m\n"
-	@$(MAKE) --no-print-directory DO_BONUS=1 PREFIX="\033[38;5;22;1m[bonus] \033[0m" normal
+	@$(call call_self,normal,bonus,DO_BONUS=1)
 
-all:
-	@printf "$(C_MAKEFILE) -> \033[38;5;22mnormal\033[0m\n"
-	@$(MAKE) --no-print-directory PREFIX="\033[38;5;22;1m[normal] \033[0m" normal
-	@printf "$(C_MAKEFILE) -> \033[38;5;22mdebug\033[0m\n"
-	@$(MAKE) --no-print-directory PREFIX="\033[38;5;22;1m[debug] \033[0m" debug
-	@printf "$(C_MAKEFILE) -> \033[38;5;22mrelease\033[0m\n"
-	@$(MAKE) --no-print-directory PREFIX="\033[38;5;22;1m[release] \033[0m" release
+--clean:
+	$(call rmdir,$(OBJ_DIR))
+	$(call rmdir,$(DEBUG_DIR))
+	$(call rmdir,$(RELEASE_DIR))
+	$(call rmdir,$(LOG_DIR))
 
-$(RELEASE_DIR)/%.o $(DEBUG_DIR)/%.o $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(HEADERS_FILES) | $(LOG_DIR)
-	@printf "$(PREFIX)$(C_COMPILATION) -> \033[38;5;33m%-*s\033[0m : " $(C_MAXLEN) "$<"
-	@$(NORMINETTE) $< 2> /dev/null | grep -E "Error|Warning" > $(LOG_DIR)/norminette.log || true
-	@[ -d `dirname $@` ] || mkdir -p `dirname $@`
-	@($(CC) $(CFLAGS) -I$(HEADERS_DIR) -c $< -o $@ 2> $(LOG_DIR)/error.log || true)
-	@$(call print_result)
+clean: --clean
+	$(foreach lib, $(SUBLIBS), $(call call_lib,$(lib),clean))
 
-$(OBJ_DIR) $(DEBUG_DIR) $(RELEASE_DIR) $(LOG_DIR):
-	@printf "$(PREFIX)$(C_CREATINGFOLDER) -> \033[38;5;33m%-*s\033[0m\n" $(C_MAXLEN) "$@"
-	@mkdir -p $@
-
-clean:
-	@printf "$(PREFIX)$(C_DELETING) -> \033[38;5;33m$(OBJ_DIR)\033[0m\n"
-	@rm -rf $(OBJ_DIR)
-	@printf "$(PREFIX)$(C_DELETING) -> \033[38;5;33m$(DEBUG_DIR)\033[0m\n"
-	@rm -rf $(DEBUG_DIR)
-	@printf "$(PREFIX)$(C_DELETING) -> \033[38;5;33m$(RELEASE_DIR)\033[0m\n"
-	@rm -rf $(RELEASE_DIR)
-	@#[ -d `dirname $(OBJ_DIR)` ] && rmdir -p `dirname $(OBJ_DIR)` || true
-	@printf "$(PREFIX)$(C_DELETING) -> \033[38;5;33m$(LOG_DIR)\033[0m\n"
-	@rm -rf $(LOG_DIR)
-
-fclean: clean
-	@printf "$(PREFIX)$(C_DELETING) -> \033[38;5;33m$(NAME)\033[0m\n"
-	@rm -f $(NAME)
-	@printf "$(PREFIX)$(C_DELETING) -> \033[38;5;33m$(DNAME)\033[0m\n"
-	@rm -f $(DNAME)
-	@printf "$(PREFIX)$(C_DELETING) -> \033[38;5;33m$(RNAME)\033[0m\n"
-	@rm -f $(RNAME)
+fclean: --clean
+	$(foreach lib, $(SUBLIBS), $(call call_lib,$(lib),fclean))
+	$(call rm,$(NAME))
+	$(call rm,$(DNAME))
+	$(call rm,$(RNAME))
 
 re: fclean all
 
-.PHONY: all clean fclean re debug release bonus
+.PHONY: all clean --clean fclean re debug release bonus
+.SECONDARY: $(SUBLIBS)
+
+#=== Binary compilation rule ==================================================#
+$(NAME): $(OBJ)
+	$(call norminette,$(HEADERS_FILES))
+	$(call make_bin)
+
+# don't call this rule directly
+$(DNAME): $(DEBUG_OBJ)
+	$(call norminette,$(HEADERS_FILES))
+	$(call make_bin)
+
+# don't call this rule directly
+$(RNAME): $(RELEASE_OBJ)
+	$(call norminette,$(HEADERS_FILES))
+	$(call make_bin)
+
+$(RELEASE_DIR)/%.o $(DEBUG_DIR)/%.o $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(HEADERS_FILES) $(SUBLIBS)
+	$(call mkdir,$(LOG_DIR))
+	$(call mkdir,$(dir $@))
+	@printf "$(PREFIX)$(C_COMPILATION) -> \033[38;5;33m%-*s\033[0m : " $(C_MAXLEN) "$<"
+	$(call norminette,$<)
+	@$(CC) $(CFLAGS) $(addprefix -I,$(HEADERS_DIR) $(SUBLIBS_INC_DIR)) -c $< -o $@ 2> $(LOG_DIR)/error.log || true
+	$(call print_result)
+
+%.a:
+	$(call call_lib,$@)
