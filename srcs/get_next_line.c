@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 14:25:07 by gbetting          #+#    #+#             */
-/*   Updated: 2024/06/28 04:21:29 by gbetting         ###   ########.fr       */
+/*   Updated: 2024/07/03 01:56:24 by gbetting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,3 +127,5 @@ char	*get_next_line(int fd)
 		return (ft_fdlstfree(fd, &lst), free(line), NULL);
 	return (line);
 }
+
+char		*gnl(int fd)__attribute__((alias("get_next_line")));
