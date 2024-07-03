@@ -6,7 +6,7 @@
 /*   By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 19:53:21 by gbetting          #+#    #+#             */
-/*   Updated: 2024/06/28 04:29:21 by gbetting         ###   ########.fr       */
+/*   Updated: 2024/07/03 02:11:45 by gbetting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -422,6 +422,20 @@ int64_t		ft_min(int64_t a, int64_t b);
  * @return The max() function returns the largest of the two integers.
  */
 int64_t		ft_max(int64_t a, int64_t b);
+/**
+ * @brief The minu() function returns the smallest of the two unsigned integers.
+ * @param a The first unsigned integer to compare.
+ * @param b The second unsigned integer to compare.
+ * @return The minu() function returns the smallest of the two unsigned integers.
+ */
+uint64_t	ft_minu(uint64_t a, uint64_t b);
+/**
+ * @brief The maxu() function returns the largest of the two unsigned integers.
+ * @param a The first unsigned integer to compare.
+ * @param b The second unsigned integer to compare.
+ * @return The maxu() function returns the largest of the two unsigned integers.
+ */
+uint64_t	ft_maxu(uint64_t a, uint64_t b);
 /**
  * @brief The t_int() function returns the first integer if the condition is
  * true, otherwise the second integer.
