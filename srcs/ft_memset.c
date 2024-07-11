@@ -6,7 +6,7 @@
 /*   By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 20:53:20 by gbetting          #+#    #+#             */
-/*   Updated: 2024/06/26 05:30:17 by gbetting         ###   ########.fr       */
+/*   Updated: 2024/07/11 19:23:38 by gbetting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	*ft_memset(void *b, char c, size_t len)
 	unsigned long	*l_ptr;
 	unsigned long	l;
 
-	l = 0x101010101010101 * c;
+	l = 0x101010101010101 * (unsigned char)c;
 	l_ptr = (unsigned long *)b;
 	while (len >= sizeof(unsigned long))
 	{
@@ -28,6 +28,6 @@ void	*ft_memset(void *b, char c, size_t len)
 	}
 	c_ptr = (unsigned char *)l_ptr;
 	while (len--)
-		*c_ptr++ = c;
+		*c_ptr++ = (unsigned char)c;
 	return (b);
 }
