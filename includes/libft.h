@@ -6,24 +6,24 @@
 /*   By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 19:53:21 by gbetting          #+#    #+#             */
-/*   Updated: 2024/07/16 23:11:58 by gbetting         ###   ########.fr       */
+/*   Updated: 2024/07/17 00:51:44 by gbetting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
-#define LIBFT_H
-#include <stdlib.h>
-#include <unistd.h>
-#include <stdbool.h>
-#include <stdint.h>
+# define LIBFT_H
+# include <stdlib.h>
+# include <unistd.h>
+# include <stdbool.h>
+# include <stdint.h>
 
 /* =============================== [DEFINES] ================================ */
 
-#define BASE_10 "0123456789"
-#define BASE_16 "0123456789abcdef"
-#define BASE_16U "0123456789ABCDEF"
-#define BASE_2 "01"
-#define BASE_8 "01234567"
+# define BASE_10 "0123456789"
+# define BASE_16 "0123456789abcdef"
+# define BASE_16U "0123456789ABCDEF"
+# define BASE_2 "01"
+# define BASE_8 "01234567"
 
 /* ============================ [GET_NEXT_LINE] ============================= */
 // #region GET_NEXT_LINE
@@ -35,11 +35,11 @@
  * @note to avoid any leaks if not all lines are read for a given file
  * descriptor, close the file descriptor and call get_next_line() again.
  */
-char *get_next_line(int fd);
+char		*get_next_line(int fd);
 /**
  * @brief The gnl() function is an alias for the get_next_line() function.
  */
-char *gnl(int fd);
+char		*gnl(int fd);
 
 // #endregion
 
@@ -47,9 +47,9 @@ char *gnl(int fd);
 // #region CHAINED LIST
 typedef struct s_list
 {
-	void *content;
-	struct s_list *next;
-} t_list;
+	void			*content;
+	struct s_list	*next;
+}				t_list;
 
 /**
  * @brief The lstnew() function allocates and returns a new element. The
@@ -58,33 +58,33 @@ typedef struct s_list
  * @param content The content to create the new element with.
  * @return The lstnew() function returns the new element.
  */
-t_list *ft_lstnew(void *content);
+t_list		*ft_lstnew(void *content);
 /**
  * @brief The lstadd_front() function adds the element 'new' at the beginning of
  * the list.
  * @param lst The address of a pointer to the first link of a list.
  * @param new The address of a pointer to the element to be added to the list.
  */
-void ft_lstadd_front(t_list **lst, t_list *new);
+void		ft_lstadd_front(t_list **lst, t_list *new);
 /**
  * @brief The lstsize() function counts the number of elements in a list.
  * @param lst The beginning of the list.
  * @return The lstsize() function returns the number of elements in the list.
  */
-size_t ft_lstsize(t_list *lst);
+size_t		ft_lstsize(t_list *lst);
 /**
  * @brief The lstlast() function returns the last element of the list.
  * @param lst The beginning of the list.
  * @return The lstlast() function returns the last element of the list.
  */
-t_list *ft_lstlast(t_list *lst);
+t_list		*ft_lstlast(t_list *lst);
 /**
  * @brief The lstadd_back() function adds the element 'new' at the end of the
  * list.
  * @param lst The address of a pointer to the first link of a list.
  * @param new The address of a pointer to the element to be added to the list.
  */
-void ft_lstadd_back(t_list **lst, t_list *new);
+void		ft_lstadd_back(t_list **lst, t_list *new);
 /**
  * @brief The lstdelone() function takes as a parameter an element and frees the
  * memory of the element's content using the function 'del' given as a parameter
@@ -92,7 +92,7 @@ void ft_lstadd_back(t_list **lst, t_list *new);
  * @param lst The element to free.
  * @param del The address of the function used to delete the content.
  */
-void ft_lstdelone(t_list *lst, void (*del)(void *));
+void		ft_lstdelone(t_list *lst, void (*del)(void *));
 /**
  * @brief The lstdel() function takes as a parameter the address of a pointer to
  * an element and frees the memory of this element and all its successors using
@@ -100,14 +100,14 @@ void ft_lstdelone(t_list *lst, void (*del)(void *));
  * @param lst The address of a pointer to the first link of a list.
  * @param del The address of the function used to delete the content.
  */
-void ft_lstclear(t_list **lst, void (*del)(void *));
+void		ft_lstclear(t_list **lst, void (*del)(void *));
 /**
  * @brief The lstiter() function iterates the list 'lst' and applies the
  * function 'f' to the content of each element.
  * @param lst The beginning of the list.
  * @param f The address of the function to apply.
  */
-void ft_lstiter(t_list *lst, void (*f)(void *));
+void		ft_lstiter(t_list *lst, void (*f)(void *));
 /**
  * @brief The lstmap() function iterates the list 'lst' and applies the function
  * 'f' to the content of each element. Creates a new list resulting of the
@@ -118,7 +118,7 @@ void ft_lstiter(t_list *lst, void (*f)(void *));
  * @param del The address of the function used to delete the content.
  * @return The lstmap() function returns the new list.
  */
-t_list *ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
+t_list		*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 
 // #endregion
 
@@ -129,35 +129,35 @@ t_list *ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
  * @param n The integer to compute the absolute value of.
  * @return The abs() function returns the absolute value of the integer.
  */
-int64_t ft_abs(int64_t n);
+int64_t		ft_abs(int64_t n);
 /**
  * @brief The min() function returns the smallest of the two integers.
  * @param a The first integer to compare.
  * @param b The second integer to compare.
  * @return The min() function returns the smallest of the two integers.
  */
-int64_t ft_min(int64_t a, int64_t b);
+int64_t		ft_min(int64_t a, int64_t b);
 /**
  * @brief The max() function returns the largest of the two integers.
  * @param a The first integer to compare.
  * @param b The second integer to compare.
  * @return The max() function returns the largest of the two integers.
  */
-int64_t ft_max(int64_t a, int64_t b);
+int64_t		ft_max(int64_t a, int64_t b);
 /**
  * @brief The minu() function returns the smallest of the two unsigned integers.
  * @param a The first unsigned integer to compare.
  * @param b The second unsigned integer to compare.
  * @return The minu() function returns the smallest of the two unsigned integers.
  */
-uint64_t ft_minu(uint64_t a, uint64_t b);
+uint64_t	ft_minu(uint64_t a, uint64_t b);
 /**
  * @brief The maxu() function returns the largest of the two unsigned integers.
  * @param a The first unsigned integer to compare.
  * @param b The second unsigned integer to compare.
  * @return The maxu() function returns the largest of the two unsigned integers.
  */
-uint64_t ft_maxu(uint64_t a, uint64_t b);
+uint64_t	ft_maxu(uint64_t a, uint64_t b);
 
 // #endregion
 
@@ -169,7 +169,7 @@ uint64_t ft_maxu(uint64_t a, uint64_t b);
  * @param s The string to write to.
  * @param n The number of bytes to write.
  */
-void ft_bzero(void *s, size_t n);
+void		ft_bzero(void *s, size_t n);
 /**
  * @brief The calloc() function allocates memory for an array of nmemb elements
  * of size bytes each and returns a pointer to the allocated memory. The memory
@@ -179,7 +179,7 @@ void ft_bzero(void *s, size_t n);
  * @param size The size of each element.
  * @return The calloc() function returns a pointer to the allocated memory.
  */
-void *ft_calloc(size_t nmemb, size_t size);
+void		*ft_calloc(size_t nmemb, size_t size);
 /**
  * @brief The memchr() function locates the first occurrence of c in memory area
  * s. The memchr() function returns a pointer to the located byte, or NULL if no
@@ -190,7 +190,7 @@ void *ft_calloc(size_t nmemb, size_t size);
  * @return The memchr() function returns a pointer to the located byte, or NULL
  * if no such byte exists within n bytes.
  */
-void *ft_memchr(const void *s, int8_t c, size_t n);
+void		*ft_memchr(const void *s, int8_t c, size_t n);
 /**
  * @brief The memcmp() function compares the first n bytes (each interpreted as
  * unsigned char) of the memory areas s1 and s2.
@@ -201,7 +201,7 @@ void *ft_memchr(const void *s, int8_t c, size_t n);
  * greater than zero if the first n bytes of s1 is found, respectively, to be
  * less than, to match, or be greater than the first n bytes of s2.
  */
-int32_t ft_memcmp(const void *s1, const void *s2, size_t n);
+int32_t		ft_memcmp(const void *s1, const void *s2, size_t n);
 /**
  * @brief The memcpy() function copies n bytes from memory area src to memory
  * area dst. If dst and src overlap, behavior is undefined. Applications in
@@ -211,7 +211,7 @@ int32_t ft_memcmp(const void *s1, const void *s2, size_t n);
  * @param n The number of bytes to copy.
  * @return The memcpy() function returns the original value of dst.
  */
-void *ft_memcpy(void *dst, const void *src, size_t n);
+void		*ft_memcpy(void *dst, const void *src, size_t n);
 /**
  * @brief The memmove() function copies len bytes from string src to string dst.
  * The two strings may overlap; the copy is always done in a non-destructive
@@ -221,7 +221,7 @@ void *ft_memcpy(void *dst, const void *src, size_t n);
  * @param len The number of bytes to copy.
  * @return The memmove() function returns the original value of dst.
  */
-void *ft_memmove(void *dst, const void *src, size_t len);
+void		*ft_memmove(void *dst, const void *src, size_t len);
 /**
  * @brief The memset() function fills the first len bytes of the memory area
  * pointed to by b with the constant byte c.
@@ -230,7 +230,7 @@ void *ft_memmove(void *dst, const void *src, size_t len);
  * @param len The number of bytes to fill.
  * @return The memset() function returns a pointer to the memory area b.
  */
-void *ft_memset(void *b, char c, size_t len);
+void		*ft_memset(void *b, char c, size_t len);
 
 // #endregion
 
@@ -247,8 +247,8 @@ void *ft_memset(void *b, char c, size_t len);
  * @note for more information, you can refer to this link :
  * https://cplusplus.com/reference/cstdio/printf/
  */
-int ft_printf(const char *format, ...)
-	__attribute__((format(printf, 1, 2)));
+int			ft_printf(const char *format, ...)
+			__attribute__((format(printf, 1, 2)));
 /**
  * @brief The dprintf() function writes the output to the file descriptor fd,
  * under the control of a format string that specifies how subsequent arguments
@@ -261,8 +261,8 @@ int ft_printf(const char *format, ...)
  * @note for more information, you can refer to this link :
  * https://cplusplus.com/reference/cstdio/printf/
  */
-int ft_dprintf(int fd, const char *format, ...)
-	__attribute__((format(printf, 2, 3)));
+int			ft_dprintf(int fd, const char *format, ...)
+			__attribute__((format(printf, 2, 3)));
 /**
  * @brief The asprintf() function writes the output to a string allocated by
  * malloc(), under the control of a format string that specifies how subsequent
@@ -275,8 +275,8 @@ int ft_dprintf(int fd, const char *format, ...)
  * @note for more information, you can refer to this link :
  * https://cplusplus.com/reference/cstdio/printf/
  */
-int ft_asprintf(char **str, const char *format, ...)
-	__attribute__((format(printf, 2, 3)));
+int			ft_asprintf(char **str, const char *format, ...)
+			__attribute__((format(printf, 2, 3)));
 
 // #endregion
 
@@ -288,7 +288,7 @@ int ft_asprintf(char **str, const char *format, ...)
  * @param str The string to convert.
  * @return The atoi() function returns the converted value.
  */
-int32_t ft_atoi(const char *str);
+int32_t		ft_atoi(const char *str);
 /**
  * @brief The isalnum() function tests for any character for which isalpha(3)
  * or isdigit(3) is true. The value of the argument must be representable as an
@@ -297,7 +297,7 @@ int32_t ft_atoi(const char *str);
  * @return The isalnum() function returns zero if the character tests false and
  * returns non-zero if the character tests true.
  */
-bool ft_isalnum(char c);
+bool		ft_isalnum(char c);
 /**
  * @brief The isalpha() function tests for any character for which isupper(3)
  * or islower(3) is true. The value of the argument must be representable as
@@ -306,7 +306,7 @@ bool ft_isalnum(char c);
  * @return The isalpha() function returns zero if the character tests false and
  * returns non-zero if the character tests true.
  */
-bool ft_isalpha(char c);
+bool		ft_isalpha(char c);
 /**
  * @brief The isascii() function tests for an ASCII character, which is any
  * character between 0 and octal 0177 inclusive.
@@ -314,7 +314,7 @@ bool ft_isalpha(char c);
  * @return The isascii() function returns zero if the character tests false and
  * returns non-zero if the character tests true.
  */
-bool ft_isascii(char c);
+bool		ft_isascii(char c);
 /**
  * @brief The isdigit() function tests for a decimal digit character.
  * Regardless of locale, this includes the following characters
@@ -323,7 +323,7 @@ bool ft_isascii(char c);
  * @return The isdigit() function returns zero if the character tests false and
  * returns non-zero if the character tests true.
  */
-bool ft_isdigit(char c);
+bool		ft_isdigit(char c);
 /**
  * @brief The isprint() function tests for any printing character, including
  * space (' '). The value of the argument must be representable as an unsigned
@@ -332,14 +332,14 @@ bool ft_isdigit(char c);
  * @return The isprint() function returns zero if the character tests false and
  * returns non-zero if the character tests true.
  */
-bool ft_isprint(char c);
+bool		ft_isprint(char c);
 /**
  * @brief The itoa() function allocates and returns a string representing the
  * integer received as an argument.
  * @param n The integer to convert.
  * @return The itoa() function returns the string representing the integer.
  */
-char *ft_itoa(int32_t n);
+char		*ft_itoa(int32_t n);
 /**
  * @brief The split() function allocates and returns an array of strings
  * obtained by splitting 's' using the character 'c' as a delimiter. The array
@@ -348,7 +348,7 @@ char *ft_itoa(int32_t n);
  * @param c The delimiter character.
  * @return The split() function returns the array of new strings.
  */
-char **ft_split(char const *s, char c);
+char		**ft_split(char const *s, char c);
 /**
  * @brief The strchr() function locates the first occurrence of c (converted to
  * a char) in the string pointed to by s. The terminating null character is
@@ -359,7 +359,7 @@ char **ft_split(char const *s, char c);
  * @return The strchr() function returns a pointer to the located character, or
  * NULL if the character does not appear in the string.
  */
-char *ft_strchr(const char *s, char c);
+char		*ft_strchr(const char *s, char c);
 /**
  * @brief The strdup() function allocates sufficient memory for a copy of the
  * string s1, does the copy, and returns a pointer to it. The pointer may
@@ -367,7 +367,7 @@ char *ft_strchr(const char *s, char c);
  * @param s The string to duplicate.
  * @return The strdup() function returns a pointer to the duplicated string.
  */
-char *ft_strdup(const char *s);
+char		*ft_strdup(const char *s);
 /**
  * @brief the striteri() function applies the function 'f' to each character of
  * the string 's', and passing its index as first argument. Each character is
@@ -376,7 +376,7 @@ char *ft_strdup(const char *s);
  * @param f The function to apply.
  * @return The striteri() function returns the new string.
  */
-void ft_striteri(char *s, void (*f)(uint32_t, char *));
+void		ft_striteri(char *s, void (*f)(uint32_t, char *));
 /**
  * @brief The strjoin() function allocates and returns a new string, which is
  * the result of the concatenation of 's1' and 's2'.
@@ -384,7 +384,7 @@ void ft_striteri(char *s, void (*f)(uint32_t, char *));
  * @param s2 The suffix string.
  * @return The strjoin() function returns the new string.
  */
-char *ft_strjoin(char const *s1, char const *s2);
+char		*ft_strjoin(char const *s1, char const *s2);
 /**
  * @brief The strlcat() function appends the NUL-terminated string src to the
  * end of dst. It will append at most size - strlen(dst) - 1 bytes, NUL
@@ -395,7 +395,7 @@ char *ft_strjoin(char const *s1, char const *s2);
  * @return The strlcat() function returns the total length of the string it
  * tried to create.
  */
-size_t ft_strlcat(char *dst, const char *src, size_t size);
+size_t		ft_strlcat(char *dst, const char *src, size_t size);
 /**
  * @brief The strlcpy() function copies up to size - 1 characters from the NUL-
  * terminated string src to dst, NUL-terminating the result.
@@ -405,14 +405,14 @@ size_t ft_strlcat(char *dst, const char *src, size_t size);
  * @return The strlcpy() function returns the total length of the string it
  * tried to create.
  */
-size_t ft_strlcpy(char *dst, const char *src, size_t size);
+size_t		ft_strlcpy(char *dst, const char *src, size_t size);
 /**
  * @brief The strlen() function calculates the length of the string s, excluding
  * the terminating null byte ('\0').
  * @param s The string to calculate the length of.
  * @return The strlen() function returns the number of bytes in the string s.
  */
-size_t ft_strlen(const char *s);
+size_t		ft_strlen(const char *s);
 /**
  * @brief The strmapi() function applies the function 'f' to each character of
  * the string 's' to create a new string resulting from successive applications
@@ -421,7 +421,7 @@ size_t ft_strlen(const char *s);
  * @param f The function to apply.
  * @return The strmapi() function returns the new string.
  */
-char *ft_strmapi(char const *s, char (*f)(uint32_t, char));
+char		*ft_strmapi(char const *s, char (*f)(uint32_t, char));
 /**
  * @brief The strncmp() function compares the two strings s1 and s2. It compares
  * not more than n characters. Because strncmp() is designed for comparing
@@ -435,7 +435,7 @@ char *ft_strmapi(char const *s, char (*f)(uint32_t, char));
  * than the string s2. The comparison is done using unsigned characters, so that
  * '\200' is greater than '\0'.
  */
-int32_t ft_strncmp(const char *s1, const char *s2, size_t n);
+int32_t		ft_strncmp(const char *s1, const char *s2, size_t n);
 /**
  * @brief The strnstr() function locates the first occurrence of the null-
  * terminated string needle in the string haystack, where not more than len
@@ -447,7 +447,7 @@ int32_t ft_strncmp(const char *s1, const char *s2, size_t n);
  * @return The strnstr() function returns a pointer to the located string, or
  * NULL if the string is not found.
  */
-char *ft_strnstr(const char *haystack, const char *needle, size_t len);
+char		*ft_strnstr(const char *haystack, const char *needle, size_t len);
 /**
  * @brief The strrchr() function locates the last occurrence of c (converted to
  * a char) in the string pointed to by s. The terminating null character is
@@ -458,7 +458,7 @@ char *ft_strnstr(const char *haystack, const char *needle, size_t len);
  * @return The strrchr() function returns a pointer to the located character, or
  * NULL if the character does not appear in the string.
  */
-char *ft_strrchr(const char *s, char c);
+char		*ft_strrchr(const char *s, char c);
 /**
  * @brief The strtrim() function allocates and returns a copy of 's1' with the
  * characters specified in 'set' removed from the beginning and the end of the
@@ -467,7 +467,7 @@ char *ft_strrchr(const char *s, char c);
  * @param set The set of characters to trim.
  * @return The strtrim() function returns the trimmed string.
  */
-char *ft_strtrim(char const *s1, char const *set);
+char		*ft_strtrim(char const *s1, char const *set);
 /**
  * @brief The substr() function allocates and returns a substring from the
  * string 's'. The substring begins at index 'start' and is of maximum size
@@ -477,7 +477,7 @@ char *ft_strtrim(char const *s1, char const *set);
  * @param len The maximum size of the substring.
  * @return The substr() function returns the substring.
  */
-char *ft_substr(char const *s, uint32_t start, size_t len);
+char		*ft_substr(char const *s, uint32_t start, size_t len);
 /**
  * @brief The tolower() function converts an upper-case letter to the
  * corresponding lower-case letter. The argument must be representable as an
@@ -487,7 +487,7 @@ char *ft_substr(char const *s, uint32_t start, size_t len);
  * returns the corresponding lower-case letter if there is one; otherwise, the
  * argument is returned unchanged.
  */
-char ft_tolower(char c);
+char		ft_tolower(char c);
 /**
  * @brief The toupper() function converts a lower-case letter to the
  * corresponding upper-case letter. The argument must be representable as an
@@ -497,7 +497,7 @@ char ft_tolower(char c);
  * returns the corresponding upper-case letter if there is one; otherwise, the
  * argument is returned unchanged.
  */
-char ft_toupper(char c);
+char		ft_toupper(char c);
 // #endregion
 
 /* ================================ [UTILS] ================================= */
@@ -510,7 +510,7 @@ char ft_toupper(char c);
  * @return The ft_nbrbase() function returns the string representation of the
  * number in the given base.
  */
-char *ft_nbrbase(uint64_t nbr, char *base);
+char		*ft_nbrbase(uint64_t nbr, char *base);
 /**
  * @brief The ft_nbrbase_nm() function converts a number to a string in a given
  * base without malloc.
@@ -519,7 +519,7 @@ char *ft_nbrbase(uint64_t nbr, char *base);
  * @return The ft_nbrbase_nm() function returns the string representation of the
  * number in the given base.
  */
-char *ft_nbrbase_nm(uint64_t nbr, char *base);
+char		*ft_nbrbase_nm(uint64_t nbr, char *base);
 /**
  * @brief The ft_nbrlen() function calculates the length of a number in a given
  * base.
@@ -528,7 +528,7 @@ char *ft_nbrbase_nm(uint64_t nbr, char *base);
  * @return The ft_nbrlen() function returns the length of the number in the given
  * base.
  */
-size_t ft_nbrlen(uint64_t nbr, char *base);
+size_t		ft_nbrlen(uint64_t nbr, char *base);
 /**
  * @brief The t_int() function returns the first integer if the condition is
  * true, otherwise the second integer.
@@ -538,7 +538,7 @@ size_t ft_nbrlen(uint64_t nbr, char *base);
  * @return The t_int() function returns the first integer if the condition is
  * true, otherwise the second integer.
  */
-int64_t ft_t_int(bool condition, int64_t a, int64_t b);
+int64_t		ft_t_int(bool condition, int64_t a, int64_t b);
 /**
  * @brief The t_uint() function returns the first unsigned integer if the
  * condition is true, otherwise the second unsigned integer.
@@ -548,7 +548,7 @@ int64_t ft_t_int(bool condition, int64_t a, int64_t b);
  * @return The t_uint() function returns the first unsigned integer if the
  * condition is true, otherwise the second unsigned integer.
  */
-uint64_t ft_t_uint(bool condition, uint64_t a, uint64_t b);
+uint64_t	ft_t_uint(bool condition, uint64_t a, uint64_t b);
 /**
  * @brief The t_double() function returns the first double if the condition is
  * true, otherwise the second double.
@@ -558,7 +558,7 @@ uint64_t ft_t_uint(bool condition, uint64_t a, uint64_t b);
  * @return The t_double() function returns the first double if the condition is
  * true, otherwise the second double.
  */
-double ft_t_double(bool condition, double a, double b);
+double		ft_t_double(bool condition, double a, double b);
 /**
  * @brief The t_ptr() function returns the first pointer if the condition is
  * true, otherwise the second pointer.
@@ -568,7 +568,7 @@ double ft_t_double(bool condition, double a, double b);
  * @return The t_ptr() function returns the first pointer if the condition is
  * true, otherwise the second pointer.
  */
-void *ft_t_ptr(bool condition, void *a, void *b);
+void		*ft_t_ptr(bool condition, void *a, void *b);
 
 // #endregion
 
