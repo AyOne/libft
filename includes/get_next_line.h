@@ -6,7 +6,7 @@
 /*   By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 14:18:32 by gbetting          #+#    #+#             */
-/*   Updated: 2024/07/03 01:56:01 by gbetting         ###   ########.fr       */
+/*   Updated: 2024/07/16 21:59:03 by gbetting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,4 @@ t_list		*ft_lstaddnew(t_list **lst, void *content, size_t size);
 void		*ft_memdupcpy(void *dst, const void *src, size_t n);
 t_fdbuffer	*get_fdbuffer(int fd, t_list **lst);
 void		ft_fdlstfree(int fd, t_list **lst);
-
-char		*get_next_line(int fd);
 #endif

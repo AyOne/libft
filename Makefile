@@ -6,64 +6,42 @@
 #    By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/16 09:03:49 by gbetting          #+#    #+#              #
-#    Updated: 2024/07/03 00:59:23 by gbetting         ###   ########.fr        #
+#    Updated: 2024/07/16 22:22:50 by gbetting         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
 DNAME = $(NAME:.a=_debug.a)
 RNAME = $(NAME:.a=_release.a)
-SRC =	ft_isalpha.c			\
-		ft_isdigit.c			\
-		ft_isalnum.c			\
-		ft_isascii.c			\
-		ft_isprint.c			\
-		ft_strlen.c				\
-		ft_memset.c				\
-		ft_bzero.c				\
-		ft_memcpy.c				\
-		ft_memmove.c			\
-		ft_strlcpy.c			\
-		ft_strlcat.c			\
-		ft_toupper.c			\
-		ft_tolower.c			\
-		ft_strchr.c				\
-		ft_strrchr.c			\
-		ft_strncmp.c			\
-		ft_memchr.c				\
-		ft_memcmp.c				\
-		ft_strnstr.c			\
-		ft_atoi.c				\
-		ft_calloc.c				\
-		ft_strdup.c				\
-		ft_striteri.c			\
-		ft_substr.c				\
-		ft_strjoin.c			\
-		ft_strtrim.c			\
-		ft_split.c				\
-		ft_itoa.c				\
-		ft_strmapi.c			\
-		ft_putchar_fd.c			\
-		ft_putstr_fd.c			\
-		ft_putendl_fd.c			\
-		ft_putnbr_fd.c			\
-		ft_lstnew.c				\
-		ft_lstadd_front.c		\
-		ft_lstsize.c			\
-		ft_lstlast.c			\
-		ft_lstadd_back.c		\
-		ft_lstdelone.c			\
-		ft_lstclear.c			\
-		ft_lstiter.c			\
-		ft_lstmap.c				\
-		ft_abs.c				\
-		ft_minmax.c				\
-		ft_ternary.c			\
-		get_next_line.c			\
-		get_next_line_utils.c
+
+SRC_GNL = get_next_line/get_next_line.c get_next_line/get_next_line_utils.c
+SRC_LST = lst/ft_lstadd_back.c lst/ft_lstadd_front.c lst/ft_lstclear.c		\
+			lst/ft_lstdelone.c lst/ft_lstiter.c lst/ft_lstlast.c			\
+			lst/ft_lstmap.c lst/ft_lstnew.c lst/ft_lstsize.c
+SRC_MATH = math/ft_abs.c math/ft_minmax.c
+SRC_MEM = mem/ft_bzero.c mem/ft_calloc.c mem/ft_memchr.c mem/ft_memcmp.c	\
+			mem/ft_memcpy.c mem/ft_memmove.c mem/ft_memset.c
+SRC_PRINTF = printf/ft_buffer.c printf/ft_format.c printf/ft_printf.c		\
+			printf/specifiers/ft_c.c printf/specifiers/ft_i.c				\
+			printf/specifiers/ft_p.c printf/specifiers/ft_percent.c			\
+			printf/specifiers/ft_s.c printf/specifiers/ft_specifiers.c		\
+			printf/specifiers/ft_u.c printf/specifiers/ft_x.c				\
+			printf/specifiers/ft_n.c
+SRC_STR = str/ft_atoi.c str/ft_isalnum.c str/ft_isalpha.c str/ft_isascii.c	\
+			str/ft_isdigit.c str/ft_isprint.c str/ft_itoa.c str/ft_split.c	\
+			str/ft_strchr.c str/ft_strdup.c str/ft_striteri.c				\
+			str/ft_strjoin.c str/ft_strlcat.c str/ft_strlcpy.c				\
+			str/ft_strlen.c	str/ft_strmapi.c str/ft_strncmp.c				\
+			str/ft_strnstr.c str/ft_strrchr.c str/ft_strtrim.c				\
+			str/ft_substr.c str/ft_tolower.c str/ft_toupper.c
+SRC_UTILS = utils/ft_nbrbase.c utils/ft_nbrlen.c utils/ft_ternary.c
+
+SRC = $(SRC_GNL) $(SRC_LST) $(SRC_MATH) $(SRC_MEM) $(SRC_PRINTF)			\
+		$(SRC_STR) $(SRC_UTILS)
+		
 BONUS =
 
-HEADERS = $(NAME:.a=.h) get_next_line.h
+HEADERS = libft.h get_next_line.h ft_printf.h
 
 ifdef DO_BONUS
 	SRC += $(BONUS)

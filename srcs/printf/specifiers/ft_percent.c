@@ -1,19 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
+/*   ft_percent.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/11 01:48:58 by gbetting          #+#    #+#             */
-/*   Updated: 2024/04/11 05:14:01 by gbetting         ###   ########.fr       */
+/*   Created: 2024/06/21 15:02:24 by gbetting          #+#    #+#             */
+/*   Updated: 2024/06/26 06:23:07 by gbetting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-void	ft_putendl_fd(char *s, int fd)
+bool	ft_percent(t_data *data)
 {
-	ft_putstr_fd(s, fd);
-	ft_putchar_fd('\n', fd);
+	return (ft_buffer_char('%', 1, data), true);
 }
