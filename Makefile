@@ -6,7 +6,7 @@
 #    By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/16 09:03:49 by gbetting          #+#    #+#              #
-#    Updated: 2024/07/16 22:22:50 by gbetting         ###   ########.fr        #
+#    Updated: 2024/07/17 04:34:47 by gbetting         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,10 @@ NAME = libft.a
 DNAME = $(NAME:.a=_debug.a)
 RNAME = $(NAME:.a=_release.a)
 
+SRC_DLST = dlst/ft_dlstadd_back.c dlst/ft_dlstadd_front.c					\
+			dlst/ft_dlstclear.c	dlst/ft_dlstfind.c dlst/ft_dlstget.c		\
+			dlst/ft_dlstiter.c dlst/ft_dlstmap.c dlst/ft_dlstnew.c			\
+			dlst/ft_dlstpop.c
 SRC_GNL = get_next_line/get_next_line.c get_next_line/get_next_line_utils.c
 SRC_LST = lst/ft_lstadd_back.c lst/ft_lstadd_front.c lst/ft_lstclear.c		\
 			lst/ft_lstdelone.c lst/ft_lstiter.c lst/ft_lstlast.c			\
@@ -37,7 +41,7 @@ SRC_STR = str/ft_atoi.c str/ft_isalnum.c str/ft_isalpha.c str/ft_isascii.c	\
 SRC_UTILS = utils/ft_nbrbase.c utils/ft_nbrlen.c utils/ft_ternary.c
 
 SRC = $(SRC_GNL) $(SRC_LST) $(SRC_MATH) $(SRC_MEM) $(SRC_PRINTF)			\
-		$(SRC_STR) $(SRC_UTILS)
+		$(SRC_STR) $(SRC_UTILS) $(SRC_DLST)
 		
 BONUS =
 

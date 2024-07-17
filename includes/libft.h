@@ -6,7 +6,7 @@
 /*   By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 19:53:21 by gbetting          #+#    #+#             */
-/*   Updated: 2024/07/17 00:51:44 by gbetting         ###   ########.fr       */
+/*   Updated: 2024/07/17 04:44:59 by gbetting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,56 @@
 # define BASE_16U "0123456789ABCDEF"
 # define BASE_2 "01"
 # define BASE_8 "01234567"
+
+typedef int64_t			(*t_cmpfunc)(void *, void *);
+typedef void			*(*t_applyfunc)(void *);
+typedef void			(*t_delfunc)(void *);
+
+/* ========================= [DOUBLE CHAINED LIST] ========================== */
+// #region DOUBLE CHAINED LIST
+
+typedef struct s_dlist_node
+{
+	void				*content;
+	struct s_dlist_node	*next;
+	struct s_dlist_node	*prev;
+}						t_dlist_node;
+
+typedef struct s_dlist
+{
+	t_dlist_node	*head;
+	t_dlist_node	*tail;
+	size_t			size;
+}						t_dlist;
+
+typedef enum s_dlist_rtrn
+{
+	DLIST_CONTINUE	= 0,
+	DLIST_BREAK		= 1 << 0,
+	DLIST_DELETE	= 1 << 1,
+}						t_dlist_rtrn;
+
+typedef t_dlist_rtrn	(*t_iterfunc)(void *, size_t, void *);
+
+t_dlist		*ft_dlstadd_back(t_dlist *lst, void *new);
+t_dlist		*ft_dlstadd_front(t_dlist *lst, void *new);
+void		ft_dlstclear(t_dlist *lst, void (*del)(void *));
+void		ft_dlstfree(t_dlist *lst, void (*del)(void *));
+void		*ft_dlstfind(t_dlist *lst, void *content, t_cmpfunc cmp);
+size_t		ft_dlstsize(t_dlist *lst);
+void		*ft_dlstget(t_dlist *lst, size_t index);
+void		*ft_dlstfirst(t_dlist *lst);
+void		*ft_dlstlast(t_dlist *lst);
+void		ft_dlstiter_from(t_dlist *lst, t_iterfunc f, size_t index,
+				void *args);
+void		ft_dlstiter(t_dlist *lst, t_iterfunc f, void *args);
+t_dlist		*ft_dlstmap(t_dlist *lst, t_applyfunc f, t_delfunc del);
+t_dlist		*ft_dlstnew(void);
+void		*ft_dlstpop_front(t_dlist *lst);
+void		*ft_dlstpop_back(t_dlist *lst);
+void		*ft_dlstpop_at(t_dlist *lst, size_t index);
+
+// #endregion
 
 /* ============================ [GET_NEXT_LINE] ============================= */
 // #region GET_NEXT_LINE
