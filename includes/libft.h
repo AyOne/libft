@@ -6,7 +6,7 @@
 /*   By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 19:53:21 by gbetting          #+#    #+#             */
-/*   Updated: 2024/07/17 04:44:59 by gbetting         ###   ########.fr       */
+/*   Updated: 2024/07/18 21:11:10 by gbetting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -338,7 +338,7 @@ int			ft_asprintf(char **str, const char *format, ...)
  * @param str The string to convert.
  * @return The atoi() function returns the converted value.
  */
-int32_t		ft_atoi(const char *str);
+int64_t		ft_atoi(const char *str);
 /**
  * @brief The isalnum() function tests for any character for which isalpha(3)
  * or isdigit(3) is true. The value of the argument must be representable as an
@@ -384,12 +384,20 @@ bool		ft_isdigit(char c);
  */
 bool		ft_isprint(char c);
 /**
+ * @brief The itoa_nm() function returns a static string representing the
+ * integer received as an argument without malloc.
+ * @param n The integer to convert.
+ * @return The itoa_nm() function returns the string representing the integer.
+ * @note Do not free or store the returned string.
+ */
+char		*ft_itoa_nm(int64_t n);
+/**
  * @brief The itoa() function allocates and returns a string representing the
  * integer received as an argument.
  * @param n The integer to convert.
  * @return The itoa() function returns the string representing the integer.
  */
-char		*ft_itoa(int32_t n);
+char		*ft_itoa(int64_t n);
 /**
  * @brief The split() function allocates and returns an array of strings
  * obtained by splitting 's' using the character 'c' as a delimiter. The array
@@ -568,6 +576,7 @@ char		*ft_nbrbase(uint64_t nbr, char *base);
  * @param base The base to convert the number to.
  * @return The ft_nbrbase_nm() function returns the string representation of the
  * number in the given base.
+ * @note Do not free or store the returned string.
  */
 char		*ft_nbrbase_nm(uint64_t nbr, char *base);
 /**

@@ -6,15 +6,15 @@
 /*   By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 00:42:18 by gbetting          #+#    #+#             */
-/*   Updated: 2024/06/26 05:26:01 by gbetting         ###   ########.fr       */
+/*   Updated: 2024/07/18 21:10:58 by gbetting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int32_t	ft_atoi(const char *str)
+int64_t	ft_atoi(const char *str)
 {
-	int32_t		i;
+	int64_t		i;
 	int8_t		neg;
 	int64_t		nb;
 
