@@ -6,7 +6,7 @@
 /*   By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 19:53:21 by gbetting          #+#    #+#             */
-/*   Updated: 2024/07/18 21:11:10 by gbetting         ###   ########.fr       */
+/*   Updated: 2024/08/12 22:10:36 by gbetting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -262,6 +262,15 @@ int32_t		ft_memcmp(const void *s1, const void *s2, size_t n);
  * @return The memcpy() function returns the original value of dst.
  */
 void		*ft_memcpy(void *dst, const void *src, size_t n);
+/**
+ * @brief The memdup() function allocates sufficient memory for a copy of the
+ * memory area pointed to by src, does the copy, and returns a pointer to it.
+ * @param src The memory area to duplicate.
+ * @param size The size of the memory area.
+ * @return The memdup() function returns a pointer to the duplicated memory area.
+ * @note The memdup() function returns NULL if insufficient memory is available.
+ */
+void		*ft_memdup(const void *src, size_t size);
 /**
  * @brief The memmove() function copies len bytes from string src to string dst.
  * The two strings may overlap; the copy is always done in a non-destructive

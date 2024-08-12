@@ -6,7 +6,7 @@
 #    By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/16 09:03:49 by gbetting          #+#    #+#              #
-#    Updated: 2024/07/17 04:34:47 by gbetting         ###   ########.fr        #
+#    Updated: 2024/08/12 22:11:13 by gbetting         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ SRC_LST = lst/ft_lstadd_back.c lst/ft_lstadd_front.c lst/ft_lstclear.c		\
 			lst/ft_lstmap.c lst/ft_lstnew.c lst/ft_lstsize.c
 SRC_MATH = math/ft_abs.c math/ft_minmax.c
 SRC_MEM = mem/ft_bzero.c mem/ft_calloc.c mem/ft_memchr.c mem/ft_memcmp.c	\
-			mem/ft_memcpy.c mem/ft_memmove.c mem/ft_memset.c
+			mem/ft_memcpy.c mem/ft_memdup.c mem/ft_memmove.c mem/ft_memset.c
 SRC_PRINTF = printf/ft_buffer.c printf/ft_format.c printf/ft_printf.c		\
 			printf/specifiers/ft_c.c printf/specifiers/ft_i.c				\
 			printf/specifiers/ft_p.c printf/specifiers/ft_percent.c			\
