@@ -6,7 +6,7 @@
 /*   By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 03:50:57 by gbetting          #+#    #+#             */
-/*   Updated: 2024/07/17 04:22:33 by gbetting         ###   ########.fr       */
+/*   Updated: 2024/08/13 22:11:00 by gbetting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ t_dlist	*ft_dlstadd_front(t_dlist *lst, void *new)
 	{
 		lst->head = new_node;
 		lst->tail = new_node;
+		new_node->next = NULL;
 	}
 	else
 	{
