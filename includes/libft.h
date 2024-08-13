@@ -6,7 +6,7 @@
 /*   By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 19:53:21 by gbetting          #+#    #+#             */
-/*   Updated: 2024/08/12 22:10:36 by gbetting         ###   ########.fr       */
+/*   Updated: 2024/08/13 21:27:20 by gbetting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef void			(*t_delfunc)(void *);
 
 /* ========================= [DOUBLE CHAINED LIST] ========================== */
 // #region DOUBLE CHAINED LIST
+// TODO: Add documentation
 
 typedef struct s_dlist_node
 {
@@ -72,6 +73,7 @@ t_dlist		*ft_dlstnew(void);
 void		*ft_dlstpop_front(t_dlist *lst);
 void		*ft_dlstpop_back(t_dlist *lst);
 void		*ft_dlstpop_at(t_dlist *lst, size_t index);
+void		**ft_dlstto_array(t_dlist *dlst);
 
 // #endregion
 

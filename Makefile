@@ -6,7 +6,7 @@
 #    By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/16 09:03:49 by gbetting          #+#    #+#              #
-#    Updated: 2024/08/12 22:11:13 by gbetting         ###   ########.fr        #
+#    Updated: 2024/08/13 21:26:58 by gbetting         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ RNAME = $(NAME:.a=_release.a)
 SRC_DLST = dlst/ft_dlstadd_back.c dlst/ft_dlstadd_front.c					\
 			dlst/ft_dlstclear.c	dlst/ft_dlstfind.c dlst/ft_dlstget.c		\
 			dlst/ft_dlstiter.c dlst/ft_dlstmap.c dlst/ft_dlstnew.c			\
-			dlst/ft_dlstpop.c
+			dlst/ft_dlstpop.c dlst/ft_dlstto_array.c
 SRC_GNL = get_next_line/get_next_line.c get_next_line/get_next_line_utils.c
 SRC_LST = lst/ft_lstadd_back.c lst/ft_lstadd_front.c lst/ft_lstclear.c		\
 			lst/ft_lstdelone.c lst/ft_lstiter.c lst/ft_lstlast.c			\
