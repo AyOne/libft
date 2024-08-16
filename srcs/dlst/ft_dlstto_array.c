@@ -6,7 +6,7 @@
 /*   By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 21:22:09 by gbetting          #+#    #+#             */
-/*   Updated: 2024/08/16 03:47:34 by gbetting         ###   ########.fr       */
+/*   Updated: 2024/08/16 22:58:48 by gbetting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,6 @@ void	**ft_dlstto_array_free(t_dlist *dlst, void (*del)(void *))
 
 	ret = ft_dlstto_array(dlst);
 	ft_dlstclear(dlst, del);
+	free(dlst);
 	return (ret);
 }
