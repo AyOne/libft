@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_qsort.c                                         :+:      :+:    :+:   */
+/*   ft_qsort_cmp.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/07 03:02:58 by gbetting          #+#    #+#             */
-/*   Updated: 2024/09/07 04:40:18 by gbetting         ###   ########.fr       */
+/*   Created: 2024/09/07 04:25:29 by gbetting          #+#    #+#             */
+/*   Updated: 2024/09/07 04:40:10 by gbetting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
 // https://www.geeksforgeeks.org/quick-sort-algorithm/
 
-static void	swap(int64_t *a, int64_t *b)
+#include "libft.h"
+
+static void	swap(void **a, void **b)
 {
-	int64_t	tmp;
+	void	*tmp;
 
 	tmp = *a;
 	*a = *b;
 	*b = tmp;
 }
 
-static int	partition(int64_t *array, int64_t low, int64_t high, t_cmpfunc cmp)
+static int	partition(void **array, int64_t low, int64_t high, t_cmpfunc cmp)
 {
-	int64_t	pivot;
+	void	*pivot;
 	int64_t	i;
 	int64_t	j;
 
@@ -34,8 +34,7 @@ static int	partition(int64_t *array, int64_t low, int64_t high, t_cmpfunc cmp)
 	j = low;
 	while (j <= high - 1)
 	{
-		if ((cmp == NULL && array[j] < pivot)
-			|| (cmp != NULL && cmp(&array[j], &pivot) < 0))
+		if (cmp(&array[j], &pivot) < 0)
 		{
 			i++;
 			swap(&array[i], &array[j]);
@@ -46,7 +45,7 @@ static int	partition(int64_t *array, int64_t low, int64_t high, t_cmpfunc cmp)
 	return (i + 1);
 }
 
-static void	quicksort(int64_t *array, int64_t low, int64_t high, t_cmpfunc cmp)
+static void	quicksort(void **array, int64_t low, int64_t high, t_cmpfunc cmp)
 {
 	int64_t	pi;
 
@@ -58,7 +57,7 @@ static void	quicksort(int64_t *array, int64_t low, int64_t high, t_cmpfunc cmp)
 	}
 }
 
-void	ft_qsort(int64_t *array, size_t size)
+void	ft_qsort_cmp(void **array, size_t size, t_cmpfunc cmp)
 {
-	quicksort(array, 0, size - 1, NULL);
+	quicksort(array, 0, size - 1, cmp);
 }

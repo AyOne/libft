@@ -6,7 +6,7 @@
 /*   By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 19:53:21 by gbetting          #+#    #+#             */
-/*   Updated: 2024/09/07 03:19:15 by gbetting         ###   ########.fr       */
+/*   Updated: 2024/09/07 04:39:41 by gbetting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -654,7 +654,7 @@ void		ft_qsort(int64_t *array, size_t size);
  * @param size The number of elements in the array.
  * @param cmp The comparison function to use.
  */
-void		ft_qsort_cmp(int64_t *array, size_t size, t_cmpfunc cmp);
+void		ft_qsort_cmp(void **array, size_t size, t_cmpfunc cmp);
 
 // #endregion
 
