@@ -6,7 +6,7 @@
 #    By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/16 09:03:49 by gbetting          #+#    #+#              #
-#    Updated: 2024/08/13 21:26:58 by gbetting         ###   ########.fr        #
+#    Updated: 2024/09/07 03:18:30 by gbetting         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,8 @@ SRC_STR = str/ft_atoi.c str/ft_isalnum.c str/ft_isalpha.c str/ft_isascii.c	\
 			str/ft_strlen.c	str/ft_strmapi.c str/ft_strncmp.c				\
 			str/ft_strnstr.c str/ft_strrchr.c str/ft_strtrim.c				\
 			str/ft_substr.c str/ft_tolower.c str/ft_toupper.c
-SRC_UTILS = utils/ft_nbrbase.c utils/ft_nbrlen.c utils/ft_ternary.c
+SRC_UTILS = utils/ft_nbrbase.c utils/ft_nbrlen.c utils/ft_qsort.c			\
+			utils/ft_ternary.c
 
 SRC = $(SRC_GNL) $(SRC_LST) $(SRC_MATH) $(SRC_MEM) $(SRC_PRINTF)			\
 		$(SRC_STR) $(SRC_UTILS) $(SRC_DLST)

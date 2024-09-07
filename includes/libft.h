@@ -6,7 +6,7 @@
 /*   By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 19:53:21 by gbetting          #+#    #+#             */
-/*   Updated: 2024/08/16 03:48:16 by gbetting         ###   ########.fr       */
+/*   Updated: 2024/09/07 03:19:15 by gbetting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -640,6 +640,21 @@ double		ft_t_double(bool condition, double a, double b);
  * true, otherwise the second pointer.
  */
 void		*ft_t_ptr(bool condition, void *a, void *b);
+/**
+ * @brief The qsort() function sorts an array of 'size' elements using the
+ * quicksort algorithm.
+ * @param array The array to sort.
+ * @param size The number of elements in the array.
+ */
+void		ft_qsort(int64_t *array, size_t size);
+/**
+ * @brief The qsort_cmp() function sorts an array of 'size' elements using the
+ * quicksort algorithm with a custom comparison function.
+ * @param array The array to sort.
+ * @param size The number of elements in the array.
+ * @param cmp The comparison function to use.
+ */
+void		ft_qsort_cmp(int64_t *array, size_t size, t_cmpfunc cmp);
 
 // #endregion
 
