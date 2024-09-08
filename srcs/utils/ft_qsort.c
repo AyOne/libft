@@ -6,7 +6,7 @@
 /*   By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 03:02:58 by gbetting          #+#    #+#             */
-/*   Updated: 2024/09/07 04:40:18 by gbetting         ###   ########.fr       */
+/*   Updated: 2024/09/09 00:08:58 by gbetting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	swap(int64_t *a, int64_t *b)
 	*b = tmp;
 }
 
-static int	partition(int64_t *array, int64_t low, int64_t high, t_cmpfunc cmp)
+static int	partition(int64_t *array, int64_t low, int64_t high)
 {
 	int64_t	pivot;
 	int64_t	i;
@@ -34,31 +34,27 @@ static int	partition(int64_t *array, int64_t low, int64_t high, t_cmpfunc cmp)
 	j = low;
 	while (j <= high - 1)
 	{
-		if ((cmp == NULL && array[j] < pivot)
-			|| (cmp != NULL && cmp(&array[j], &pivot) < 0))
-		{
-			i++;
-			swap(&array[i], &array[j]);
-		}
+		if (array[j] < pivot)
+			swap(&array[++i], &array[j]);
 		j++;
 	}
 	swap(&array[i + 1], &array[high]);
 	return (i + 1);
 }
 
-static void	quicksort(int64_t *array, int64_t low, int64_t high, t_cmpfunc cmp)
+static void	quicksort(int64_t *array, int64_t low, int64_t high)
 {
 	int64_t	pi;
 
 	if (low < high)
 	{
-		pi = partition(array, low, high, cmp);
-		quicksort(array, low, pi - 1, cmp);
-		quicksort(array, pi + 1, high, cmp);
+		pi = partition(array, low, high);
+		quicksort(array, low, pi - 1);
+		quicksort(array, pi + 1, high);
 	}
 }
 
 void	ft_qsort(int64_t *array, size_t size)
 {
-	quicksort(array, 0, size - 1, NULL);
+	quicksort(array, 0, size - 1);
 }

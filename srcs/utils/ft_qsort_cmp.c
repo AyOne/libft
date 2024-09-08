@@ -6,7 +6,7 @@
 /*   By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 04:25:29 by gbetting          #+#    #+#             */
-/*   Updated: 2024/09/07 04:40:10 by gbetting         ###   ########.fr       */
+/*   Updated: 2024/09/09 00:09:04 by gbetting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	partition(void **array, int64_t low, int64_t high, t_cmpfunc cmp)
 	j = low;
 	while (j <= high - 1)
 	{
-		if (cmp(&array[j], &pivot) < 0)
+		if (cmp(array[j], pivot) < 0)
 		{
 			i++;
 			swap(&array[i], &array[j]);
