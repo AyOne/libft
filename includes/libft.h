@@ -6,7 +6,7 @@
 /*   By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 19:53:21 by gbetting          #+#    #+#             */
-/*   Updated: 2024/09/07 04:39:41 by gbetting         ###   ########.fr       */
+/*   Updated: 2024/10/03 02:08:06 by gbetting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -655,7 +655,17 @@ void		ft_qsort(int64_t *array, size_t size);
  * @param cmp The comparison function to use.
  */
 void		ft_qsort_cmp(void **array, size_t size, t_cmpfunc cmp);
-
+/**
+ * @brief The xorshift64() function generates a random number using the
+ * xorshift64 algorithm.
+ * @return The xorshift64() function returns a pseudo-random number.
+ */
+int			ft_xorshift64(void);
+/**
+ * @brief The ft_setseed() function sets the seed for the xorshift64 algorithm.
+ * @param seed The seed to set.
+ */
+inline void		ft_setseed(uint64_t seed);
 // #endregion
 
 #endif
