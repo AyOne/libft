@@ -6,7 +6,7 @@
 /*   By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 19:53:21 by gbetting          #+#    #+#             */
-/*   Updated: 2024/10/03 02:08:06 by gbetting         ###   ########.fr       */
+/*   Updated: 2024/10/03 02:15:42 by gbetting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include <unistd.h>
 # include <stdbool.h>
 # include <stdint.h>
+# include <sys/stat.h>
+# include <fcntl.h>
 
 /* =============================== [DEFINES] ================================ */
 
@@ -666,6 +668,15 @@ int			ft_xorshift64(void);
  * @param seed The seed to set.
  */
 inline void		ft_setseed(uint64_t seed);
+/**
+ * @brief The ft_init_random() function initializes the seed for the xorshift64
+ * algorithm.
+ * @note The seed is initialized using /dev/random. If /dev/random is not
+ * available, the seed is initialized using the address of the function
+ * ft_init_random.
+ */
+void		ft_init_random(void);
+
 // #endregion
 
 #endif
