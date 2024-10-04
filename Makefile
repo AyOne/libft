@@ -241,7 +241,23 @@ $(RNAME): $(RELEASE_OBJ)
 	$(call norminette,$(HEADERS_FILES))
 	$(call make_bin)
 
-$(RELEASE_DIR)/%.o $(DEBUG_DIR)/%.o $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(HEADERS_FILES) $(SUBLIBS)
+$(RELEASE_DIR)/%.o: $(SRC_DIR)/%.c $(HEADERS_FILES) $(SUBLIBS) Makefile
+	$(call mkdir,$(LOG_DIR))
+	$(call mkdir,$(dir $@))
+	@printf "$(PREFIX)$(C_COMPILATION) -> \033[38;5;33m%-*s\033[0m : " $(C_MAXLEN) "$<"
+	$(call norminette,$<)
+	@$(CC) $(CFLAGS) $(addprefix -I,$(HEADERS_DIR) $(SUBLIBS_INC_DIR)) -c $< -o $@ 2> $(LOG_DIR)/error.log || true
+	$(call print_result)
+
+$(DEBUG_DIR)/%.o: $(SRC_DIR)/%.c $(HEADERS_FILES) $(SUBLIBS) Makefile
+	$(call mkdir,$(LOG_DIR))
+	$(call mkdir,$(dir $@))
+	@printf "$(PREFIX)$(C_COMPILATION) -> \033[38;5;33m%-*s\033[0m : " $(C_MAXLEN) "$<"
+	$(call norminette,$<)
+	@$(CC) $(CFLAGS) $(addprefix -I,$(HEADERS_DIR) $(SUBLIBS_INC_DIR)) -c $< -o $@ 2> $(LOG_DIR)/error.log || true
+	$(call print_result)
+
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(HEADERS_FILES) $(SUBLIBS) Makefile
 	$(call mkdir,$(LOG_DIR))
 	$(call mkdir,$(dir $@))
 	@printf "$(PREFIX)$(C_COMPILATION) -> \033[38;5;33m%-*s\033[0m : " $(C_MAXLEN) "$<"

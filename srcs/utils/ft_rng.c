@@ -21,7 +21,8 @@ inline static uint64_t	*ft_getseed(void)
 
 void	ft_init_random(void)
 {
-	int		fd;
+	int	fd;
+	int	result;
 
 	fd = open("/dev/random", O_RDONLY);
 	if (fd < 0)
@@ -29,7 +30,10 @@ void	ft_init_random(void)
 		*ft_getseed() = (uint64_t) & ft_init_random;
 		return ;
 	}
-	read(fd, ft_getseed(), sizeof(uint64_t));
+	result = read(fd, ft_getseed(), sizeof(uint64_t));
+	if (result != sizeof(uint64_t))
+		*ft_getseed() = (uint64_t) & ft_init_random;
+	close(fd);
 }
 
 inline void	ft_setseed(uint64_t seed)
