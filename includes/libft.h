@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayone <ayone@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 19:53:21 by gbetting          #+#    #+#             */
-/*   Updated: 2024/10/03 02:15:42 by gbetting         ###   ########.fr       */
+/*   Updated: 2024/10/09 00:13:06 by ayone            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -662,7 +662,7 @@ void		ft_qsort_cmp(void **array, size_t size, t_cmpfunc cmp);
  * xorshift64 algorithm.
  * @return The xorshift64() function returns a pseudo-random number.
  */
-int			ft_xorshift64(void);
+uint64_t	ft_xorshift64(void);
 /**
  * @brief The ft_setseed() function sets the seed for the xorshift64 algorithm.
  * @param seed The seed to set.

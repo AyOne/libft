@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_rng.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayone <ayone@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 01:59:28 by gbetting          #+#    #+#             */
-/*   Updated: 2024/10/03 02:13:49 by gbetting         ###   ########.fr       */
+/*   Updated: 2024/10/09 00:12:21 by ayone            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ inline void	ft_setseed(uint64_t seed)
 	*ft_getseed() = seed;
 }
 
-int	ft_xorshift64(void)
+uint64_t	ft_xorshift64(void)
 {
-	int64_t		x;
+	uint64_t		x;
 
 	x = *ft_getseed();
 	x ^= x << 13;
