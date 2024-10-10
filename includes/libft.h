@@ -6,7 +6,7 @@
 /*   By: ayone <ayone@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 19:53:21 by gbetting          #+#    #+#             */
-/*   Updated: 2024/10/09 00:13:06 by ayone            ###   ########.fr       */
+/*   Updated: 2024/10/10 22:58:18 by ayone            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -667,7 +667,7 @@ uint64_t	ft_xorshift64(void);
  * @brief The ft_setseed() function sets the seed for the xorshift64 algorithm.
  * @param seed The seed to set.
  */
-inline void		ft_setseed(uint64_t seed);
+void		ft_setseed(uint64_t seed);
 /**
  * @brief The ft_init_random() function initializes the seed for the xorshift64
  * algorithm.
