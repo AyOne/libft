@@ -6,7 +6,7 @@
 /*   By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 19:53:21 by gbetting          #+#    #+#             */
-/*   Updated: 2024/09/07 04:39:41 by gbetting         ###   ########.fr       */
+/*   Updated: 2024/10/26 08:55:04 by gbetting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ typedef t_dlist_rtrn	(*t_iterfunc)(void *, size_t, void *);
 
 t_dlist		*ft_dlstadd_back(t_dlist *lst, void *new);
 t_dlist		*ft_dlstadd_front(t_dlist *lst, void *new);
+t_dlist		*ft_dlstadd_at(t_dlist *lst, void *content, size_t index);
 void		ft_dlstclear(t_dlist *lst, void (*del)(void *));
 void		ft_dlstfree(t_dlist *lst, void (*del)(void *));
 void		*ft_dlstfind(t_dlist *lst, void *content, t_cmpfunc cmp);

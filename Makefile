@@ -6,7 +6,7 @@
 #    By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/16 09:03:49 by gbetting          #+#    #+#              #
-#    Updated: 2024/09/07 04:38:34 by gbetting         ###   ########.fr        #
+#    Updated: 2024/10/26 08:55:55 by gbetting         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,35 +14,35 @@ NAME = libft.a
 DNAME = $(NAME:.a=_debug.a)
 RNAME = $(NAME:.a=_release.a)
 
-SRC_DLST = dlst/ft_dlstadd_back.c dlst/ft_dlstadd_front.c					\
-			dlst/ft_dlstclear.c	dlst/ft_dlstfind.c dlst/ft_dlstget.c		\
-			dlst/ft_dlstiter.c dlst/ft_dlstmap.c dlst/ft_dlstnew.c			\
+SRC_DLST = dlst/ft_dlstadd_at.c dlst/ft_dlstadd_back.c dlst/ft_dlstadd_front.c	\
+			dlst/ft_dlstclear.c	dlst/ft_dlstfind.c dlst/ft_dlstget.c			\
+			dlst/ft_dlstiter.c dlst/ft_dlstmap.c dlst/ft_dlstnew.c				\
 			dlst/ft_dlstpop.c dlst/ft_dlstto_array.c
 SRC_GNL = get_next_line/get_next_line.c get_next_line/get_next_line_utils.c
-SRC_LST = lst/ft_lstadd_back.c lst/ft_lstadd_front.c lst/ft_lstclear.c		\
-			lst/ft_lstdelone.c lst/ft_lstiter.c lst/ft_lstlast.c			\
+SRC_LST = lst/ft_lstadd_back.c lst/ft_lstadd_front.c lst/ft_lstclear.c			\
+			lst/ft_lstdelone.c lst/ft_lstiter.c lst/ft_lstlast.c				\
 			lst/ft_lstmap.c lst/ft_lstnew.c lst/ft_lstsize.c
 SRC_MATH = math/ft_abs.c math/ft_minmax.c
-SRC_MEM = mem/ft_bzero.c mem/ft_calloc.c mem/ft_memchr.c mem/ft_memcmp.c	\
+SRC_MEM = mem/ft_bzero.c mem/ft_calloc.c mem/ft_memchr.c mem/ft_memcmp.c		\
 			mem/ft_memcpy.c mem/ft_memdup.c mem/ft_memmove.c mem/ft_memset.c
-SRC_PRINTF = printf/ft_buffer.c printf/ft_format.c printf/ft_printf.c		\
-			printf/specifiers/ft_c.c printf/specifiers/ft_i.c				\
-			printf/specifiers/ft_p.c printf/specifiers/ft_percent.c			\
-			printf/specifiers/ft_s.c printf/specifiers/ft_specifiers.c		\
-			printf/specifiers/ft_u.c printf/specifiers/ft_x.c				\
+SRC_PRINTF = printf/ft_buffer.c printf/ft_format.c printf/ft_printf.c			\
+			printf/specifiers/ft_c.c printf/specifiers/ft_i.c					\
+			printf/specifiers/ft_p.c printf/specifiers/ft_percent.c				\
+			printf/specifiers/ft_s.c printf/specifiers/ft_specifiers.c			\
+			printf/specifiers/ft_u.c printf/specifiers/ft_x.c					\
 			printf/specifiers/ft_n.c
-SRC_STR = str/ft_atoi.c str/ft_isalnum.c str/ft_isalpha.c str/ft_isascii.c	\
-			str/ft_isdigit.c str/ft_isprint.c str/ft_itoa.c str/ft_split.c	\
-			str/ft_strchr.c str/ft_strdup.c str/ft_striteri.c				\
-			str/ft_strjoin.c str/ft_strlcat.c str/ft_strlcpy.c				\
-			str/ft_strlen.c	str/ft_strmapi.c str/ft_strncmp.c				\
-			str/ft_strnstr.c str/ft_strrchr.c str/ft_strtrim.c				\
+SRC_STR = str/ft_atoi.c str/ft_isalnum.c str/ft_isalpha.c str/ft_isascii.c		\
+			str/ft_isdigit.c str/ft_isprint.c str/ft_itoa.c str/ft_split.c		\
+			str/ft_strchr.c str/ft_strdup.c str/ft_striteri.c					\
+			str/ft_strjoin.c str/ft_strlcat.c str/ft_strlcpy.c					\
+			str/ft_strlen.c	str/ft_strmapi.c str/ft_strncmp.c					\
+			str/ft_strnstr.c str/ft_strrchr.c str/ft_strtrim.c					\
 			str/ft_substr.c str/ft_tolower.c str/ft_toupper.c
-SRC_UTILS = utils/ft_nbrbase.c utils/ft_nbrlen.c utils/ft_qsort_cmp.c		\
+SRC_UTILS = utils/ft_nbrbase.c utils/ft_nbrlen.c utils/ft_qsort_cmp.c			\
 			utils/ft_qsort.c utils/ft_ternary.c
 
-SRC = $(SRC_GNL) $(SRC_LST) $(SRC_MATH) $(SRC_MEM) $(SRC_PRINTF)			\
-		$(SRC_STR) $(SRC_UTILS) $(SRC_DLST)
+SRC = $(sort $(SRC_GNL) $(SRC_LST) $(SRC_MATH) $(SRC_MEM) $(SRC_PRINTF)				\
+		$(SRC_STR) $(SRC_UTILS) $(SRC_DLST))
 		
 BONUS =
 
