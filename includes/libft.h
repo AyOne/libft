@@ -6,7 +6,7 @@
 /*   By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 19:53:21 by gbetting          #+#    #+#             */
-/*   Updated: 2024/10/26 08:55:04 by gbetting         ###   ########.fr       */
+/*   Updated: 2024/10/26 09:00:55 by gbetting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include <unistd.h>
 # include <stdbool.h>
 # include <stdint.h>
+# include <sys/stat.h>
+# include <fcntl.h>
 
 /* =============================== [DEFINES] ================================ */
 
@@ -656,6 +658,25 @@ void		ft_qsort(int64_t *array, size_t size);
  * @param cmp The comparison function to use.
  */
 void		ft_qsort_cmp(void **array, size_t size, t_cmpfunc cmp);
+/**
+ * @brief The xorshift64() function generates a random number using the
+ * xorshift64 algorithm.
+ * @return The xorshift64() function returns a pseudo-random number.
+ */
+uint64_t	ft_xorshift64(void);
+/**
+ * @brief The ft_setseed() function sets the seed for the xorshift64 algorithm.
+ * @param seed The seed to set.
+ */
+void		ft_setseed(uint64_t seed);
+/**
+ * @brief The ft_init_random() function initializes the seed for the xorshift64
+ * algorithm.
+ * @note The seed is initialized using /dev/random. If /dev/random is not
+ * available, the seed is initialized using the address of the function
+ * ft_init_random.
+ */
+void		ft_init_random(void);
 
 // #endregion
 

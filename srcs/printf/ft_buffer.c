@@ -17,23 +17,17 @@ void	ft_buffer_clear(t_data *data)
 	if (data->strout)
 		*(data->str_output) = ft_strjoin(*(data->str_output), data->buffer);
 	else
-		write(data->fd, data->buffer, data->buff_index);
+		(void)write(data->fd, data->buffer, data->buff_index);
 	data->total_count += data->buff_index;
 	data->buff_index = 0;
 }
 
 void	ft_buffer_format(const char *format, t_data *data)
 {
-	size_t	i;
-
-	i = 0;
 	while (data->buff_index < BUFF_SIZE
 		&& format[data->format_index]
 		&& (data->ff || format[data->format_index] != FORMAT_TRIGGER))
-	{
 		data->buffer[data->buff_index++] = format[data->format_index++];
-		i++;
-	}
 	if (data->buff_index == BUFF_SIZE)
 	{
 		ft_buffer_clear(data);

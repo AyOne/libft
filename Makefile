@@ -6,7 +6,7 @@
 #    By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/16 09:03:49 by gbetting          #+#    #+#              #
-#    Updated: 2024/10/26 08:55:55 by gbetting         ###   ########.fr        #
+#    Updated: 2024/10/26 09:00:28 by gbetting         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,7 @@ SRC_STR = str/ft_atoi.c str/ft_isalnum.c str/ft_isalpha.c str/ft_isascii.c		\
 			str/ft_strnstr.c str/ft_strrchr.c str/ft_strtrim.c					\
 			str/ft_substr.c str/ft_tolower.c str/ft_toupper.c
 SRC_UTILS = utils/ft_nbrbase.c utils/ft_nbrlen.c utils/ft_qsort_cmp.c			\
-			utils/ft_qsort.c utils/ft_ternary.c
+			utils/ft_qsort.c utils/ft_rng.c utils/ft_ternary.c
 
 SRC = $(sort $(SRC_GNL) $(SRC_LST) $(SRC_MATH) $(SRC_MEM) $(SRC_PRINTF)				\
 		$(SRC_STR) $(SRC_UTILS) $(SRC_DLST))
@@ -241,7 +241,23 @@ $(RNAME): $(RELEASE_OBJ)
 	$(call norminette,$(HEADERS_FILES))
 	$(call make_bin)
 
-$(RELEASE_DIR)/%.o $(DEBUG_DIR)/%.o $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(HEADERS_FILES) $(SUBLIBS)
+$(RELEASE_DIR)/%.o: $(SRC_DIR)/%.c $(HEADERS_FILES) $(SUBLIBS) Makefile
+	$(call mkdir,$(LOG_DIR))
+	$(call mkdir,$(dir $@))
+	@printf "$(PREFIX)$(C_COMPILATION) -> \033[38;5;33m%-*s\033[0m : " $(C_MAXLEN) "$<"
+	$(call norminette,$<)
+	@$(CC) $(CFLAGS) $(addprefix -I,$(HEADERS_DIR) $(SUBLIBS_INC_DIR)) -c $< -o $@ 2> $(LOG_DIR)/error.log || true
+	$(call print_result)
+
+$(DEBUG_DIR)/%.o: $(SRC_DIR)/%.c $(HEADERS_FILES) $(SUBLIBS) Makefile
+	$(call mkdir,$(LOG_DIR))
+	$(call mkdir,$(dir $@))
+	@printf "$(PREFIX)$(C_COMPILATION) -> \033[38;5;33m%-*s\033[0m : " $(C_MAXLEN) "$<"
+	$(call norminette,$<)
+	@$(CC) $(CFLAGS) $(addprefix -I,$(HEADERS_DIR) $(SUBLIBS_INC_DIR)) -c $< -o $@ 2> $(LOG_DIR)/error.log || true
+	$(call print_result)
+
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(HEADERS_FILES) $(SUBLIBS) Makefile
 	$(call mkdir,$(LOG_DIR))
 	$(call mkdir,$(dir $@))
 	@printf "$(PREFIX)$(C_COMPILATION) -> \033[38;5;33m%-*s\033[0m : " $(C_MAXLEN) "$<"
