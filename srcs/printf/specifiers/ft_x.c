@@ -6,13 +6,13 @@
 /*   By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 13:10:59 by gbetting          #+#    #+#             */
-/*   Updated: 2024/07/16 22:00:16 by gbetting         ###   ########.fr       */
+/*   Updated: 2024/11/10 19:05:20 by gbetting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static void	ft_x_process2(char *nbr, char *prefix, t_data *data)
+static void	ft_x_process2(char *nbr, char *prefix, t_pf_data *data)
 {
 	int64_t	nbrlen;
 	int64_t	len;
@@ -35,7 +35,7 @@ static void	ft_x_process2(char *nbr, char *prefix, t_data *data)
 		ft_buffer_char(' ', data->format_data.width - (len + prefix_len), data);
 }
 
-static void	ft_x_process(char *nbr, char *prefix, t_data *data)
+static void	ft_x_process(char *nbr, char *prefix, t_pf_data *data)
 {
 	int64_t	nbrlen;
 	int64_t	len;
@@ -62,7 +62,7 @@ static void	ft_x_process(char *nbr, char *prefix, t_data *data)
 	ft_x_process2(nbr, prefix, data);
 }
 
-static void	ft_x_preprocess(t_data *data, size_t nbr_len)
+static void	ft_x_preprocess(t_pf_data *data, size_t nbr_len)
 {
 	if (data->format_data.flags & FLAG_ZERO && data->format_data.precision >= 0)
 		data->format_data.flags &= ~FLAG_ZERO;
@@ -72,7 +72,7 @@ static void	ft_x_preprocess(t_data *data, size_t nbr_len)
 		data->format_data.flags &= ~FLAG_HASH;
 }
 
-static bool	ft_x_header2(t_data *data, uint64_t unbr)
+static bool	ft_x_header2(t_pf_data *data, uint64_t unbr)
 {
 	char	*base;
 	char	*prefix;
@@ -100,7 +100,7 @@ static bool	ft_x_header2(t_data *data, uint64_t unbr)
 	return (ft_x_process(nbr, prefix, data), true);
 }
 
-bool	ft_x_header(t_data *data)
+bool	ft_x_header(t_pf_data *data)
 {
 	uint64_t	unbr;
 

@@ -6,7 +6,7 @@
 #    By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/16 09:03:49 by gbetting          #+#    #+#              #
-#    Updated: 2024/10/26 09:00:28 by gbetting         ###   ########.fr        #
+#    Updated: 2024/11/11 01:47:50 by gbetting         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,14 +30,14 @@ SRC_PRINTF = printf/ft_buffer.c printf/ft_format.c printf/ft_printf.c			\
 			printf/specifiers/ft_p.c printf/specifiers/ft_percent.c				\
 			printf/specifiers/ft_s.c printf/specifiers/ft_specifiers.c			\
 			printf/specifiers/ft_u.c printf/specifiers/ft_x.c					\
-			printf/specifiers/ft_n.c
+			printf/specifiers/ft_n.c printf/ft_color.c
 SRC_STR = str/ft_atoi.c str/ft_isalnum.c str/ft_isalpha.c str/ft_isascii.c		\
 			str/ft_isdigit.c str/ft_isprint.c str/ft_itoa.c str/ft_split.c		\
 			str/ft_strchr.c str/ft_strdup.c str/ft_striteri.c					\
 			str/ft_strjoin.c str/ft_strlcat.c str/ft_strlcpy.c					\
 			str/ft_strlen.c	str/ft_strmapi.c str/ft_strncmp.c					\
 			str/ft_strnstr.c str/ft_strrchr.c str/ft_strtrim.c					\
-			str/ft_substr.c str/ft_tolower.c str/ft_toupper.c
+			str/ft_substr.c str/ft_tolower.c str/ft_toupper.c str/ft_itoa_nm.c
 SRC_UTILS = utils/ft_nbrbase.c utils/ft_nbrlen.c utils/ft_qsort_cmp.c			\
 			utils/ft_qsort.c utils/ft_rng.c utils/ft_ternary.c
 
@@ -95,7 +95,7 @@ CC = clang
 CFLAGS = -Wall -Wextra -Werror -fPIE
 AR = ar
 ARFLAGS = -rcs
-DEBUGFLAGS = -g3 -fsanitize=address
+DEBUGFLAGS = -g3
 RELEASEFLAGS = -O3 -fno-builtin
 
 #=== Functions ================================================================#

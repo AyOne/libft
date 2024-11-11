@@ -6,13 +6,13 @@
 /*   By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 22:15:43 by gbetting          #+#    #+#             */
-/*   Updated: 2024/07/16 22:20:49 by gbetting         ###   ########.fr       */
+/*   Updated: 2024/11/10 19:03:55 by gbetting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-bool	ft_n_header(t_data *data)
+bool	ft_n_header(t_pf_data *data)
 {
 	ft_buffer_clear(data);
 	if (data->format_data.length == LENGTH_NONE)

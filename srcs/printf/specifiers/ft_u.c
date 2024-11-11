@@ -6,13 +6,13 @@
 /*   By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 09:43:28 by gbetting          #+#    #+#             */
-/*   Updated: 2024/07/16 22:00:11 by gbetting         ###   ########.fr       */
+/*   Updated: 2024/11/10 19:05:06 by gbetting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static void	ft_u_process(const char *nbr, t_data *data)
+static void	ft_u_process(const char *nbr, t_pf_data *data)
 {
 	int64_t	nbrlen;
 	int64_t	len;
@@ -36,7 +36,7 @@ static void	ft_u_process(const char *nbr, t_data *data)
 		ft_buffer_char(' ', data->format_data.width - len, data);
 }
 
-static void	ft_u_preprocess(t_data *data)
+static void	ft_u_preprocess(t_pf_data *data)
 {
 	if (data->format_data.flags & FLAG_ZERO && data->format_data.precision >= 0)
 		data->format_data.flags &= ~FLAG_ZERO;
@@ -46,7 +46,7 @@ static void	ft_u_preprocess(t_data *data)
 	return ;
 }
 
-bool	ft_u_header(t_data *data)
+bool	ft_u_header(t_pf_data *data)
 {
 	uint64_t	unbr;
 

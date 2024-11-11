@@ -6,7 +6,7 @@
 /*   By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 08:20:33 by gbetting          #+#    #+#             */
-/*   Updated: 2024/06/18 13:34:29 by gbetting         ###   ########.fr       */
+/*   Updated: 2024/11/11 01:15:14 by gbetting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 // %[flags][width][.precision][length]specifier
 
-static uint64_t	ft_fflags(const char *format, t_data *data)
+static uint64_t	ft_fflags(const char *format, t_pf_data *data)
 {
 	uint64_t	i;
 
 	i = 0;
 	data->format_data.flags = 0;
-	while (format[i] && ft_strchr("+- #0", format[i]))
+	while (format[i] && ft_strchr("+- #0@", format[i]))
 	{
 		if (format[i] == '-')
 			data->format_data.flags |= FLAG_MINUS;
@@ -32,12 +32,14 @@ static uint64_t	ft_fflags(const char *format, t_data *data)
 			data->format_data.flags |= FLAG_HASH;
 		else if (format[i] == '0')
 			data->format_data.flags |= FLAG_ZERO;
+		else if (format[i] == '@')
+			data->format_data.flags |= FLAG_COLOR;
 		i++;
 	}
 	return (i);
 }
 
-static uint64_t	ft_fwidth(const char *format, t_data *data)
+static uint64_t	ft_fwidth(const char *format, t_pf_data *data)
 {
 	uint64_t	i;
 
@@ -65,7 +67,7 @@ static uint64_t	ft_fwidth(const char *format, t_data *data)
 	return (i);
 }
 
-static uint64_t	ft_fprecision(const char *format, t_data *data)
+static uint64_t	ft_fprecision(const char *format, t_pf_data *data)
 {
 	uint64_t	i;
 
@@ -93,7 +95,7 @@ static uint64_t	ft_fprecision(const char *format, t_data *data)
 	return (i);
 }
 
-static uint64_t	ft_flength(const char *format, t_data *data)
+static uint64_t	ft_flength(const char *format, t_pf_data *data)
 {
 	uint64_t	i;
 
@@ -118,7 +120,7 @@ static uint64_t	ft_flength(const char *format, t_data *data)
 	return (i);
 }
 
-void	ft_format(const char *format, t_data *data)
+void	ft_format(const char *format, t_pf_data *data)
 {
 	uint64_t	i;
 

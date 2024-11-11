@@ -6,13 +6,13 @@
 /*   By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 10:29:53 by gbetting          #+#    #+#             */
-/*   Updated: 2024/07/03 03:43:11 by gbetting         ###   ########.fr       */
+/*   Updated: 2024/11/11 01:48:12 by gbetting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_buffer_clear(t_data *data)
+void	ft_buffer_clear(t_pf_data *data)
 {
 	if (data->strout)
 		*(data->str_output) = ft_strjoin(*(data->str_output), data->buffer);
@@ -22,7 +22,7 @@ void	ft_buffer_clear(t_data *data)
 	data->buff_index = 0;
 }
 
-void	ft_buffer_format(const char *format, t_data *data)
+void	ft_buffer_format(const char *format, t_pf_data *data)
 {
 	while (data->buff_index < BUFF_SIZE
 		&& format[data->format_index]
@@ -35,7 +35,7 @@ void	ft_buffer_format(const char *format, t_data *data)
 	}
 }
 
-void	ft_buffer_char(const char c, size_t count, t_data *data)
+void	ft_buffer_char(const char c, size_t count, t_pf_data *data)
 {
 	size_t	i;
 
@@ -52,7 +52,7 @@ void	ft_buffer_char(const char c, size_t count, t_data *data)
 	}
 }
 
-void	ft_buffer_str(const unsigned char *str, size_t len, t_data *data)
+void	ft_buffer_str(const unsigned char *str, size_t len, t_pf_data *data)
 {
 	size_t	i;
 

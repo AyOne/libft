@@ -6,13 +6,13 @@
 /*   By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 18:05:50 by gbetting          #+#    #+#             */
-/*   Updated: 2024/07/02 08:14:49 by gbetting         ###   ########.fr       */
+/*   Updated: 2024/11/10 19:03:26 by gbetting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static bool	ft_s(t_data *data)
+static bool	ft_s(t_pf_data *data)
 {
 	char	*str;
 	size_t	len;
@@ -33,7 +33,7 @@ static bool	ft_s(t_data *data)
 	return (true);
 }
 
-bool	ft_s_header(t_data *data)
+bool	ft_s_header(t_pf_data *data)
 {
 	if (data->format_data.length == LENGTH_NONE)
 		return (ft_s(data));

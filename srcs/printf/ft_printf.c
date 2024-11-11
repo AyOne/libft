@@ -6,32 +6,36 @@
 /*   By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 07:46:25 by gbetting          #+#    #+#             */
-/*   Updated: 2024/07/03 03:40:34 by gbetting         ###   ########.fr       */
+/*   Updated: 2024/11/11 01:47:36 by gbetting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_specifier_exec(t_data *data)
+void	ft_specifier_exec(t_pf_data *data)
 {
-	size_t		i;
-	t_specifier	*g_specifiers;
+	size_t			i;
+	t_pf_specifier	*specifiers;
 
 	i = 0;
-	g_specifiers = ft_get_specifier();
-	while (g_specifiers[i].specifier)
+	specifiers = ft_get_specifier();
+	if (data->format_data.flags & FLAG_COLOR)
+		ft_color(data);
+	while (specifiers[i].specifier)
 	{
-		if (g_specifiers[i].specifier == data->format_data.specifier)
+		if (specifiers[i].specifier == data->format_data.specifier)
 		{
-			if (!g_specifiers[i].function(data))
+			if (!specifiers[i].function(data))
 				data->ff = true;
 			break ;
 		}
 		i++;
 	}
+	if (data->format_data.flags & FLAG_COLOR)
+		ft_endcolor(data);
 }
 
-int	ft_printf_process(const char *format, t_data *data)
+int	ft_printf_process(const char *format, t_pf_data *data)
 {
 	data->buff_index = 0;
 	data->total_count = 0;
@@ -55,7 +59,7 @@ int	ft_printf_process(const char *format, t_data *data)
 
 int	ft_dprintf(int fd, const char *format, ...)
 {
-	t_data	data;
+	t_pf_data	data;
 
 	if (format == NULL)
 		return (-1);
@@ -69,7 +73,7 @@ int	ft_dprintf(int fd, const char *format, ...)
 
 int	ft_printf(const char *format, ...)
 {
-	t_data	data;
+	t_pf_data	data;
 
 	if (format == NULL)
 		return (-1);
@@ -83,7 +87,7 @@ int	ft_printf(const char *format, ...)
 
 int	ft_asprintf(char **str, const char *format, ...)
 {
-	t_data	data;
+	t_pf_data	data;
 
 	if (format == NULL)
 		return (-1);

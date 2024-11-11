@@ -6,7 +6,7 @@
 /*   By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 07:46:59 by gbetting          #+#    #+#             */
-/*   Updated: 2024/07/16 22:20:02 by gbetting         ###   ########.fr       */
+/*   Updated: 2024/11/11 01:46:05 by gbetting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,16 +36,34 @@
 # define OCTAL_PREFIX "0"
 # define BINARY_PREFIX "0b"
 
-typedef enum e_flags
+typedef struct s_color
 {
-	FLAG_MINUS	=	1 << 0,
-	FLAG_PLUS	=	1 << 1,
-	FLAG_SPACE	=	1 << 2,
-	FLAG_HASH	=	1 << 3,
-	FLAG_ZERO	=	1 << 4
-}		t_flags;
+	uint8_t		text_red;
+	uint8_t		text_green;
+	uint8_t		text_blue;
+	uint8_t		background_red;
+	uint8_t		background_green;
+	uint8_t		background_blue;
+	uint16_t	flags;
+}				t_color;
 
-typedef enum e_length
+typedef union u_pf_color
+{
+	uint64_t	raw_data;
+	t_color		color;
+}	t_pf_color;
+
+typedef enum e_pf_flags
+{
+	FLAG_MINUS	=	BIT_0,
+	FLAG_PLUS	=	BIT_1,
+	FLAG_SPACE	=	BIT_2,
+	FLAG_HASH	=	BIT_3,
+	FLAG_ZERO	=	BIT_4,
+	FLAG_COLOR	=	BIT_5
+}		t_pf_flags;
+
+typedef enum e_pf_length
 {
 	LENGTH_NONE	=	0,
 	LENGTH_HH	=	1,
@@ -56,22 +74,22 @@ typedef enum e_length
 	LENGTH_Z	=	6,
 	LENGTH_T	=	7,
 	LENGTH_LF	=	8
-}		t_length;
+}		t_pf_length;
 
-typedef struct s_format
+typedef struct s_pf_format
 {
 	uint64_t	flags;
 	int64_t		width;
 	int64_t		precision;
 	uint64_t	length;
 	char		specifier;
-}		t_format;
+}		t_pf_format;
 
-typedef struct s_data
+typedef struct s_pf_data
 {
 	int			fd;
 	va_list		args;
-	t_format	format_data;
+	t_pf_format	format_data;
 	size_t		format_index;
 	char		buffer[BUFF_SIZE];
 	size_t		buff_index;
@@ -79,31 +97,36 @@ typedef struct s_data
 	bool		ff;
 	bool		strout;
 	char		**str_output;
-}	t_data;
+}	t_pf_data;
 
-typedef struct s_specifier
+typedef struct s_pf_specifier
 {
 	char		specifier;
-	bool		(*function)(t_data * data);
-}	t_specifier;
+	bool		(*function)(t_pf_data * data);
+}	t_pf_specifier;
 
-void		ft_format(const char *format, t_data *data);
+void			ft_format(const char *format, t_pf_data *data);
 
 // === BUFFER ===
-void		ft_buffer_format(const char *format, t_data *data);
-void		ft_buffer_clear(t_data *data);
-void		ft_buffer_str(const unsigned char *str, size_t len, t_data *data);
-void		ft_buffer_char(const char c, size_t count, t_data *data);
+void			ft_buffer_format(const char *format, t_pf_data *data);
+void			ft_buffer_clear(t_pf_data *data);
+void			ft_buffer_str(const unsigned char *str, size_t len,
+					t_pf_data *data);
+void			ft_buffer_char(const char c, size_t count, t_pf_data *data);
+
+// === COLOR ===
+void			ft_color(t_pf_data *data);
+void			ft_endcolor(t_pf_data *data);
 
 // === SPECIFIERS ===
-bool		ft_c_header(t_data *data);
-bool		ft_i_header(t_data *data);
-bool		ft_p_header(t_data *data);
-bool		ft_percent(t_data *data);
-bool		ft_s_header(t_data *data);
-bool		ft_u_header(t_data *data);
-bool		ft_x_header(t_data *data);
-bool		ft_n_header(t_data *data);
-t_specifier	*ft_get_specifier(void);
+bool			ft_c_header(t_pf_data *data);
+bool			ft_i_header(t_pf_data *data);
+bool			ft_p_header(t_pf_data *data);
+bool			ft_percent(t_pf_data *data);
+bool			ft_s_header(t_pf_data *data);
+bool			ft_u_header(t_pf_data *data);
+bool			ft_x_header(t_pf_data *data);
+bool			ft_n_header(t_pf_data *data);
+t_pf_specifier	*ft_get_specifier(void);
 
 #endif
