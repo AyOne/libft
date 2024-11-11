@@ -6,7 +6,7 @@
 /*   By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 19:53:21 by gbetting          #+#    #+#             */
-/*   Updated: 2024/11/11 02:02:48 by gbetting         ###   ########.fr       */
+/*   Updated: 2024/11/11 03:55:37 by gbetting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,25 +131,165 @@ typedef enum s_dlist_rtrn
 
 typedef t_dlist_rtrn	(*t_iterfunc)(void *, size_t, void *);
 
+/**
+ * @brief The ft_dlstadd_back() function adds a new element at the end of the
+ * list.
+ * @param lst The list to add the element to.
+ * @param new The new element to add.
+ * @return The updated list.
+ */
 t_dlist		*ft_dlstadd_back(t_dlist *lst, void *new);
+
+/**
+ * @brief The ft_dlstadd_front() function adds a new element at the beginning of
+ * the list.
+ * @param lst The list to add the element to.
+ * @param new The new element to add.
+ * @return The updated list.
+ */
 t_dlist		*ft_dlstadd_front(t_dlist *lst, void *new);
+
+/**
+ * @brief The ft_dlstadd_at() function adds a new element at a specific index in
+ * the list.
+ * @param lst The list to add the element to.
+ * @param content The content of the new element.
+ * @param index The index to add the element at.
+ * @return The updated list.
+ */
 t_dlist		*ft_dlstadd_at(t_dlist *lst, void *content, size_t index);
+
+/**
+ * @brief The ft_dlstclear() function clears the list and deletes its content
+ * using the provided function.
+ * @param lst The list to clear.
+ * @param del The function to delete the content.
+ */
 void		ft_dlstclear(t_dlist *lst, void (*del)(void *));
+
+/**
+ * @brief The ft_dlstfree() function frees the list and its content using the
+ * provided function.
+ * @param lst The list to free.
+ * @param del The function to delete the content.
+ */
 void		ft_dlstfree(t_dlist *lst, void (*del)(void *));
+
+/**
+ * @brief The ft_dlstfind() function finds an element in the list using the
+ * provided comparison function.
+ * @param lst The list to search.
+ * @param content The content to find.
+ * @param cmp The comparison function.
+ * @return The found element or NULL if not found.
+ */
 void		*ft_dlstfind(t_dlist *lst, void *content, t_cmpfunc cmp);
+
+/**
+ * @brief The ft_dlstsize() function returns the size of the list.
+ * @param lst The list to get the size of.
+ * @return The size of the list.
+ */
 size_t		ft_dlstsize(t_dlist *lst);
+
+/**
+ * @brief The ft_dlstget() function gets the element at a specific index in the
+ * list.
+ * @param lst The list to get the element from.
+ * @param index The index of the element.
+ * @return The element at the specified index.
+ */
 void		*ft_dlstget(t_dlist *lst, size_t index);
+
+/**
+ * @brief The ft_dlstfirst() function returns the first element of the list.
+ * @param lst The list to get the first element from.
+ * @return The first element of the list.
+ */
 void		*ft_dlstfirst(t_dlist *lst);
+
+/**
+ * @brief The ft_dlstlast() function returns the last element of the list.
+ * @param lst The list to get the last element from.
+ * @return The last element of the list.
+ */
 void		*ft_dlstlast(t_dlist *lst);
+
+/**
+ * @brief The ft_dlstiter_from() function iterates over the list from a specific
+ * index and applies the provided function.
+ * @param lst The list to iterate over.
+ * @param f The function to apply.
+ * @param index The index to start iterating from.
+ * @param args The arguments to pass to the function.
+ */
 void		ft_dlstiter_from(t_dlist *lst, t_iterfunc f, size_t index,
 				void *args);
+
+/**
+ * @brief The ft_dlstiter() function iterates over the list and applies the
+ * provided function.
+ * @param lst The list to iterate over.
+ * @param f The function to apply.
+ * @param args The arguments to pass to the function.
+ */
 void		ft_dlstiter(t_dlist *lst, t_iterfunc f, void *args);
+
+/**
+ * @brief The ft_dlstmap() function creates a new list by applying the provided
+ * function to each element of the list.
+ * @param lst The list to map.
+ * @param f The function to apply.
+ * @param del The function to delete the content if needed.
+ * @return The new list.
+ */
 t_dlist		*ft_dlstmap(t_dlist *lst, t_applyfunc f, t_delfunc del);
+
+/**
+ * @brief The ft_dlstnew() function creates a new empty list.
+ * @return The new list.
+ */
 t_dlist		*ft_dlstnew(void);
+
+/**
+ * @brief The ft_dlstpop_front() function removes and returns the first element
+ * of the list.
+ * @param lst The list to pop the element from.
+ * @return The popped element.
+ */
 void		*ft_dlstpop_front(t_dlist *lst);
+
+/**
+ * @brief The ft_dlstpop_back() function removes and returns the last element
+ * of the list.
+ * @param lst The list to pop the element from.
+ * @return The popped element.
+ */
 void		*ft_dlstpop_back(t_dlist *lst);
+
+/**
+ * @brief The ft_dlstpop_at() function removes and returns the element at a
+ * specific index in the list.
+ * @param lst The list to pop the element from.
+ * @param index The index of the element.
+ * @return The popped element.
+ */
 void		*ft_dlstpop_at(t_dlist *lst, size_t index);
+
+/**
+ * @brief The ft_dlstto_array() function converts the list to an array.
+ * @param dlst The list to convert.
+ * @return The array of elements.
+ */
 void		**ft_dlstto_array(t_dlist *dlst);
+
+/**
+ * @brief The ft_dlstto_array_free() function converts the list to an array and
+ * frees the list.
+ * @param dlst The list to convert.
+ * @param del The function to delete the content.
+ * @return The array of elements.
+ */
 void		**ft_dlstto_array_free(t_dlist *dlst, void (*del)(void *));
 
 // #endregion
@@ -169,85 +309,6 @@ char		*get_next_line(int fd);
  * @brief The gnl() function is an alias for the get_next_line() function.
  */
 char		*gnl(int fd);
-
-// #endregion
-
-/* =========================== [CHAINED LIST] =============================== */
-// #region CHAINED LIST
-typedef struct s_list
-{
-	void			*content;
-	struct s_list	*next;
-}				t_list;
-
-/**
- * @brief The lstnew() function allocates and returns a new element. The
- * variable 'content' is initialized with the value of the parameter 'content'.
- * The variable 'next' is initialized to NULL.
- * @param content The content to create the new element with.
- * @return The lstnew() function returns the new element.
- */
-t_list		*ft_lstnew(void *content);
-/**
- * @brief The lstadd_front() function adds the element 'new' at the beginning of
- * the list.
- * @param lst The address of a pointer to the first link of a list.
- * @param new The address of a pointer to the element to be added to the list.
- */
-void		ft_lstadd_front(t_list **lst, t_list *new);
-/**
- * @brief The lstsize() function counts the number of elements in a list.
- * @param lst The beginning of the list.
- * @return The lstsize() function returns the number of elements in the list.
- */
-size_t		ft_lstsize(t_list *lst);
-/**
- * @brief The lstlast() function returns the last element of the list.
- * @param lst The beginning of the list.
- * @return The lstlast() function returns the last element of the list.
- */
-t_list		*ft_lstlast(t_list *lst);
-/**
- * @brief The lstadd_back() function adds the element 'new' at the end of the
- * list.
- * @param lst The address of a pointer to the first link of a list.
- * @param new The address of a pointer to the element to be added to the list.
- */
-void		ft_lstadd_back(t_list **lst, t_list *new);
-/**
- * @brief The lstdelone() function takes as a parameter an element and frees the
- * memory of the element's content using the function 'del' given as a parameter
- * and free the element. The memory of 'next' must not be freed.
- * @param lst The element to free.
- * @param del The address of the function used to delete the content.
- */
-void		ft_lstdelone(t_list *lst, void (*del)(void *));
-/**
- * @brief The lstdel() function takes as a parameter the address of a pointer to
- * an element and frees the memory of this element and all its successors using
- * the function 'del' and free(). Finally, the pointer must be set to NULL.
- * @param lst The address of a pointer to the first link of a list.
- * @param del The address of the function used to delete the content.
- */
-void		ft_lstclear(t_list **lst, void (*del)(void *));
-/**
- * @brief The lstiter() function iterates the list 'lst' and applies the
- * function 'f' to the content of each element.
- * @param lst The beginning of the list.
- * @param f The address of the function to apply.
- */
-void		ft_lstiter(t_list *lst, void (*f)(void *));
-/**
- * @brief The lstmap() function iterates the list 'lst' and applies the function
- * 'f' to the content of each element. Creates a new list resulting of the
- * successive applications of the function 'f'. The 'del' function is used to
- * delete the content of an element if needed.
- * @param lst The beginning of the list.
- * @param f The address of the function to apply.
- * @param del The address of the function used to delete the content.
- * @return The lstmap() function returns the new list.
- */
-t_list		*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 
 // #endregion
 
@@ -277,7 +338,8 @@ int64_t		ft_max(int64_t a, int64_t b);
  * @brief The minu() function returns the smallest of the two unsigned integers.
  * @param a The first unsigned integer to compare.
  * @param b The second unsigned integer to compare.
- * @return The minu() function returns the smallest of the two unsigned integers.
+ * @return The minu() function returns the smallest of the two unsigned
+ * integers.
  */
 uint64_t	ft_minu(uint64_t a, uint64_t b);
 /**
@@ -343,11 +405,10 @@ int32_t		ft_memcmp(const void *s1, const void *s2, size_t n);
 void		*ft_memcpy(void *dst, const void *src, size_t n);
 /**
  * @brief The memdup() function allocates sufficient memory for a copy of the
- * memory area pointed to by src, does the copy, and returns a pointer to it.
- * @param src The memory area to duplicate.
- * @param size The size of the memory area.
- * @return The memdup() function returns a pointer to the duplicated memory area.
- * @note The memdup() function returns NULL if insufficient memory is available.
+ * memory area.
+ * @param src The source memory area to copy.
+ * @param size The size of the memory area to copy.
+ * @return Pointer to the duplicated memory area, or NULL if allocation fails.
  */
 void		*ft_memdup(const void *src, size_t size);
 /**
@@ -479,9 +540,37 @@ bool		ft_isprint(char c);
  * @note Do not free or store the returned string.
  */
 char		*ft_itoa_nm(int32_t n);
+
+/**
+ * @brief The ft_ltoa_nm() function returns a static string representing the
+ * long integer received as an argument without malloc.
+ * @param n The long integer to convert.
+ * @return The ft_ltoa_nm() function returns the string representing the long
+ * integer.
+ * @note Do not free or store the returned string.
+ */
 char		*ft_ltoa_nm(int64_t n);
+
+/**
+ * @brief The ft_uitoa_nm() function returns a static string representing the
+ * unsigned integer received as an argument without malloc.
+ * @param n The unsigned integer to convert.
+ * @return The ft_uitoa_nm() function returns the string representing the
+ * unsigned integer.
+ * @note Do not free or store the returned string.
+ */
 char		*ft_uitoa_nm(uint32_t n);
+
+/**
+ * @brief The ft_ultoa_nm() function returns a static string representing the
+ * unsigned long integer received as an argument without malloc.
+ * @param n The unsigned long integer to convert.
+ * @return The ft_ultoa_nm() function returns the string representing the
+ * unsigned long integer.
+ * @note Do not free or store the returned string.
+ */
 char		*ft_ultoa_nm(uint64_t n);
+
 /**
  * @brief The itoa() function allocates and returns a string representing the
  * integer received as an argument.
@@ -489,9 +578,36 @@ char		*ft_ultoa_nm(uint64_t n);
  * @return The itoa() function returns the string representing the integer.
  */
 char		*ft_itoa(int32_t n);
+
+/**
+ * @brief The ft_ltoa() function allocates and returns a string representing the
+ * long integer received as an argument.
+ * @param n The long integer to convert.
+ * @return The ft_ltoa() function returns the string representing the long
+ * integer.
+ */
 char		*ft_ltoa(int64_t n);
+
+/**
+ * @brief The ft_uitoa() function allocates and returns a string representing
+ * the
+ * unsigned integer received as an argument.
+ * @param n The unsigned integer to convert.
+ * @return The ft_uitoa() function returns the string representing the unsigned
+ * integer.
+ */
 char		*ft_uitoa(uint32_t n);
+
+/**
+ * @brief The ft_ultoa() function allocates and returns a string representing
+ * the
+ * unsigned long integer received as an argument.
+ * @param n The unsigned long integer to convert.
+ * @return The ft_ultoa() function returns the string representing the unsigned
+ * long integer.
+ */
 char		*ft_ultoa(uint64_t n);
+
 /**
  * @brief The split() function allocates and returns an array of strings
  * obtained by splitting 's' using the character 'c' as a delimiter. The array
@@ -538,24 +654,19 @@ void		ft_striteri(char *s, void (*f)(uint32_t, char *));
  */
 char		*ft_strjoin(char const *s1, char const *s2);
 /**
- * @brief The strlcat() function appends the NUL-terminated string src to the
- * end of dst. It will append at most size - strlen(dst) - 1 bytes, NUL
- * terminating the result.
- * @param dst The destination to append to.
- * @param src The source to append from.
+ * @brief The strlcat() function concatenates strings.
+ * @param dst The destination string.
+ * @param src The source string.
  * @param size The size of the destination buffer.
- * @return The strlcat() function returns the total length of the string it
- * tried to create.
+ * @return Total length of the string that would have been created.
  */
 size_t		ft_strlcat(char *dst, const char *src, size_t size);
 /**
- * @brief The strlcpy() function copies up to size - 1 characters from the NUL-
- * terminated string src to dst, NUL-terminating the result.
- * @param dst The destination to copy to.
- * @param src The source to copy from.
+ * @brief The strlcpy() function copies strings.
+ * @param dst The destination string.
+ * @param src The source string.
  * @param size The size of the destination buffer.
- * @return The strlcpy() function returns the total length of the string it
- * tried to create.
+ * @return Length of src (the string it tried to create).
  */
 size_t		ft_strlcpy(char *dst, const char *src, size_t size);
 /**
@@ -658,28 +769,24 @@ char		ft_toupper(char c);
  * @brief The ft_nbrbase() function converts a number to a string in a given
  * base.
  * @param nbr The number to convert.
- * @param base The base to convert the number to.
- * @return The ft_nbrbase() function returns the string representation of the
- * number in the given base.
+ * @param base The string containing the base characters.
+ * @return The string representation of the number in the given base.
  */
 char		*ft_nbrbase(uint64_t nbr, char *base);
 /**
- * @brief The ft_nbrbase_nm() function converts a number to a string in a given
- * base without malloc.
+ * @brief The ft_nbrbase_nm() function converts a number to a string without
+ * malloc.
  * @param nbr The number to convert.
- * @param base The base to convert the number to.
- * @return The ft_nbrbase_nm() function returns the string representation of the
- * number in the given base.
+ * @param base The string containing the base characters.
+ * @return A static string containing the number in the given base.
  * @note Do not free or store the returned string.
  */
 char		*ft_nbrbase_nm(uint64_t nbr, char *base);
 /**
- * @brief The ft_nbrlen() function calculates the length of a number in a given
- * base.
+ * @brief Calculates the length of a number in a given base.
  * @param nbr The number to calculate the length of.
- * @param base The base of the number.
- * @return The ft_nbrlen() function returns the length of the number in the given
- * base.
+ * @param base The string containing the base characters.
+ * @return The length of the number when expressed in the given base.
  */
 size_t		ft_nbrlen(uint64_t nbr, char *base);
 /**
@@ -730,17 +837,17 @@ void		*ft_t_ptr(bool condition, void *a, void *b);
  */
 void		ft_qsort(int64_t *array, size_t size);
 /**
- * @brief The qsort_cmp() function sorts an array of 'size' elements using the
- * quicksort algorithm with a custom comparison function.
- * @param array The array to sort.
- * @param size The number of elements in the array.
- * @param cmp The comparison function to use.
+ * @brief The qsort_cmp() function sorts an array using quicksort algorithm.
+ * @param array Array of pointers to be sorted.
+ * @param size Number of elements in the array.
+ * @param cmp Comparison function returning negative if first should be before
+ * second, zero if equal, positive if first should be after second.
  */
 void		ft_qsort_cmp(void **array, size_t size, t_cmpfunc cmp);
 /**
- * @brief The xorshift64() function generates a random number using the
- * xorshift64 algorithm.
- * @return The xorshift64() function returns a pseudo-random number.
+ * @brief The xorshift64() function generates pseudo-random numbers.
+ * @return A high-quality pseudo-random 64-bit value.
+ * @note Must call ft_setseed() or ft_init_random() before first use.
  */
 uint64_t	ft_xorshift64(void);
 /**

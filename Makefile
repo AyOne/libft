@@ -6,7 +6,7 @@
 #    By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/16 09:03:49 by gbetting          #+#    #+#              #
-#    Updated: 2024/11/11 01:47:50 by gbetting         ###   ########.fr        #
+#    Updated: 2024/11/11 03:55:54 by gbetting         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,9 +19,6 @@ SRC_DLST = dlst/ft_dlstadd_at.c dlst/ft_dlstadd_back.c dlst/ft_dlstadd_front.c	\
 			dlst/ft_dlstiter.c dlst/ft_dlstmap.c dlst/ft_dlstnew.c				\
 			dlst/ft_dlstpop.c dlst/ft_dlstto_array.c
 SRC_GNL = get_next_line/get_next_line.c get_next_line/get_next_line_utils.c
-SRC_LST = lst/ft_lstadd_back.c lst/ft_lstadd_front.c lst/ft_lstclear.c			\
-			lst/ft_lstdelone.c lst/ft_lstiter.c lst/ft_lstlast.c				\
-			lst/ft_lstmap.c lst/ft_lstnew.c lst/ft_lstsize.c
 SRC_MATH = math/ft_abs.c math/ft_minmax.c
 SRC_MEM = mem/ft_bzero.c mem/ft_calloc.c mem/ft_memchr.c mem/ft_memcmp.c		\
 			mem/ft_memcpy.c mem/ft_memdup.c mem/ft_memmove.c mem/ft_memset.c
