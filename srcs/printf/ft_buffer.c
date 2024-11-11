@@ -6,7 +6,7 @@
 /*   By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 10:29:53 by gbetting          #+#    #+#             */
-/*   Updated: 2024/11/11 01:48:12 by gbetting         ###   ########.fr       */
+/*   Updated: 2024/11/11 02:01:31 by gbetting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,14 @@
 
 void	ft_buffer_clear(t_pf_data *data)
 {
+	char	*tmp;
+
 	if (data->strout)
+	{
+		tmp = *(data->str_output);
 		*(data->str_output) = ft_strjoin(*(data->str_output), data->buffer);
+		free(tmp);
+	}
 	else
 		(void)write(data->fd, data->buffer, data->buff_index);
 	data->total_count += data->buff_index;

@@ -6,7 +6,7 @@
 /*   By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 19:53:21 by gbetting          #+#    #+#             */
-/*   Updated: 2024/11/11 01:04:59 by gbetting         ###   ########.fr       */
+/*   Updated: 2024/11/11 02:02:48 by gbetting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -385,8 +385,8 @@ void		*ft_memset(void *b, char c, size_t len);
  * @note for more information, you can refer to this link :
  * https://cplusplus.com/reference/cstdio/printf/
  */
-int			ft_printf(const char *format, ...)
-			__attribute__((format(printf, 1, 2)));
+int			ft_printf(const char *format, ...);
+//			__attribute__((format(printf, 1, 2)));
 /**
  * @brief The dprintf() function writes the output to the file descriptor fd,
  * under the control of a format string that specifies how subsequent arguments
@@ -399,8 +399,8 @@ int			ft_printf(const char *format, ...)
  * @note for more information, you can refer to this link :
  * https://cplusplus.com/reference/cstdio/printf/
  */
-int			ft_dprintf(int fd, const char *format, ...)
-			__attribute__((format(printf, 2, 3)));
+int			ft_dprintf(int fd, const char *format, ...);
+//			__attribute__((format(printf, 2, 3)));
 /**
  * @brief The asprintf() function writes the output to a string allocated by
  * malloc(), under the control of a format string that specifies how subsequent
@@ -413,8 +413,8 @@ int			ft_dprintf(int fd, const char *format, ...)
  * @note for more information, you can refer to this link :
  * https://cplusplus.com/reference/cstdio/printf/
  */
-int			ft_asprintf(char **str, const char *format, ...)
-			__attribute__((format(printf, 2, 3)));
+int			ft_asprintf(char **str, const char *format, ...);
+//			__attribute__((format(printf, 2, 3)));
 
 // #endregion
 
