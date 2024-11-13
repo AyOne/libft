@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_color.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gbetting <gbetting>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 01:16:47 by gbetting          #+#    #+#             */
-/*   Updated: 2024/11/11 01:48:47 by gbetting         ###   ########.fr       */
+/*   Updated: 2024/11/13 23:35:21 by gbetting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,17 +44,17 @@ static void	ft_color_background(t_pf_data *data, t_pf_color color)
 
 static void	ft_color_flags(t_pf_data *data, t_pf_color color)
 {
-	if (color.color.flags & PF_FBOLD)
+	if (color.color.flags & (PF_FBOLD >> 48))
 		ft_buffer_str((unsigned char *)";1", 2, data);
-	if (color.color.flags & PF_FULINE)
+	if (color.color.flags & (PF_FULINE >> 48))
 		ft_buffer_str((unsigned char *)";4", 2, data);
-	if (color.color.flags & PF_FITALIC)
+	if (color.color.flags & (PF_FITALIC >> 48))
 		ft_buffer_str((unsigned char *)";3", 2, data);
-	if (color.color.flags & PF_FBLINK)
+	if (color.color.flags & (PF_FBLINK >> 48))
 		ft_buffer_str((unsigned char *)";5", 2, data);
-	if (color.color.flags & PF_FREVERSE)
+	if (color.color.flags & (PF_FREVERSE >> 48))
 		ft_buffer_str((unsigned char *)";7", 2, data);
-	if (color.color.flags & PF_FSTHROUGH)
+	if (color.color.flags & (PF_FSTHROUGH >> 48))
 		ft_buffer_str((unsigned char *)";9", 2, data);
 }
 

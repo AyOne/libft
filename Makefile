@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+         #
+#    By: gbetting <gbetting>                        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/16 09:03:49 by gbetting          #+#    #+#              #
-#    Updated: 2024/11/11 03:55:54 by gbetting         ###   ########.fr        #
+#    Updated: 2024/11/13 23:32:37 by gbetting         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,7 @@ SRC_STR = str/ft_atoi.c str/ft_isalnum.c str/ft_isalpha.c str/ft_isascii.c		\
 SRC_UTILS = utils/ft_nbrbase.c utils/ft_nbrlen.c utils/ft_qsort_cmp.c			\
 			utils/ft_qsort.c utils/ft_rng.c utils/ft_ternary.c
 
-SRC = $(sort $(SRC_GNL) $(SRC_LST) $(SRC_MATH) $(SRC_MEM) $(SRC_PRINTF)				\
+SRC = $(sort $(SRC_GNL) $(SRC_LST) $(SRC_MATH) $(SRC_MEM) $(SRC_PRINTF)			\
 		$(SRC_STR) $(SRC_UTILS) $(SRC_DLST))
 		
 BONUS =

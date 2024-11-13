@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gbetting <gbetting>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 07:46:59 by gbetting          #+#    #+#             */
-/*   Updated: 2024/11/11 01:46:05 by gbetting         ###   ########.fr       */
+/*   Updated: 2024/11/13 23:35:47 by gbetting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,12 @@
 
 typedef struct s_color
 {
-	uint8_t		text_red;
-	uint8_t		text_green;
 	uint8_t		text_blue;
-	uint8_t		background_red;
-	uint8_t		background_green;
+	uint8_t		text_green;
+	uint8_t		text_red;
 	uint8_t		background_blue;
+	uint8_t		background_green;
+	uint8_t		background_red;
 	uint16_t	flags;
 }				t_color;
 
