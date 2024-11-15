@@ -6,7 +6,7 @@
 #    By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/02 11:29:19 by gbetting          #+#    #+#              #
-#    Updated: 2024/11/14 23:46:53 by gbetting         ###   ########.fr        #
+#    Updated: 2024/11/15 02:28:32 by gbetting         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -158,7 +158,7 @@ MEGA_FLAGS =	-Wshadow -Wconversion -Wsign-conversion -Wfloat-equal			\
 ifdef PAIN
 	DEFAULT_CFLAGS += $(MEGA_FLAGS)
 endif
-DEBUG_FLAGS = -g3 -fsanitize=address
+DEBUG_FLAGS = -g3
 RELEASE_FLAGS = -O3 -fno-builtin
 
 # macros
