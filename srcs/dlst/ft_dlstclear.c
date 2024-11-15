@@ -6,7 +6,7 @@
 /*   By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 03:53:07 by gbetting          #+#    #+#             */
-/*   Updated: 2024/07/17 04:22:37 by gbetting         ###   ########.fr       */
+/*   Updated: 2024/11/14 23:50:24 by gbetting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ void	ft_dlstclear(t_dlist *lst, void (*del)(void *))
 
 void	ft_dlstfree(t_dlist *lst, void (*del)(void *))
 {
+	if (!lst)
+		return ;
 	ft_dlstclear(lst, del);
 	free(lst);
 }

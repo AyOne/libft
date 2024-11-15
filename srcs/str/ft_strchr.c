@@ -6,7 +6,7 @@
 /*   By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 00:33:19 by gbetting          #+#    #+#             */
-/*   Updated: 2024/06/26 05:31:19 by gbetting         ###   ########.fr       */
+/*   Updated: 2024/11/15 01:43:53 by gbetting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,5 +18,18 @@ char	*ft_strchr(const char *s, char c)
 		s++;
 	if (*s == c)
 		return ((char *)s);
+	return (NULL);
+}
+
+char	*ft_strnchr(const char *s, char c, size_t size)
+{
+	size_t	i;
+
+	i = 0;
+	while (s[i] && i < size)
+	{
+		if (s[i++] == c)
+			return ((char *)s + i - 1);
+	}
 	return (NULL);
 }

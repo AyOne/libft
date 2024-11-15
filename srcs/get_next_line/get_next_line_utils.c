@@ -1,142 +1,141 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/28 14:20:22 by gbetting          #+#    #+#             */
-/*   Updated: 2024/06/28 04:21:34 by gbetting         ###   ########.fr       */
+/*   Created: 2024/11/15 00:00:49 by gbetting          #+#    #+#             */
+/*   Updated: 2024/11/15 01:43:48 by gbetting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-void	*ft_memdupcpy(void *dst, const void *src, size_t n)
+static char	*compile_line(t_dlist *lst, size_t *line_size)
 {
-	unsigned long	*l_dst;
-	unsigned long	*l_src;
-	unsigned char	*c_dst;
-	unsigned char	*c_src;
+	char	*line;
+	char	**arr;
+	size_t	i;
+	size_t	len;
 
-	if (!dst)
-		dst = malloc(n);
-	if (!dst)
+	*line_size = 0;
+	arr = (char **)ft_dlstto_array(lst);
+	i = 0;
+	while (arr[i])
+	{
+		*line_size += ft_strlen(arr[i]);
+		i++;
+	}
+	line = ft_calloc(*line_size + 1, sizeof(char));
+	if (!line)
+		return (free(arr), ft_dlstfree(lst, free), NULL);
+	i = 0;
+	while (arr[i])
+	{
+		len = ft_strlen(arr[i]);
+		ft_memcpy(line + i, arr[i], len);
+		i += len;
+	}
+	return (free(arr), ft_dlstfree(lst, free), line);
+}
+
+char	*extract_line(t_fdbuffer *buf, size_t *line_size)
+{
+	size_t	i;
+	char	*line;
+
+	i = 0;
+	*line_size = buf->buffer_size;
+	while (i < buf->buffer_size && buf->buffer[i] && buf->buffer[i] != '\n')
+		i++;
+	if (!(buf->buffer_size > 0 && buf->buffer[i++] == '\n'))
+		return (ft_memdup(buf->buffer, *line_size));
+	line = ft_calloc(i + 1, sizeof(char));
+	if (!line)
 		return (NULL);
-	l_dst = (unsigned long *)dst;
-	l_src = (unsigned long *)src;
-	while (n >= sizeof(unsigned long))
-	{
-		*l_dst++ = *l_src++;
-		n -= sizeof(unsigned long);
-	}
-	c_dst = (unsigned char *)l_dst;
-	c_src = (unsigned char *)l_src;
-	while (n--)
-		*c_dst++ = *c_src++;
-	return (dst);
+	ft_memcpy(line, buf->buffer, i);
+	buf->buffer_size -= i;
+	ft_memcpy(buf->buffer, buf->buffer + i, buf->buffer_size);
+	buf->buffer[buf->buffer_size] = '\0';
+	*line_size = i;
+	return (line);
 }
 
-void	ft_lstfree(t_list **lst, bool entire_lst, t_list *prev)
+char	*read_file(t_fdbuffer *buf, size_t *line_size)
 {
-	t_list	*tmp;
+	ssize_t	read_bytes;
+	t_dlist	*lst;
+	char	*line;
 
-	if (entire_lst)
+	lst = NULL;
+	read_bytes = 1;
+	while (read_bytes > 0)
 	{
-		while (*lst)
+		line = extract_line(buf, line_size);
+		if (!line)
+			return (ft_dlstfree(lst, free), NULL);
+		if (ft_dlstadd_back(lst, line) == NULL)
+			return (free(line), ft_dlstfree(lst, free), NULL);
+		if (*line_size != 0 && line[*line_size - 1] == '\n')
+			break ;
+		read_bytes = read(buf->fd, buf->buffer, BUFFER_SIZE);
+		buf->buffer_size = read_bytes;
+		if (read_bytes <= 0)
+			break ;
+		buf->buffer[read_bytes] = '\0';
+	}
+	buf->eof = read_bytes <= 0;
+	if (read_bytes < 0)
+		return (ft_dlstfree(lst, free), NULL);
+	return (compile_line(lst, line_size));
+}
+
+void	free_fdbuffer(int fd, t_dlist *lst)
+{
+	t_fdbuffer	**arr;
+	size_t		i;
+	size_t		target;
+
+	arr = (t_fdbuffer **)ft_dlstto_array(lst);
+	i = 0;
+	target = 0;
+	while (arr[i])
+	{
+		if (arr[i]->fd == fd)
 		{
-			tmp = (*lst)->next;
-			free((*lst)->content);
-			free(*lst);
-			*lst = tmp;
-		}
-		return ;
-	}
-	free((*lst)->content);
-	tmp = *lst;
-	if (prev)
-		prev->next = (*lst)->next;
-	else
-		tmp = (*lst)->next;
-	free(*lst);
-	*lst = tmp;
-}
-
-t_list	*ft_lstaddnew(t_list **lst, void *content, size_t size)
-{
-	t_list	*new;
-	t_list	*last;
-
-	if (!*lst)
-	{
-		*lst = malloc(sizeof(t_list));
-		if (!(*lst))
-			return (NULL);
-		(*lst)->content = content;
-		(*lst)->content_size = size;
-		(*lst)->next = NULL;
-		return (*lst);
-	}
-	new = malloc(sizeof(t_list));
-	if (!new)
-		return (NULL);
-	new->content = content;
-	new->content_size = size;
-	new->next = NULL;
-	last = *lst;
-	while (last && last->next)
-		last = last->next;
-	last->next = new;
-	return (new);
-}
-
-t_fdbuffer	*get_fdbuffer(int fd, t_list **lst)
-{
-	t_list	*node;
-
-	if (*lst)
-	{
-		node = *lst;
-		while (node)
-		{
-			if (((t_fdbuffer *)node->content)->fd == fd)
-				return (node->content);
-			node = node->next;
-		}
-	}
-	node = ft_lstaddnew(lst, NULL, 0);
-	if (!node)
-		return (NULL);
-	node->content = malloc(sizeof(t_fdbuffer));
-	if (!node->content)
-		return (ft_lstfree(lst, true, NULL), NULL);
-	((t_fdbuffer *)node->content)->fd = fd;
-	((t_fdbuffer *)node->content)->buffer_size = 0;
-	((t_fdbuffer *)node->content)->eof = false;
-	return (node->content);
-}
-
-void	ft_fdlstfree(int fd, t_list **lst)
-{
-	t_list	*prev;
-	t_list	*head;
-	t_list	*tmp;
-
-	prev = NULL;
-	head = *lst;
-	while (*lst)
-	{
-		tmp = (*lst)->next;
-		if (((t_fdbuffer *)(*lst)->content)->fd == fd)
-		{
-			if (head == *lst)
-				head = tmp;
-			ft_lstfree(lst, false, prev);
+			target = i;
 			break ;
 		}
-		else
-			prev = *lst;
-		*lst = tmp;
+		i++;
 	}
-	*lst = head;
+	free(arr);
+	free(ft_dlstpop_at(lst, target));
+}
+
+t_fdbuffer	*get_fdbuffer(int fd, t_dlist *lst)
+{
+	t_fdbuffer	**arr;
+	t_fdbuffer	*ret;
+	size_t		i;
+
+	arr = (t_fdbuffer **)ft_dlstto_array(lst);
+	i = 0;
+	while (arr[i])
+	{
+		if (arr[i]->fd == fd)
+		{
+			ret = arr[i];
+			free(arr);
+			return (ret);
+		}
+		i++;
+	}
+	free(arr);
+	ret = ft_calloc(1, sizeof(t_fdbuffer));
+	if (!ret)
+		return (NULL);
+	ret->fd = fd;
+	ft_dlstadd_back(lst, ret);
+	return (ret);
 }

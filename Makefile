@@ -6,13 +6,13 @@
 #    By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/02 11:29:19 by gbetting          #+#    #+#              #
-#    Updated: 2024/11/14 21:56:33 by gbetting         ###   ########.fr        #
+#    Updated: 2024/11/14 23:46:53 by gbetting         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # **************************************************************************** #
 # Universal Makefile by AyOne ( gbetting )                                     #
-# Version 3.1.0                                                                #
+# Version 3.1.4                                                                #
 # **************************************************************************** #
 
 NAME = libft.a
@@ -140,6 +140,11 @@ C_NORME_OK=\033[38;5;16;48;5;46;1mNorme\033[0m
 C_NORME_SKIP=\033[38;5;16;48;5;240;1mNorme\033[0m
 C_MAXLEN := $(shell echo "$(SRC_FILES)" | tr " " "\n" | awk 'length > max_length { max_length = length; longest_line = $$0 } END { print longest_line }' | wc -c)
 
+# Add these with other color constants
+C_TITLE=\033[1;4;33m%s\033[0m
+C_RULE=\033[1;32m%-12s\033[0m
+C_DESC=\033[38;5;248m%s\033[0m
+
 # compilation flags
 CC = clang
 AR = ar
@@ -157,18 +162,7 @@ DEBUG_FLAGS = -g3 -fsanitize=address
 RELEASE_FLAGS = -O3 -fno-builtin
 
 # macros
-# define print_result
-# 	if [ $(SKIP_NORME) ]; then \
-# 		[ -s $(LOG_DIR)/error.log ] && [ -s $(LOG_DIR)/norminette.log ] && printf "$(PREFIX)$(C_COMPILATION) -> $(C_FILE_SPACE) : $(C_COMPILATION_ERROR) $(C_NORME_ERROR)\n" $(C_MAXLEN) "$(1)" && cat $(LOG_DIR)/error.log && cat $(LOG_DIR)/norminette.log && exit 1 || \
-# 		[ -s $(LOG_DIR)/error.log ] && printf "$(PREFIX)$(C_COMPILATION) -> $(C_FILE_SPACE) : $(C_COMPILATION_ERROR) $(C_NORME_OK)\n" $(C_MAXLEN) "$(1)" && cat $(LOG_DIR)/error.log && exit 1 || \
-# 		[ -s $(LOG_DIR)/norminette.log ] && printf "$(PREFIX)$(C_COMPILATION) -> $(C_FILE_SPACE) : $(C_COMPILATION_OK) $(C_NORME_ERROR)\n" $(C_MAXLEN) "$(1)" && cat $(LOG_DIR)/norminette.log && exit 1 || \
-# 		printf "$(PREFIX)$(C_COMPILATION) -> $(C_FILE_SPACE) : $(C_COMPILATION_OK) $(C_NORME_OK)\n" $(C_MAXLEN) "$(1)"; \
-# 	else \
-# 		[ -s $(LOG_DIR)/error.log ] && printf "$(PREFIX)$(C_COMPILATION) -> $(C_FILE_SPACE) : $(C_COMPILATION_ERROR) $(C_NORME_OK)\n" $(C_MAXLEN) "$(1)" && cat $(LOG_DIR)/error.log && exit 1 || \
-# 		[ -s $(LOG_DIR)/norminette.log ] && printf "$(PREFIX)$(C_COMPILATION) -> $(C_FILE_SPACE) : $(C_COMPILATION_OK) $(C_NORME_ERROR)\n" $(C_MAXLEN) "$(1)" && cat $(LOG_DIR)/norminette.log && exit 1 || \
-# 		printf "$(PREFIX)$(C_COMPILATION) -> $(C_FILE_SPACE) : $(C_COMPILATION_OK) $(C_NORME_OK)\n" $(C_MAXLEN) "$(1)"; \
-# 	fi;
-# endef
+
 define print_result
 	if [ $(SKIP_NORME) ]; then \
 		[ -s $(LOG_DIR)/error.log ] && printf "$(PREFIX)$(C_COMPILATION) -> $(C_FILE_SPACE) : $(C_COMPILATION_ERROR) $(C_NORME_SKIP)\n" $(C_MAXLEN) "$(1)" && cat $(LOG_DIR)/error.log && exit 1 || \
@@ -212,9 +206,9 @@ endef
 define make_bin
 	if [ $(IS_LIB) ]; then \
 		$(AR) $(ARFLAGS) $@ $^ 2> $(LOG_DIR)/error.log || true; \
-	elif [ $(1) -eq "debug" ]; then \
+	elif [ $(1) = "debug" ]; then \
 		$(CC) $(CFLAGS) $(addprefix -I,$(HEADERS_DIR) $(SUBLIBS_INC_DIR)) -o $@ $^ $(SUBLIBS_DEBUG_FLAGS) 2> $(LOG_DIR)/error.log || true; \
-	elif [ $(1) -eq "release" ]; then \
+	elif [ $(1) = "release" ]; then \
 		$(CC) $(CFLAGS) $(addprefix -I,$(HEADERS_DIR) $(SUBLIBS_INC_DIR)) -o $@ $^ $(SUBLIBS_RELEASE_FLAGS) 2> $(LOG_DIR)/error.log || true; \
 	else \
 		$(CC) $(CFLAGS) $(addprefix -I,$(HEADERS_DIR) $(SUBLIBS_INC_DIR)) -o $@ $^ $(SUBLIBS_FLAGS) 2> $(LOG_DIR)/error.log || true; \
@@ -266,40 +260,52 @@ endif
 
 re: fclean all
 
-.PHONY: all clean --clean fclean re main bonus debug release
+help:
+	@printf "$(C_TITLE)\n" "Available rules:"
+	@printf "  $(C_RULE)$(C_DESC)\n" "make main" "	Build the main target"
+	@printf "  $(C_RULE)$(C_DESC)\n" "make bonus" "	Build the bonus target"
+	@printf "  $(C_RULE)$(C_DESC)\n" "make debug" "	Build both main and bonus target with debug flags"
+	@printf "  $(C_RULE)$(C_DESC)\n" "make release" "	Build both main and bonus target with release flags"
+	@printf "  $(C_RULE)$(C_DESC)\n" "make all" "	Build both main and bonus targets"
+	@printf "  $(C_RULE)$(C_DESC)\n" "make clean" "	Remove build directories"
+	@printf "  $(C_RULE)$(C_DESC)\n" "make fclean" "	Remove build directories and binaries"
+	@printf "  $(C_RULE)$(C_DESC)\n" "make re" "	Rebuild the project from scratch"
+	@printf "  $(C_RULE)$(C_DESC)\n" "make help" "	Display this help message"
+
+.PHONY: all clean --clean fclean re main bonus debug release help
 .SECONDARY: $(SUBLIBS)
 .SILENT:
 
 $(NAME): CFLAGS = $(DEFAULT_CFLAGS) $(EXTRA_FLAGS)
 $(NAME): $(OBJ_FILES)
 	$(call norminette,$(HEADERS_FILES))
-	$(call make_bin)
+	$(call make_bin, main)
 	$(call print_result_bin,$@)
 $(DNAME): CFLAGS = $(DEFAULT_CFLAGS) $(EXTRA_FLAGS) $(DEBUG_FLAGS)
 $(DNAME): $(DEBUG_OBJ_FILES)
 	$(call norminette,$(HEADERS_FILES))
-	$(call make_bin)
+	$(call make_bin, debug)
 	$(call print_result_bin,$@)
 $(RNAME): CFLAGS = $(DEFAULT_CFLAGS) $(EXTRA_FLAGS) $(RELEASE_FLAGS)
 $(RNAME): $(RELEASE_OBJ_FILES)
 	$(call norminette,$(HEADERS_FILES))
-	$(call make_bin)
+	$(call make_bin,release)
 	$(call print_result_bin,$@)
 ifdef BONUS_NAME
 $(BONUS_NAME): CFLAGS = $(DEFAULT_CFLAGS) $(BONUS_EXTRA_FLAGS)
 $(BONUS_NAME): $(BONUS_OBJ_FILES)
 	$(call norminette,$(BONUS_HEADERS_FILES))
-	$(call make_bin)
+	$(call make_bin,main)
 	$(call print_result_bin,$@)
 $(BONUS_DNAME): CFLAGS = $(DEFAULT_CFLAGS) $(BONUS_EXTRA_FLAGS) $(DEBUG_FLAGS)
 $(BONUS_DNAME): $(BONUS_DEBUG_OBJ_FILES)
 	$(call norminette,$(BONUS_HEADERS_FILES))
-	$(call make_bin)
+	$(call make_bin,debug)
 	$(call print_result_bin,$@)
 $(BONUS_RNAME): CFLAGS = $(DEFAULT_CFLAGS) $(BONUS_EXTRA_FLAGS) $(RELEASE_FLAGS)
 $(BONUS_RNAME): $(BONUS_RELEASE_OBJ_FILES)
 	$(call norminette,$(BONUS_HEADERS_FILES))
-	$(call make_bin)
+	$(call make_bin, release)
 	$(call print_result_bin,$@)
 endif
 
@@ -309,18 +315,22 @@ $(MAIN_DIR)/%.o: $(SRC_DIR)/%.c $(SUBLIBS) $(HEADERS_FILES) Makefile
 	$(call norminette,$<)
 	$(CC) $(CFLAGS) $(addprefix -I,$(HEADERS_DIR) $(SUBLIBS_INC_DIR)) -c $< -o $@ 2> $(LOG_DIR)/error.log || true
 	$(call print_result,$<)
-$(DEBUG_DIR)/%.o: $(SRC_DIR)/%.c $(SUBLIBS) $(HEADERS_FILES) Makefile
+$(DEBUG_DIR)/%.o: $(SRC_DIR)/%.c $(SUBLIBS_DEBUG) $(HEADERS_FILES) Makefile
 	$(call mkdir,$(LOG_DIR))
 	$(call mkdir,$(dir $@))
 	$(call norminette,$<)
 	$(CC) $(CFLAGS) $(addprefix -I,$(HEADERS_DIR) $(SUBLIBS_INC_DIR)) -c $< -o $@ 2> $(LOG_DIR)/error.log || true
 	$(call print_result,$<)
-$(RELEASE_DIR)/%.o: $(SRC_DIR)/%.c $(SUBLIBS) $(HEADERS_FILES) Makefile
+$(RELEASE_DIR)/%.o: $(SRC_DIR)/%.c $(SUBLIBS_RELEASE) $(HEADERS_FILES) Makefile
 	$(call mkdir,$(LOG_DIR))
 	$(call mkdir,$(dir $@))
 	$(call norminette,$<)
 	$(CC) $(CFLAGS) $(addprefix -I,$(HEADERS_DIR) $(SUBLIBS_INC_DIR)) -c $< -o $@ 2> $(LOG_DIR)/error.log || true
 	$(call print_result,$<)
 
+%_debug.a:
+	$(call call_libs,debug)
+%_release.a:
+	$(call call_libs,release)
 %.a:
-	$(call call_libs)
+	$(call call_libs,)

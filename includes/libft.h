@@ -6,7 +6,7 @@
 /*   By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 19:53:21 by gbetting          #+#    #+#             */
-/*   Updated: 2024/11/11 03:55:37 by gbetting         ###   ########.fr       */
+/*   Updated: 2024/11/15 01:44:27 by gbetting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -628,6 +628,19 @@ char		**ft_split(char const *s, char c);
  * NULL if the character does not appear in the string.
  */
 char		*ft_strchr(const char *s, char c);
+/**
+ * @brief Locates the first occurrence of a character in a string, 
+ * but only within the first 'size' characters. This function searches for the
+ * first occurrence of the character 'c' in the string 's', but only within the
+ * first 'size' characters of 's'.
+ * @param s The string to be searched.
+ * @param c The character to be located.
+ * @param size The maximum number of characters to search.
+ * @return A pointer to the first occurrence of the character 'c' 
+ * in the string 's', or NULL if the character is not found 
+ * within the first 'size' characters.
+ */
+char		*ft_strnchr(const char *s, char c, size_t size);
 /**
  * @brief The strdup() function allocates sufficient memory for a copy of the
  * string s1, does the copy, and returns a pointer to it. The pointer may
