@@ -6,7 +6,7 @@
 /*   By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 19:53:21 by gbetting          #+#    #+#             */
-/*   Updated: 2024/11/15 01:44:27 by gbetting         ###   ########.fr       */
+/*   Updated: 2024/11/16 02:40:15 by gbetting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -649,6 +649,7 @@ char		*ft_strnchr(const char *s, char c, size_t size);
  * @return The strdup() function returns a pointer to the duplicated string.
  */
 char		*ft_strdup(const char *s);
+char		*ft_strndup(const char *s, size_t n);
 /**
  * @brief the striteri() function applies the function 'f' to each character of
  * the string 's', and passing its index as first argument. Each character is
