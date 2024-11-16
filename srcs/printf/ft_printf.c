@@ -6,7 +6,7 @@
 /*   By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 07:46:25 by gbetting          #+#    #+#             */
-/*   Updated: 2024/11/16 03:46:24 by gbetting         ###   ########.fr       */
+/*   Updated: 2024/11/16 04:01:21 by gbetting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	ft_dprintf(int fd, const char *format, ...)
 
 	if (format == NULL)
 		return (-1);
+	ft_bzero(&data, sizeof(t_pf_data));
 	va_start(data.args, format);
 	data.fd = fd;
 	data.strout = false;
@@ -33,6 +34,7 @@ int	ft_printf(const char *format, ...)
 
 	if (format == NULL)
 		return (-1);
+	ft_bzero(&data, sizeof(t_pf_data));
 	va_start(data.args, format);
 	data.fd = STDOUT_FILENO;
 	data.strout = false;
@@ -48,6 +50,7 @@ int	ft_asprintf(char **str, const char *format, ...)
 
 	if (format == NULL)
 		return (-1);
+	ft_bzero(&data, sizeof(t_pf_data));
 	va_start(data.args, format);
 	data.fd = STDOUT_FILENO;
 	data.strout = true;
@@ -61,7 +64,7 @@ int	ft_asprintf(char **str, const char *format, ...)
 
 int	ft_bufferprintf(int fd, bool do_flush, const char *format, ...)
 {
-	static t_pf_data	data;
+	static t_pf_data	data = {0};
 
 	if (format == NULL)
 		return (-1);
