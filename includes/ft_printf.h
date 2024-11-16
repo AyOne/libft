@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbetting <gbetting>                        +#+  +:+       +#+        */
+/*   By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 07:46:59 by gbetting          #+#    #+#             */
-/*   Updated: 2024/11/13 23:35:47 by gbetting         ###   ########.fr       */
+/*   Updated: 2024/11/16 03:45:00 by gbetting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ typedef struct s_pf_specifier
 }	t_pf_specifier;
 
 void			ft_format(const char *format, t_pf_data *data);
+int				ft_printf_process(const char *format, t_pf_data *data);
 
 // === BUFFER ===
 void			ft_buffer_format(const char *format, t_pf_data *data);

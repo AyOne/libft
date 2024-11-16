@@ -6,7 +6,7 @@
 /*   By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 19:53:21 by gbetting          #+#    #+#             */
-/*   Updated: 2024/11/16 02:40:15 by gbetting         ###   ########.fr       */
+/*   Updated: 2024/11/16 03:46:41 by gbetting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -476,6 +476,8 @@ int			ft_dprintf(int fd, const char *format, ...);
  */
 int			ft_asprintf(char **str, const char *format, ...);
 //			__attribute__((format(printf, 2, 3)));
+
+int			ft_bufferprintf(int fd, bool do_flush, const char *format, ...);
 
 // #endregion
 

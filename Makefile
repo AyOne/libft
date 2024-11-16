@@ -6,7 +6,7 @@
 #    By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/02 11:29:19 by gbetting          #+#    #+#              #
-#    Updated: 2024/11/15 02:28:32 by gbetting         ###   ########.fr        #
+#    Updated: 2024/11/16 03:46:03 by gbetting         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ SRC_PRINTF =printf/ft_buffer.c printf/ft_format.c printf/ft_printf.c			\
 			printf/specifiers/ft_p.c printf/specifiers/ft_percent.c				\
 			printf/specifiers/ft_s.c printf/specifiers/ft_specifiers.c			\
 			printf/specifiers/ft_u.c printf/specifiers/ft_x.c					\
-			printf/specifiers/ft_n.c printf/ft_color.c
+			printf/specifiers/ft_n.c printf/ft_color.c printf/ft_exec.c
 SRC_STR =	str/ft_atoi.c str/ft_isalnum.c str/ft_isalpha.c str/ft_isascii.c	\
 			str/ft_isdigit.c str/ft_isprint.c str/ft_itoa.c str/ft_split.c		\
 			str/ft_strchr.c str/ft_strdup.c str/ft_striteri.c					\
