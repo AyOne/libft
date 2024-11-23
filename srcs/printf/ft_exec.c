@@ -6,7 +6,7 @@
 /*   By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 03:44:34 by gbetting          #+#    #+#             */
-/*   Updated: 2024/11/16 04:01:38 by gbetting         ###   ########.fr       */
+/*   Updated: 2024/11/16 04:12:59 by gbetting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ static void	ft_specifier_exec(t_pf_data *data)
 
 int	ft_printf_process(const char *format, t_pf_data *data)
 {
+	data->format_index = 0;
 	while (format[data->format_index])
 	{
 		if (format[data->format_index] == FORMAT_TRIGGER)
