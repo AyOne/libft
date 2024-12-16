@@ -6,7 +6,7 @@
 /*   By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 19:53:21 by gbetting          #+#    #+#             */
-/*   Updated: 2024/11/16 03:46:41 by gbetting         ###   ########.fr       */
+/*   Updated: 2024/12/16 22:26:33 by gbetting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -781,6 +781,13 @@ char		ft_toupper(char c);
 
 /* ================================ [UTILS] ================================= */
 // #region UTILS
+/**
+ * @brief The ft_deepfree() function frees an array of pointers and calls the
+ * del function on each element if provided.
+ * @param array The array of pointers to free.
+ * @param del The function to call on each element.
+ */
+void		ft_deepfree(void **array, void (*del)(void *));
 /**
  * @brief The ft_nbrbase() function converts a number to a string in a given
  * base.
