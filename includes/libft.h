@@ -6,7 +6,7 @@
 /*   By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 19:53:21 by gbetting          #+#    #+#             */
-/*   Updated: 2024/12/16 22:26:33 by gbetting         ###   ########.fr       */
+/*   Updated: 2025/02/06 21:54:55 by gbetting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -701,6 +701,15 @@ size_t		ft_strlen(const char *s);
  * @return The strmapi() function returns the new string.
  */
 char		*ft_strmapi(char const *s, char (*f)(uint32_t, char));
+/**
+ * @brief The strcmp() function compares the two strings s1 and s2.
+ * @param s1 The first string to compare.
+ * @param s2 The second string to compare.
+ * @return The strcmp() function returns an integer greater than, equal to, or
+ * less than 0, according as the string s1 is greater than, equal to, or less
+ * than the string s2.
+ */
+int32_t		ft_strcmp(const char *s1, const char *s2);
 /**
  * @brief The strncmp() function compares the two strings s1 and s2. It compares
  * not more than n characters. Because strncmp() is designed for comparing
