@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gbetting <gbetting>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 07:46:25 by gbetting          #+#    #+#             */
-/*   Updated: 2024/11/16 04:01:21 by gbetting         ###   ########.fr       */
+/*   Updated: 2025/02/15 10:48:28 by gbetting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ int	ft_dprintf(int fd, const char *format, ...)
 	ft_printf_process(format, &data);
 	ft_buffer_clear(&data);
 	va_end(data.args);
+	if (data.fd_error)
+		return (-1);
 	return (data.total_count);
 }
 
@@ -41,6 +43,8 @@ int	ft_printf(const char *format, ...)
 	ft_printf_process(format, &data);
 	ft_buffer_clear(&data);
 	va_end(data.args);
+	if (data.fd_error)
+		return (-1);
 	return (data.total_count);
 }
 
@@ -59,6 +63,8 @@ int	ft_asprintf(char **str, const char *format, ...)
 	ft_printf_process(format, &data);
 	ft_buffer_clear(&data);
 	va_end(data.args);
+	if (data.fd_error)
+		return (-1);
 	return (data.total_count);
 }
 
@@ -75,5 +81,7 @@ int	ft_bufferprintf(int fd, bool do_flush, const char *format, ...)
 	va_end(data.args);
 	if (do_flush)
 		ft_buffer_clear(&data);
+	if (data.fd_error)
+		return (-1);
 	return (data.total_count);
 }

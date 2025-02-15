@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exec.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gbetting <gbetting>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 03:44:34 by gbetting          #+#    #+#             */
-/*   Updated: 2024/11/16 04:12:59 by gbetting         ###   ########.fr       */
+/*   Updated: 2025/02/15 10:48:06 by gbetting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ int	ft_printf_process(const char *format, t_pf_data *data)
 		}
 		else
 			ft_buffer_format(format, data);
+		if (data->fd_error)
+			break ;
 	}
 	return (data->total_count);
 }

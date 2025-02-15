@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_buffer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gbetting <gbetting>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 10:29:53 by gbetting          #+#    #+#             */
-/*   Updated: 2024/11/11 02:01:31 by gbetting         ###   ########.fr       */
+/*   Updated: 2025/02/15 10:47:01 by gbetting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	ft_buffer_clear(t_pf_data *data)
 {
 	char	*tmp;
+	int		write_result;
 
 	if (data->strout)
 	{
@@ -23,7 +24,11 @@ void	ft_buffer_clear(t_pf_data *data)
 		free(tmp);
 	}
 	else
-		(void)write(data->fd, data->buffer, data->buff_index);
+	{
+		write_result = write(data->fd, data->buffer, data->buff_index);
+		if (write_result == -1)
+			data->fd_error = true;
+	}
 	data->total_count += data->buff_index;
 	data->buff_index = 0;
 }
