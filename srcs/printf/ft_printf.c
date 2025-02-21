@@ -6,7 +6,7 @@
 /*   By: gbetting <gbetting>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 07:46:25 by gbetting          #+#    #+#             */
-/*   Updated: 2025/02/15 10:48:28 by gbetting         ###   ########.fr       */
+/*   Updated: 2025/02/21 15:53:27 by gbetting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	ft_asprintf(char **str, const char *format, ...)
 {
 	t_pf_data	data;
 
-	if (format == NULL)
+	if (format == NULL || str == NULL)
 		return (-1);
 	ft_bzero(&data, sizeof(t_pf_data));
 	va_start(data.args, format);
@@ -60,10 +60,12 @@ int	ft_asprintf(char **str, const char *format, ...)
 	data.strout = true;
 	data.str_output = str;
 	*(data.str_output) = ft_strdup("");
+	if (*(data.str_output) == NULL)
+		return (va_end(data.args), -1);
 	ft_printf_process(format, &data);
 	ft_buffer_clear(&data);
 	va_end(data.args);
-	if (data.fd_error)
+	if (*str == NULL)
 		return (-1);
 	return (data.total_count);
 }
