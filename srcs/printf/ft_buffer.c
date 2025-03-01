@@ -6,7 +6,7 @@
 /*   By: gbetting <gbetting>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 10:29:53 by gbetting          #+#    #+#             */
-/*   Updated: 2025/03/01 20:03:21 by gbetting         ###   ########.fr       */
+/*   Updated: 2025/03/01 20:40:00 by gbetting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_buffer_clear(t_pf_data *data)
 	{
 		tmp = *(data->str_output);
 		*(data->str_output) = ft_strnjoin(*(data->str_output),
-			data->buffer, data->buff_index);
+				data->buffer, data->buff_index);
 		free(tmp);
 	}
 	else

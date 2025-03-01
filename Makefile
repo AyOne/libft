@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+         #
+#    By: gbetting <gbetting>                        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/02 11:29:19 by gbetting          #+#    #+#              #
-#    Updated: 2024/12/16 22:24:05 by gbetting         ###   ########.fr        #
+#    Updated: 2025/03/01 20:41:47 by gbetting         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,9 +35,9 @@ SRC_PRINTF =printf/ft_buffer.c printf/ft_format.c printf/ft_printf.c			\
 			printf/specifiers/ft_n.c printf/ft_color.c printf/ft_exec.c
 SRC_STR =	str/ft_atoi.c str/ft_isalnum.c str/ft_isalpha.c str/ft_isascii.c	\
 			str/ft_isdigit.c str/ft_isprint.c str/ft_itoa.c str/ft_split.c		\
-			str/ft_strchr.c str/ft_strdup.c str/ft_striteri.c					\
+			str/ft_strcmp.c str/ft_strchr.c str/ft_strdup.c str/ft_striteri.c	\
 			str/ft_strjoin.c str/ft_strlcat.c str/ft_strlcpy.c					\
-			str/ft_strlen.c	str/ft_strmapi.c str/ft_strncmp.c					\
+			str/ft_strlen.c	str/ft_strmapi.c str/ft_strncmp.c str/ft_strnjoin.c	\
 			str/ft_strnstr.c str/ft_strrchr.c str/ft_strtrim.c					\
 			str/ft_substr.c str/ft_tolower.c str/ft_toupper.c str/ft_itoa_nm.c
 SRC_UTILS =	utils/ft_deepfree.c utils/ft_nbrbase.c utils/ft_nbrlen.c			\
