@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gbetting <gbetting>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 19:53:21 by gbetting          #+#    #+#             */
-/*   Updated: 2025/02/06 21:54:55 by gbetting         ###   ########.fr       */
+/*   Updated: 2025/03/01 20:03:01 by gbetting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -669,6 +669,15 @@ void		ft_striteri(char *s, void (*f)(uint32_t, char *));
  * @return The strjoin() function returns the new string.
  */
 char		*ft_strjoin(char const *s1, char const *s2);
+/**
+ * @brief The strnjoin() function allocates and returns a new string, which is
+ * the result of the concatenation of 's1' and 's2'.
+ * @param s1 The prefix string.
+ * @param s2 The suffix string.
+ * @param n The length of the suffix string (`s2`).
+ * @return The strnjoin() function returns the new string.
+ */
+char		*ft_strnjoin(char const *s1, char const *s2, size_t n);
 /**
  * @brief The strlcat() function concatenates strings.
  * @param dst The destination string.
