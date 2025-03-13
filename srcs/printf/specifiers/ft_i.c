@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_i.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gbetting <gbetting>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 11:14:14 by gbetting          #+#    #+#             */
-/*   Updated: 2024/11/10 19:03:50 by gbetting         ###   ########.fr       */
+/*   Updated: 2025/03/13 13:06:31 by gbetting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,11 @@ static bool	ft_i_header_2(t_pf_data *data, int64_t nbr, uint64_t unbr)
 	if (data->format_data.length == LENGTH_Z)
 	{
 		str = ft_t_ptr(unbr == SIZE_MAX, "1",
-				ft_nbrbase_nm(unbr, DECIMAL_BASE));
+				ft_nbrbase_nm(unbr, BASE_10));
 		ft_i_preprocess(data);
 		return (ft_i_process(str, data, unbr == SIZE_MAX), true);
 	}
-	str = ft_nbrbase_nm(ft_t_int(nbr < 0, -nbr, nbr), DECIMAL_BASE);
+	str = ft_nbrbase_nm(ft_t_int(nbr < 0, -nbr, nbr), BASE_10);
 	ft_i_preprocess(data);
 	return (ft_i_process(str, data, nbr < 0), true);
 }

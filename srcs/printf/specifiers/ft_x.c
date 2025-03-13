@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_x.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gbetting <gbetting>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 13:10:59 by gbetting          #+#    #+#             */
-/*   Updated: 2024/11/10 19:05:20 by gbetting         ###   ########.fr       */
+/*   Updated: 2025/03/13 13:08:42 by gbetting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,18 +80,18 @@ static bool	ft_x_header2(t_pf_data *data, uint64_t unbr)
 
 	if (data->format_data.specifier == 'x')
 	{
-		base = HEXA_BASE;
-		prefix = HEXA_PREFIX;
+		base = BASE_16;
+		prefix = BASE_16_PREFIX;
 	}
 	else if (data->format_data.specifier == 'X')
 	{
-		base = HEXA_BASE_CAP;
-		prefix = HEXA_PREFIX_CAP;
+		base = BASE_16U;
+		prefix = BASE_16U_PREFIX_CAP;
 	}
 	else if (data->format_data.specifier == 'o')
 	{
-		base = OCTAL_BASE;
-		prefix = OCTAL_PREFIX;
+		base = BASE_8;
+		prefix = BASE_8_PREFIX;
 	}
 	else
 		return (false);

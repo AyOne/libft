@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_p.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gbetting <gbetting>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 14:59:31 by gbetting          #+#    #+#             */
-/*   Updated: 2024/11/10 19:04:02 by gbetting         ###   ########.fr       */
+/*   Updated: 2025/03/13 13:08:01 by gbetting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,6 @@ bool	ft_p_header(t_pf_data *data)
 	unbr = va_arg(data->args, uint64_t);
 	if (unbr == 0)
 		return (ft_p_process("(nil)", NULL, data), true);
-	return (ft_p_process(ft_nbrbase_nm(unbr, HEXA_BASE),
-			HEXA_PREFIX, data), true);
+	return (ft_p_process(ft_nbrbase_nm(unbr, BASE_16),
+			BASE_16_PREFIX, data), true);
 }

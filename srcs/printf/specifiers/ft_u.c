@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_u.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gbetting <gbetting>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 09:43:28 by gbetting          #+#    #+#             */
-/*   Updated: 2024/11/10 19:05:06 by gbetting         ###   ########.fr       */
+/*   Updated: 2025/03/13 13:08:29 by gbetting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,5 @@ bool	ft_u_header(t_pf_data *data)
 	else
 		return (false);
 	ft_u_preprocess(data);
-	return (ft_u_process(ft_nbrbase_nm(unbr, DECIMAL_BASE), data), true);
+	return (ft_u_process(ft_nbrbase_nm(unbr, BASE_10), data), true);
 }

@@ -6,7 +6,7 @@
 /*   By: gbetting <gbetting>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 19:53:21 by gbetting          #+#    #+#             */
-/*   Updated: 2025/03/01 20:42:27 by gbetting         ###   ########.fr       */
+/*   Updated: 2025/03/13 13:04:09 by gbetting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,6 @@
 # include <fcntl.h>
 
 /* =============================== [DEFINES] ================================ */
-# define PF_FTEXT		BIT_48
-# define PF_FBG			BIT_49
-# define PF_FBOLD		BIT_50
-# define PF_FULINE		BIT_51
-# define PF_FITALIC		BIT_52
-# define PF_FBLINK		BIT_53
-# define PF_FREVERSE	BIT_54
-# define PF_FSTHROUGH	BIT_55
 
 # define BASE_10 "0123456789"
 # define BASE_16 "0123456789abcdef"

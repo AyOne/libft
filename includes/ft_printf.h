@@ -6,7 +6,7 @@
 /*   By: gbetting <gbetting>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 07:46:59 by gbetting          #+#    #+#             */
-/*   Updated: 2025/02/15 10:46:42 by gbetting         ###   ########.fr       */
+/*   Updated: 2025/03/13 13:07:53 by gbetting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,27 @@
 
 # define BUFF_SIZE 1024
 # define FORMAT_TRIGGER '%'
-# define DECIMAL_BASE "0123456789"
-# define HEXA_BASE "0123456789abcdef"
-# define HEXA_BASE_CAP "0123456789ABCDEF"
-# define OCTAL_BASE "01234567"
-# define BINARY_BASE "01"
-# define HEXA_PREFIX "0x"
-# define HEXA_PREFIX_CAP "0X"
-# define OCTAL_PREFIX "0"
-# define BINARY_PREFIX "0b"
+# define BASE_16_PREFIX "0x"
+# define BASE_16U_PREFIX_CAP "0X"
+# define BASE_8_PREFIX "0"
+# define BASE_2_PREFIX "0b"
+
+// enable color on text
+# define PF_FTEXT		BIT_48
+// enable color on background
+# define PF_FBG			BIT_49
+// enable bold text
+# define PF_FBOLD		BIT_50
+// enable underline text
+# define PF_FULINE		BIT_51
+// enable italic text
+# define PF_FITALIC		BIT_52
+// enable blinking text
+# define PF_FBLINK		BIT_53
+// enable reverse text ( text and background colors are swapped )
+# define PF_FREVERSE	BIT_54
+// enable text with a line through it
+# define PF_FSTHROUGH	BIT_55
 
 typedef struct s_color
 {
