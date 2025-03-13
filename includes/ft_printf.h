@@ -6,7 +6,7 @@
 /*   By: gbetting <gbetting>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 07:46:59 by gbetting          #+#    #+#             */
-/*   Updated: 2025/03/13 13:07:53 by gbetting         ###   ########.fr       */
+/*   Updated: 2025/03/13 13:13:33 by gbetting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,23 +30,6 @@
 # define BASE_16U_PREFIX_CAP "0X"
 # define BASE_8_PREFIX "0"
 # define BASE_2_PREFIX "0b"
-
-// enable color on text
-# define PF_FTEXT		BIT_48
-// enable color on background
-# define PF_FBG			BIT_49
-// enable bold text
-# define PF_FBOLD		BIT_50
-// enable underline text
-# define PF_FULINE		BIT_51
-// enable italic text
-# define PF_FITALIC		BIT_52
-// enable blinking text
-# define PF_FBLINK		BIT_53
-// enable reverse text ( text and background colors are swapped )
-# define PF_FREVERSE	BIT_54
-// enable text with a line through it
-# define PF_FSTHROUGH	BIT_55
 
 typedef struct s_color
 {

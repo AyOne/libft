@@ -6,7 +6,7 @@
 /*   By: gbetting <gbetting>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 19:53:21 by gbetting          #+#    #+#             */
-/*   Updated: 2025/03/13 13:04:09 by gbetting         ###   ########.fr       */
+/*   Updated: 2025/03/13 13:13:56 by gbetting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,23 @@
 # include <fcntl.h>
 
 /* =============================== [DEFINES] ================================ */
+
+// (for printf) enable color on text
+# define PF_FTEXT		BIT_48
+// (for printf) enable color on background
+# define PF_FBG			BIT_49
+// (for printf) enable bold text
+# define PF_FBOLD		BIT_50
+// (for printf) enable underline text
+# define PF_FULINE		BIT_51
+// (for printf) enable italic text
+# define PF_FITALIC		BIT_52
+// (for printf) enable blinking text
+# define PF_FBLINK		BIT_53
+// (for printf) enable reverse text ( text and background colors are swapped )
+# define PF_FREVERSE	BIT_54
+// (for printf) enable text with a line through it
+# define PF_FSTHROUGH	BIT_55
 
 # define BASE_10 "0123456789"
 # define BASE_16 "0123456789abcdef"
