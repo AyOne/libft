@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa_nm.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gbetting <gbetting@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gbetting <gbetting>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 01:30:10 by gbetting          #+#    #+#             */
-/*   Updated: 2024/11/10 23:52:27 by gbetting         ###   ########.fr       */
+/*   Updated: 2025/03/15 16:55:25 by gbetting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,18 @@ char	*ft_itoa_nm(int32_t n)
 {
 	static char		str[12];
 	size_t			len;
+	uint32_t		nb;
 	int8_t			sign;
 
 	sign = 1;
 	len = 10;
 	if (n < 0)
 		sign = -1;
-	while (n * sign > 0 || len == 10)
+	nb = n * sign;
+	while (nb > 0 || len == 10)
 	{
-		str[len--] = n % 10 * sign + '0';
-		n /= 10;
+		str[len--] = nb % 10 + '0';
+		nb /= 10;
 	}
 	if (sign == -1)
 		str[len--] = '-';
@@ -37,16 +39,20 @@ char	*ft_ltoa_nm(int64_t n)
 	static char		str[21];
 	size_t			len;
 	int8_t			sign;
+	uint64_t		nb;
 
 	sign = 1;
 	len = 19;
-	str[len] = '0';
 	if (n < 0)
 		sign = -1;
-	while (n * sign > 0 || len == 19)
+	if (n == INT64_MIN)
+		nb = (uint64_t)INT64_MAX + 1;
+	else
+		nb = n * sign;
+	while (nb > 0 || len == 19)
 	{
-		str[len--] = n % 10 * sign + '0';
-		n /= 10;
+		str[len--] = nb % 10 + '0';
+		nb /= 10;
 	}
 	if (sign == -1)
 		str[len--] = '-';
