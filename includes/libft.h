@@ -6,7 +6,7 @@
 /*   By: gbetting <gbetting>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 19:53:21 by gbetting          #+#    #+#             */
-/*   Updated: 2025/03/13 13:13:56 by gbetting         ###   ########.fr       */
+/*   Updated: 2025/03/18 16:06:31 by gbetting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -815,6 +815,37 @@ char		ft_toupper(char c);
  * @param del The function to call on each element.
  */
 void		ft_deepfree(void **array, void (*del)(void *));
+/**
+ * @brief The ft_exit_if() function exits the program if the condition is true.
+ * @param condition The condition to check.
+ * @param exit_code The exit code to return.
+ */
+void		ft_exit_if(int32_t condition, int32_t exit_code);
+/**
+ * @brief The ft_exit_if_null() function exits the program if the pointer is
+ * NULL.
+ * @param ptr The pointer to check.
+ * @param exit_code The exit code to return.
+ */
+void		ft_exit_if_null(void *ptr, int32_t exit_code);
+/**
+ * @brief The ft_exit_if_fail_malloc() function exits the program if the
+ * malloc fails. returns a pointer to the allocated memory.
+ * @param size The size of the memory to allocate.
+ * @param exit_code The exit code to return.
+ * @return A pointer to the allocated memory.
+ */
+void		*ft_exit_if_fail_malloc(size_t size, int32_t exit_code);
+/**
+ * @brief The ft_exit_if_fail_calloc() function exits the program if the
+ * calloc fails. returns a pointer to the allocated memory.
+ * @param nmemb The number of elements to allocate.
+ * @param size The size of each element.
+ * @param exit_code The exit code to return.
+ * @return A pointer to the allocated memory.
+ */
+void		*ft_exit_if_fail_calloc(size_t nmemb, size_t size,
+				int32_t exit_code);
 /**
  * @brief The ft_nbrbase() function converts a number to a string in a given
  * base.
